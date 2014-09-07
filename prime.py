@@ -51,7 +51,7 @@ def sieve(lim):
 
 
 def primes_up_to(lim):
-    return [i for i, p in enumerate(sieve(lim)) if p]
+    return (i for i, p in enumerate(sieve(lim)) if p)
 
 
 def nb_divisors(n):
@@ -63,16 +63,20 @@ def nb_divisors(n):
                 1)
 
 
+def nb_prime_divisors(n):
+    return len(list(itertools.groupby(prime_factors(n))))
+
+
 def main():
     limit = 1000
-    primes = primes_up_to(limit)
+    primes = list(primes_up_to(limit))
     primes2 = []
     for p in yield_primes():
         if p > limit:
             break
         primes2.append(p)
     assert primes == primes2
-    assert all(nb_divisors(p) == 2 for p in primes)
+    assert all(nb_divisors(p) == 2 and nb_prime_divisors(p) == 1 and prime_factors_list(p) == [p] for p in primes)
 
 if __name__ == "__main__":
     main()

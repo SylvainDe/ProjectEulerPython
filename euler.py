@@ -5,7 +5,7 @@
 """Project Euler solutions"""
 import math
 import itertools
-from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes
+from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors
 from functions import fibo, lcmm
 
 
@@ -53,8 +53,7 @@ def euler7(n=10001):
 
 
 def euler10(lim=2000000):
-    primes = sieve(lim)
-    return sum(i for i in range(2, lim + 1) if primes[i])
+    return sum(primes_up_to(lim))
 
 
 def euler12(nb_div=500):
@@ -63,6 +62,7 @@ def euler12(nb_div=500):
         t += i
         if nb_divisors(t) >= nb_div:
             return t
+
 
 def euler15(col=20, row=20):
     nb_routes = [[0] * (row + 1) for i in range(col + 1)]
@@ -126,7 +126,7 @@ def euler35(lim=1000000):
 def euler47(nb_fact=4):
     cand = []
     for i in itertools.count(2):
-        if len(list(itertools.groupby(prime_factors(i)))) == nb_fact:
+        if nb_prime_divisors(i) == nb_fact:
             cand.append(i)
             if len(cand) == nb_fact:
                 return cand[0]
