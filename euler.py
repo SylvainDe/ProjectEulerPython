@@ -5,7 +5,7 @@
 """Project Euler solutions"""
 import math
 import itertools
-from prime import prime_factors, prime_factors_list, sieve, nb_divisors
+from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes
 from functions import fibo, lcmm
 
 
@@ -40,6 +40,16 @@ def euler6(lim=100):
     numbers = range(1, lim + 1)
     sum_ = sum(numbers)
     return sum_ * sum_ - sum(i * i for i in numbers)
+
+
+def nth(iterable, n, default=None):
+    """Returns the nth item or a default value.
+    From http://stackoverflow.com/questions/12007820/better-ways-to-get-nth-element-from-an-unsubscriptable-iterable ."""
+    return next(itertools.islice(iterable, n, None), default)
+
+
+def euler7(n=10001):
+    return nth(yield_primes(), n - 1)
 
 
 def euler10(lim=2000000):
@@ -208,6 +218,8 @@ def main():
         assert euler5() == 232792560
         assert euler6(10) == 2640
         assert euler6() == 25164150
+        assert euler7(6)
+        assert euler7() == 104743
         assert euler10(10) == 17
         assert euler10() == 142913828922
         assert euler12(5) == 28

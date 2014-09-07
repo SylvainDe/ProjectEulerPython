@@ -23,3 +23,10 @@ def lcm(a, b):
 
 def lcmm(*args):
     return functools.reduce(lcm, args)
+
+
+def main():
+    pass  # TODO : add tests
+
+if __name__ == "__main__":
+    main()
