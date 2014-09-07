@@ -126,7 +126,6 @@ def euler35(lim=1000000):
 def euler47(nb_fact=4):
     cand = []
     for i in itertools.count(2):
-        # not fast - TODO : Use a sieve
         if len(list(itertools.groupby(prime_factors(i)))) == nb_fact:
             cand.append(i)
             if len(cand) == nb_fact:
@@ -249,7 +248,7 @@ def main():
         assert euler35() == 55
         assert euler47(2) == 14
         assert euler47(3) == 644
-        # TOO SLOW : assert euler47()
+        assert euler47()
         assert euler49(1) is None
         assert euler49(2) is None
         assert euler49(3) is None
