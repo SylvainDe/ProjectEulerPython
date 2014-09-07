@@ -64,6 +64,17 @@ def euler12(nb_div=500):
         if nb_divisors(t) >= nb_div:
             return t
 
+def euler15(col=20, row=20):
+    nb_routes = [[0] * (row + 1) for i in range(col + 1)]
+    nb_routes[0][0] = 1
+    for i in range(col + 1):
+        for j in range(row + 1):
+            if i:
+                nb_routes[i][j] += nb_routes[i - 1][j]
+            if j:
+                nb_routes[i][j] += nb_routes[i][j - 1]
+    return nb_routes[-1][-1]
+
 
 def sum_digit(n):
     return sum(int(c) for c in str(n))
@@ -224,6 +235,8 @@ def main():
         assert euler10() == 142913828922
         assert euler12(5) == 28
         assert euler12() == 76576500
+        assert euler15(2, 2) == 6
+        assert euler15() == 137846528820
         assert euler16(15) == 26
         assert euler16() == 1366
         assert euler20(10) == 27
