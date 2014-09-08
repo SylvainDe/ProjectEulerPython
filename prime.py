@@ -53,6 +53,18 @@ def primes_up_to(lim):
     return (i for i, p in enumerate(sieve(lim)) if p)
 
 
+def yield_divisors(n):
+    # to be improved : use prime_factors
+    assert n > 0
+    yield 1
+    if n > 1:
+        yield n
+        for i in range(2, int(math.sqrt(n)) + 1):
+            if n % i == 0:
+                yield i
+                yield n // i
+
+
 def nb_divisors(n):
     return mult(c + 1
                 for c in collections.Counter(

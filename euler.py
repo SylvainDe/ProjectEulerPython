@@ -5,8 +5,8 @@
 """Project Euler solutions"""
 import math
 import itertools
-from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors
-from functions import fibo, lcmm
+from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors, yield_divisors
+from functions import fibo, lcmm, gcd
 
 
 def euler1(lim=1000):
@@ -51,6 +51,26 @@ def nth(iterable, n, default=None):
 
 def euler7(n=10001):
     return nth(yield_primes(), n - 1)
+
+
+def euler9(p=1000):
+    """ http://en.wikipedia.org/wiki/Pythagorean_triple
+    a = k . (m^2 - n^2), b = k . (2mn), c = k . (m^2 + n^2)
+    where m, n, and k are positive integers with m > n, m − n odd, and with m and n coprime.
+    p = 2mk . (m + n)."""
+    if p % 2:
+        return 0
+    prod = p // 2
+    for k in yield_divisors(prod):
+        prod1 = prod // k
+        for m in yield_divisors(prod1):
+            prod2 = prod1 // m
+            n = prod2 - m
+            if 0 < n < m and prod2 % 2 and gcd(m, n) == 1:
+                m2, n2 = m * m, n * n
+                a, b, c = k * (m2 - n2), 2 * k * m * n, k * (m2 + n2)
+                return a * b * c
+    return 0
 
 
 def euler10(lim=2000000):
@@ -232,6 +252,7 @@ def main():
         assert euler6() == 25164150
         assert euler7(6)
         assert euler7() == 104743
+        assert euler9() == 31875000
         assert euler10(10) == 17
         assert euler10() == 142913828922
         assert euler12(5) == 28
