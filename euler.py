@@ -87,7 +87,7 @@ def sum_digit(n):
 
 
 def euler16(n=1000):
-    return sum_digit(int(math.pow(2, n)))
+    return sum_digit(2 ** n)
 
 
 def euler20(n=100):
@@ -95,8 +95,9 @@ def euler20(n=100):
 
 
 def euler25(nb_digits=1000):
+    lim = 10 ** (nb_digits - 1)
     for i, f in enumerate(fibo()):
-        if len(str(f)) >= nb_digits:
+        if f > lim:
             return 1 + i
 
 
@@ -154,8 +155,8 @@ def sorted_number(n):
 
 
 def euler49(nb_digit=4):
-    low = int(math.pow(10, nb_digit - 1))
-    high = int(math.pow(10, nb_digit)) - 1
+    low = 10 ** (nb_digit - 1)
+    high = 10 ** nb_digit - 1
     prime = sieve(high)
     prime_perm = {}
     for i in range(low, high + 1):
