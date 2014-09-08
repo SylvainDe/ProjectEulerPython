@@ -210,7 +210,7 @@ def euler104(first=True, last=True):
     for i, f in enumerate(fibo()):
         s = str(f)
         if (not first or sorted(s[:9]) == digits) \
-            and (not last or sorted(s[-9:]) == digits):
+                and (not last or sorted(s[-9:]) == digits):
             return 1 + i
 
 

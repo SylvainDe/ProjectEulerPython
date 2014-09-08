@@ -67,7 +67,7 @@ def yield_divisors(n):
 
 def nb_divisors(n):
     return mult(c + 1
-                for c in collections.Counter(
+            for c in collections.Counter(
                 prime_factors(n)).values())
 
 
