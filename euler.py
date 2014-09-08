@@ -5,8 +5,8 @@
 """Project Euler solutions"""
 import math
 import itertools
-from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors, yield_divisors
-from functions import fibo, lcmm, gcd
+from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors
+from functions import fibo, lcmm, gcd, yield_pythagorean_triples_of_peri
 
 
 def euler1(lim=1000):
@@ -54,23 +54,8 @@ def euler7(n=10001):
 
 
 def euler9(p=1000):
-    """ http://en.wikipedia.org/wiki/Pythagorean_triple
-    a = k . (m^2 - n^2), b = k . (2mn), c = k . (m^2 + n^2)
-    where m, n, and k are positive integers with m > n, m − n odd, and with m and n coprime.
-    p = 2mk . (m + n)."""
-    if p % 2:
-        return 0
-    prod = p // 2
-    for k in yield_divisors(prod):
-        prod1 = prod // k
-        for m in yield_divisors(prod1):
-            prod2 = prod1 // m
-            n = prod2 - m
-            if 0 < n < m and prod2 % 2 and gcd(m, n) == 1:
-                m2, n2 = m * m, n * n
-                a, b, c = k * (m2 - n2), 2 * k * m * n, k * (m2 + n2)
-                return a * b * c
-    return 0
+    for a, b, c in yield_pythagorean_triples_of_peri(p):
+        return a * b * c
 
 
 def euler10(lim=2000000):
@@ -142,6 +127,10 @@ def euler35(lim=1000000):
         1
         for i in range(lim)
         if all(primes[int(p)] for p in generate_rotations(str(i))))
+
+
+def euler39(lim=130):
+    return max(len(list(yield_pythagorean_triples_of_peri(p))) for p in range(1, lim + 1))
 
 
 def euler47(nb_fact=4):
@@ -269,6 +258,7 @@ def main():
         assert euler29() == 9183
         assert euler35(100) == 13
         assert euler35() == 55
+        assert euler39() == 840
         assert euler47(2) == 14
         assert euler47(3) == 644
         assert euler47()

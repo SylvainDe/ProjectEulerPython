@@ -5,7 +5,12 @@
 import math
 import collections
 import itertools
-from functions import mult
+import operator
+import functools
+
+
+def mult(iterable, start=1):
+    return functools.reduce(operator.mul, iterable, start)
 
 
 def prime_factors(n):

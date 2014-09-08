@@ -3,11 +3,7 @@
 
 """Misc functions."""
 import functools
-import operator
-
-
-def mult(iterable, start=1):
-    return functools.reduce(operator.mul, iterable, start)
+from prime import yield_divisors
 
 
 def fibo(f=1, g=1):
@@ -28,6 +24,25 @@ def lcm(a, b):
 
 def lcmm(*args):
     return functools.reduce(lcm, args)
+
+
+def yield_pythagorean_triples_of_peri(p):
+    """ http://en.wikipedia.org/wiki/Pythagorean_triple
+    a = k . (m^2 - n^2), b = k . (2mn), c = k . (m^2 + n^2)
+    where m, n, and k are positive integers with m > n, m − n odd, and with m and n coprime.
+    p = 2mk . (m + n)."""
+    if p % 2:
+        return
+    prod = p // 2
+    for k in yield_divisors(prod):
+        prod1 = prod // k
+        for m in yield_divisors(prod1):
+            prod2 = prod1 // m
+            n = prod2 - m
+            if 0 < n < m and prod2 % 2 and gcd(m, n) == 1:
+                m2, n2 = m * m, n * n
+                a, b, c = k * (m2 - n2), 2 * k * m * n, k * (m2 + n2)
+                yield a, b, c
 
 
 def main():
