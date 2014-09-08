@@ -151,7 +151,8 @@ def euler47(nb_fact=4):
 
 
 def sorted_number(n):
-    return int(''.join(sorted(str(n))))
+    # Reversed to keep 0 instead of` discarding them
+    return int(''.join(sorted(str(n), reverse=True)))
 
 
 def euler49(nb_digit=4):
@@ -193,10 +194,16 @@ def euler52(lim=6):
 
 
 def euler62(nb_perm=3):
-    cube_perm = {}
-    for i in itertools.count(1):
-        c = str(i * i * i)
-        break  # TODO
+    cube_perm, l = {}, None
+    for i in range(100000):
+        c = i * i * i
+        new_l = len(str(c))
+        if l != new_l:
+            cand = [numbers[0] for c, numbers in cube_perm.items() if len(numbers) == 5]
+            if cand:
+                return min(cand) ** 3
+            cube_perm, l = {}, new_l
+        cube_perm.setdefault(sorted_number(c), []).append(i)
 
 
 def euler104(first=True, last=True):
@@ -277,6 +284,7 @@ def main():
         assert euler50() == 997651
         assert euler52(2) == 125874
         assert euler52() == 142857
+        assert euler62() == 127035954683
         assert euler104(False, False) == 1
         assert euler104(False, True) == 541
         assert euler104(True, False) == 2749
