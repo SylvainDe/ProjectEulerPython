@@ -129,8 +129,13 @@ def euler35(lim=1000000):
         if all(primes[int(p)] for p in generate_rotations(str(i))))
 
 
-def euler39(lim=130):
-    return max(len(list(yield_pythagorean_triples_of_peri(p))) for p in range(1, lim + 1))
+def euler39(lim=1000):
+    maxi, idx = 0, None
+    for p in range(1, lim + 1):
+        nb = len(list(yield_pythagorean_triples_of_peri(p)))
+        if nb > maxi:
+            maxi, idx = nb, p
+    return idx
 
 
 def euler47(nb_fact=4):
