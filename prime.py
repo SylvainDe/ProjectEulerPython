@@ -3,10 +3,9 @@
 
 """Functions related to prime numbers decomposition in prime factors."""
 import math
-import functools
-import operator
 import collections
 import itertools
+from functions import mult
 
 
 def prime_factors(n):
@@ -24,7 +23,7 @@ def prime_factors(n):
 
 def prime_factors_list(n):
     l = list(prime_factors(n))
-    assert functools.reduce(operator.mul, l, 1) == n
+    assert mult(l) == n
     return l
 
 
@@ -55,12 +54,9 @@ def primes_up_to(lim):
 
 
 def nb_divisors(n):
-    return functools.reduce(
-                operator.mul,
-                [c + 1
-                    for c in collections.Counter(
-                        prime_factors_list(n)).values()],
-                1)
+    return mult(c + 1
+                for c in collections.Counter(
+                prime_factors(n)).values())
 
 
 def nb_prime_divisors(n):

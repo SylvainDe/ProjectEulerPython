@@ -3,6 +3,11 @@
 
 """Misc functions."""
 import functools
+import operator
+
+
+def mult(iterable, start=1):
+    return functools.reduce(operator.mul, iterable, start)
 
 
 def fibo(f=1, g=1):

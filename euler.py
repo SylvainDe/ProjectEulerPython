@@ -19,7 +19,8 @@ def euler2(lim=4000000):
     for f in fibo(1, 2):
         if f > lim:
             return s
-        s += f if f % 2 == 0 else 0
+        if f % 2 == 0:
+            s += f
 
 
 def euler3(n=600851475143):
@@ -147,6 +148,7 @@ def euler49(nb_digit=4):
         if prime[i]:
             prime_perm.setdefault(sorted_number(i), []).append(i)
     for perms in prime_perm.values():
+        # could iterate only on a,b but not a bottleneck
         for a, b, c in itertools.combinations(perms, 3):
             assert c > b > a
             if b - a == c - b and a != 1487:
