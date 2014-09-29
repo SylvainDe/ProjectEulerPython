@@ -124,7 +124,8 @@ def euler34():
     # => base ^ (nb_digits - 1) <= nb_digits * fact(base - 1)
     # with base = 10, we have nb_digits <= 5
     fact = {c: math.factorial(int(c)) for c in string.digits}
-    return sum(i for i in range(10, 10 ** 6) if i == sum(fact[c] for c in str(i)))
+    return sum(
+        i for i in range(10, 10 ** 6) if i == sum(fact[c] for c in str(i)))
 
 
 def generate_rotations(l):
@@ -210,7 +211,8 @@ def euler62(nb_perm=3):
         c = i * i * i
         new_l = len(str(c))
         if l != new_l:
-            cand = [numbers[0] for c, numbers in cube_perm.items() if len(numbers) == 5]
+            cand = [numbers[0]
+                    for c, numbers in cube_perm.items() if len(numbers) == 5]
             if cand:
                 return min(cand) ** 3
             cube_perm, l = {}, new_l
