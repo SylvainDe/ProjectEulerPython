@@ -11,11 +11,13 @@ from functions import fibo, lcmm, yield_pythagorean_triples_of_peri
 
 
 def euler1(lim=1000):
+    """Solution for problem 1."""
     # could use sum formula here
     return sum(i for i in range(lim) if i % 3 == 0 or i % 5 == 0)
 
 
 def euler2(lim=4000000):
+    """Solution for problem 2."""
     s = 0
     for f in fibo(1, 2):
         if f > lim:
@@ -25,19 +27,24 @@ def euler2(lim=4000000):
 
 
 def euler3(n=600851475143):
+    """Solution for problem 3."""
     return prime_factors_list(n)[-1]
 
 
 def euler4(l=3):
+    """Solution for problem 4."""
     # BORING - TODO
+    print(l)
     return 9009
 
 
 def euler5(lim=20):
+    """Solution for problem 5."""
     return lcmm(*range(1, lim + 1))
 
 
 def euler6(lim=100):
+    """Solution for problem 6."""
     # could use sum formula here
     numbers = range(1, lim + 1)
     sum_ = sum(numbers)
@@ -51,19 +58,23 @@ def nth(iterable, n, default=None):
 
 
 def euler7(n=10001):
+    """Solution for problem 7."""
     return nth(yield_primes(), n - 1)
 
 
 def euler9(p=1000):
+    """Solution for problem 9."""
     for a, b, c in yield_pythagorean_triples_of_peri(p):
         return a * b * c
 
 
 def euler10(lim=2000000):
+    """Solution for problem 10."""
     return sum(primes_up_to(lim))
 
 
 def euler12(nb_div=500):
+    """Solution for problem 12."""
     t = 0
     for i in itertools.count(1):
         t += i
@@ -72,6 +83,7 @@ def euler12(nb_div=500):
 
 
 def euler15(col=20, row=20):
+    """Solution for problem 15."""
     nb_routes = [[0] * (row + 1) for i in range(col + 1)]
     nb_routes[0][0] = 1
     for i in range(col + 1):
@@ -88,14 +100,17 @@ def sum_digit(n):
 
 
 def euler16(n=1000):
+    """Solution for problem 16."""
     return sum_digit(2 ** n)
 
 
 def euler20(n=100):
+    """Solution for problem 20."""
     return sum_digit(math.factorial(n))
 
 
 def euler25(nb_digits=1000):
+    """Solution for problem 25."""
     lim = 10 ** (nb_digits - 1)
     for i, f in enumerate(fibo()):
         if f > lim:
@@ -103,6 +118,7 @@ def euler25(nb_digits=1000):
 
 
 def euler29(lima=100, limb=100):
+    """Solution for problem 29."""
     n = set()
     for a in range(2, lima + 1):
         p = a
@@ -113,11 +129,14 @@ def euler29(lima=100, limb=100):
 
 
 def euler31(obj=200):
+    """Solution for problem 31."""
     coins = [1, 2, 5, 10, 20, 50, 100, 200]
+    print(obj, coins)
     # TODO
 
 
 def euler34():
+    """Solution for problem 34."""
     # sum(fact(digits)) = n
     # nb_digits * fact(0) < sum(fact(digits)) <= nb_digits * fact(base - 1)
     # base ^ (nb_digits - 1) <= n < base ^ nb_digits
@@ -134,6 +153,7 @@ def generate_rotations(l):
 
 
 def euler35(lim=1000000):
+    """Solution for problem 35."""
     # many optimisations could be added here
     primes = sieve(lim)
     return sum(
@@ -143,6 +163,7 @@ def euler35(lim=1000000):
 
 
 def euler39(lim=1000):
+    """Solution for problem 39."""
     maxi, idx = 0, None
     for p in range(1, lim + 1):
         nb = len(list(yield_pythagorean_triples_of_peri(p)))
@@ -152,6 +173,7 @@ def euler39(lim=1000):
 
 
 def euler47(nb_fact=4):
+    """Solution for problem 47."""
     cand = []
     for i in itertools.count(2):
         if nb_prime_divisors(i) == nb_fact:
@@ -168,6 +190,7 @@ def sorted_number(n):
 
 
 def euler49(nb_digit=4):
+    """Solution for problem 49."""
     low = 10 ** (nb_digit - 1)
     high = 10 ** nb_digit - 1
     prime = sieve(high)
@@ -184,6 +207,7 @@ def euler49(nb_digit=4):
 
 
 def euler50(lim=1000000):
+    """Solution for problem 50."""
     primes = sieve(lim)
     list_primes = [i for i, p in enumerate(primes) if p]
     max_len, max_sum = 0, 0
@@ -199,6 +223,7 @@ def euler50(lim=1000000):
 
 
 def euler52(lim=6):
+    """Solution for problem 52."""
     for x in itertools.count(1):
         digits = sorted_number(x)
         if all(digits == sorted_number(i * x) for i in range(2, lim + 1)):
@@ -206,6 +231,7 @@ def euler52(lim=6):
 
 
 def euler62(nb_perm=5):
+    """Solution for problem 62."""
     cube_perm, l = {}, None
     for i in range(100000):
         c = i * i * i
@@ -220,10 +246,12 @@ def euler62(nb_perm=5):
 
 
 def euler69(lim=10):
+    """Solution for problem 69."""
     return max((i / t, i) for i, t in enumerate(totient(lim)) if i)[1]
 
 
 def euler70(lim=10000000):
+    """Solution for problem 70."""
     n, val = lim, lim
     for i, t in enumerate(totient(lim)):
         if i > 1:
@@ -234,6 +262,7 @@ def euler70(lim=10000000):
 
 
 def euler87(lim=50000000):
+    """Solution for problem 87."""
     # the biggest prime needed p is such that
     # lim >= p**2 + 2**3 + 2**4
     # p <= sqrt(lim - 24)
@@ -256,6 +285,7 @@ def euler87(lim=50000000):
 
 
 def euler104(first=True, last=True):
+    """Solution for problem 104."""
     digits = sorted('123456789')
     # TODO not efficient enough
     for i, f in enumerate(fibo()):
@@ -280,6 +310,7 @@ def bouncy_number(n):
 
 
 def euler112(perc=99):
+    """Solution for problem 112."""
     nb_bouncy = 0
     for i in itertools.count(1):
         nb_bouncy += 1 if bouncy_number(i) else 0
@@ -288,15 +319,17 @@ def euler112(perc=99):
 
 
 def euler191(nb_days=4):
+    """Solution for problem 191."""
     # 0 late : a, b, c for 0, 1, 2 consecutive absences
     # 1 late : d, e, f for 0, 1, 2 consecutive absences
     a, b, c, d, e, f = 1, 0, 0, 0, 0, 0
-    for day in range(nb_days + 1):  # 1 more iteration to have the res in d
+    for _ in range(nb_days + 1):  # 1 more iteration to have the res in d
         a, b, c, d, e, f = a + b + c, a, b, a + b + c + d + e + f, d, e
     return d
 
 
 def euler214(lim=40000000, length=25):
+    """Solution for problem 214."""
     tot = totient(lim)
     chains = [0] * (lim + 1)
     for i, t in enumerate(tot):
@@ -305,14 +338,16 @@ def euler214(lim=40000000, length=25):
 
 
 def euler100(lim=1000000000000):
+    """Solution for problem 100."""
     # P(BB) = (b/(b+r)) * ((b-1)/(b+r-1))
     #       = (b * (b-1)) / [(b+r)(b+r-1)]
     # P(BB) = 1/2
     # => 2 * (b * (b-1)) = (b+r)(b+r-1)
     # => 2bb - 2b = bb + 2br - b + rr - r
     # => 0 = 2br + rr - r + b - bb
+    print(lim)
     for b, r in [(15, 6), (85, 35)]:
-        print(2*b*r + r*r - r + b - b*b)
+        print(2 * b * r + r * r - r + b - b * b)
 
 
 def main():

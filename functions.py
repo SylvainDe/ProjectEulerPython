@@ -7,22 +7,26 @@ from prime import yield_divisors
 
 
 def fibo(f=1, g=1):
+    """Yields Fibonacci numbers."""
     while True:
         yield f
         f, g = g, f + g
 
 
 def gcd(a, b):
+    """Computes gcd for 2 numbers."""
     while b:
         a, b = b, a % b
     return a
 
 
 def lcm(a, b):
+    """Computes lcm for 2 numbers."""
     return a * b // gcd(a, b)
 
 
 def lcmm(*args):
+    """Computes lcm for numbers."""
     return functools.reduce(lcm, args)
 
 
