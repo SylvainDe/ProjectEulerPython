@@ -6,8 +6,8 @@
 import string
 import math
 import itertools
-from prime import prime_factors, prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors
-from functions import fibo, lcmm, gcd, yield_pythagorean_triples_of_peri
+from prime import prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors, totient
+from functions import fibo, lcmm, yield_pythagorean_triples_of_peri
 
 
 def euler1(lim=1000):
@@ -219,6 +219,42 @@ def euler62(nb_perm=5):
         cube_perm.setdefault(sorted_number(c), []).append(i)
 
 
+def euler69(lim=10):
+    return max((i / t, i) for i, t in enumerate(totient(lim)) if i)[1]
+
+
+def euler70(lim=10000000):
+    n, val = lim, lim
+    for i, t in enumerate(totient(lim)):
+        if i > 1:
+            new_val = i / t
+            if new_val < val and sorted_number(i) == sorted_number(t):
+                n, val = i, new_val
+    return n
+
+
+def euler87(lim=50000000):
+    # the biggest prime needed p is such that
+    # lim >= p**2 + 2**3 + 2**4
+    # p <= sqrt(lim - 24)
+    primes = list(primes_up_to(int(math.sqrt(lim - 24))))
+    sol = set()
+    for a in primes:
+        sum_a = a ** 4
+        if sum_a > lim:
+            break
+        for b in primes:
+            sum_b = sum_a + b ** 3
+            if sum_b > lim:
+                break
+            for c in primes:
+                sum_c = sum_b + c ** 2
+                if sum_c > lim:
+                    break
+                sol.add(sum_c)
+    return len(sol)
+
+
 def euler104(first=True, last=True):
     digits = sorted('123456789')
     # TODO not efficient enough
@@ -249,6 +285,34 @@ def euler112(perc=99):
         nb_bouncy += 1 if bouncy_number(i) else 0
         if nb_bouncy * 100 == i * perc:
             return i
+
+
+def euler191(nb_days=4):
+    # 0 late : a, b, c for 0, 1, 2 consecutive absences
+    # 1 late : d, e, f for 0, 1, 2 consecutive absences
+    a, b, c, d, e, f = 1, 0, 0, 0, 0, 0
+    for day in range(nb_days + 1):  # 1 more iteration to have the res in d
+        a, b, c, d, e, f = a + b + c, a, b, a + b + c + d + e + f, d, e
+    return d
+
+
+def euler214(lim=40000000, length=25):
+    tot = totient(lim)
+    chains = [0] * (lim + 1)
+    for i, t in enumerate(tot):
+        chains[i] = 1 + (chains[t] if i > 1 else 0)
+    return sum(i for i, (l, t) in enumerate(zip(chains, tot)) if l == length and i == t + 1)
+
+
+def euler100(lim=1000000000000):
+    # P(BB) = (b/(b+r)) * ((b-1)/(b+r-1))
+    #       = (b * (b-1)) / [(b+r)(b+r-1)]
+    # P(BB) = 1/2
+    # => 2 * (b * (b-1)) = (b+r)(b+r-1)
+    # => 2bb - 2b = bb + 2br - b + rr - r
+    # => 0 = 2br + rr - r + b - bb
+    for b, r in [(15, 6), (85, 35)]:
+        print(2*b*r + r*r - r + b - b*b)
 
 
 def main():
@@ -300,12 +364,21 @@ def main():
         assert euler52() == 142857
         assert euler62(3) == 41063625
         assert euler62() == 127035954683
+        assert euler69(10) == 6
+        assert euler69(1000000) == 510510
+        assert euler70() == 8319823
+        assert euler87(50) == 4
+        assert euler87(50000000) == 1097343
         assert euler104(False, False) == 1
         assert euler104(False, True) == 541
         assert euler104(True, False) == 2749
         # TOO SLOW : euler104(True, True)
         assert euler112(90) == 21780
         # TOO SLOW : print(euler112())
+        assert euler191(4) == 43
+        assert euler191(30) == 1918080160
+        assert euler214(20, 4) == 12
+        assert euler214(40000000, 25) == 1677366278943
 
 if __name__ == "__main__":
     main()

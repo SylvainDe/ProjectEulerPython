@@ -54,6 +54,17 @@ def sieve(lim):
     return primes
 
 
+def totient(lim):
+    # http://en.wikipedia.org/wiki/Euler%27s_totient_function
+    totient = list(range(lim + 1))
+    totient[0] = -1
+    for i in range(2, lim + 1):
+        if totient[i] == i:
+            for j in range(i, lim + 1, i):
+                totient[j] = (totient[j] * (i - 1)) // i
+    return totient
+
+
 def primes_up_to(lim):
     return (i for i, p in enumerate(sieve(lim)) if p)
 
