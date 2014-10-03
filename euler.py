@@ -106,7 +106,7 @@ def euler29(lima=100, limb=100):
     n = set()
     for a in range(2, lima + 1):
         p = a
-        for b in range(2, limb + 1):
+        for _ in range(2, limb + 1):
             p *= a
             n.add(p)
     return len(n)
@@ -186,7 +186,7 @@ def euler49(nb_digit=4):
 def euler50(lim=1000000):
     primes = sieve(lim)
     list_primes = [i for i, p in enumerate(primes) if p]
-    max_first, max_len, max_sum = 0, 0, 0
+    max_len, max_sum = 0, 0
     for i in range(len(list_primes)):
         for j in range(i + max_len + 1, len(list_primes)):
             s = sum(list_primes[i:j])  # could use sum array here
@@ -194,7 +194,7 @@ def euler50(lim=1000000):
                 break
             elif primes[s]:
                 assert j - i > max_len
-                max_first, max_len, max_sum = i, j - i, s
+                max_len, max_sum = j - i, s
     return max_sum
 
 
@@ -205,14 +205,14 @@ def euler52(lim=6):
             return x
 
 
-def euler62(nb_perm=3):
+def euler62(nb_perm=5):
     cube_perm, l = {}, None
     for i in range(100000):
         c = i * i * i
         new_l = len(str(c))
         if l != new_l:
             cand = [numbers[0]
-                    for c, numbers in cube_perm.items() if len(numbers) == 5]
+                    for c, numbers in cube_perm.items() if len(numbers) == nb_perm]
             if cand:
                 return min(cand) ** 3
             cube_perm, l = {}, new_l
@@ -298,6 +298,7 @@ def main():
         assert euler50() == 997651
         assert euler52(2) == 125874
         assert euler52() == 142857
+        assert euler62(3) == 41063625
         assert euler62() == 127035954683
         assert euler104(False, False) == 1
         assert euler104(False, True) == 541
