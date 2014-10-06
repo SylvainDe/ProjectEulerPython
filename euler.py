@@ -138,6 +138,21 @@ def euler29(lima=100, limb=100):
     return len(n)
 
 
+def euler30():
+    """Solution for problem 30."""
+    # sum(fifth(digits)) = n
+    # nb_digits * fifth(0) < sum(fifth(digits)) <= nb_digits * fifth(base - 1)
+    # base ^ (nb_digits - 1) <= n < base ^ nb_digits
+    # => base ^ (nb_digits - 1) <= nb_digits * fifth(base - 1)
+    # with base = 10, nb_digits <= 6
+    fifth = {c: int(c) ** 5 for c in string.digits}
+    dict_sum = {}
+    for nb_dig in range(2, 6 + 1):
+        for l in itertools.combinations_with_replacement('123456789', nb_dig):
+            dict_sum.setdefault(sum(fifth[c] for c in l), []).append(list(l))
+    return sum(n for n, l in dict_sum.items() if [c for c in sorted(str(n)) if c != '0'] in l)
+
+
 def euler31(obj=200):
     """Solution for problem 31."""
     coins = [1, 2, 5, 10, 20, 50, 100, 200]
@@ -395,6 +410,7 @@ def main():
         assert euler25() == 4782
         assert euler29(5, 5) == 15
         assert euler29() == 9183
+        assert euler30() == 443839
         assert euler34() == 40730
         assert euler35(100) == 13
         assert euler35() == 55
