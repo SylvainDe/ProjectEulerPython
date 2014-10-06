@@ -60,6 +60,14 @@ def sieve(lim):
     return primes
 
 
+def divisors_sieve(lim):
+    div = [[1] for i in range(lim+1)]
+    for i in range(2, 1 + lim//2):
+        for j in range(2 * i, lim + 1, i):
+            div[j].append(i)
+    return div
+
+
 def totient(lim):
     """Computes Euler's totient for values up to lim included."""
     # http://en.wikipedia.org/wiki/Euler%27s_totient_function

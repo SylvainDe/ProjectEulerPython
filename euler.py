@@ -6,7 +6,8 @@
 import string
 import math
 import itertools
-from prime import prime_factors_list, sieve, nb_divisors, yield_primes, primes_up_to, nb_prime_divisors, totient
+from prime import prime_factors_list, sieve, nb_divisors, yield_primes
+from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri
 
 
@@ -107,6 +108,15 @@ def euler16(n=1000):
 def euler20(n=100):
     """Solution for problem 20."""
     return sum_digit(math.factorial(n))
+
+
+def euler21(lim=10000):
+    """Solution for problem 21."""
+    sum_div = [sum(l) for l in divisors_sieve(lim)]
+    return sum(
+        s + i
+        for i, s in enumerate(sum_div)
+        if s < i and sum_div[s] == i)
 
 
 def euler25(nb_digits=1000):
@@ -380,6 +390,7 @@ def main():
         assert euler16() == 1366
         assert euler20(10) == 27
         assert euler20() == 648
+        assert euler21() == 31626
         assert euler25(3) == 12
         assert euler25() == 4782
         assert euler29(5, 5) == 15
