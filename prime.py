@@ -63,13 +63,13 @@ def sieve(lim):
 def totient(lim):
     """Computes Euler's totient for values up to lim included."""
     # http://en.wikipedia.org/wiki/Euler%27s_totient_function
-    totient = list(range(lim + 1))
-    totient[0] = -1
+    tot = list(range(lim + 1))
+    tot[0] = -1
     for i in range(2, lim + 1):
-        if totient[i] == i:
+        if tot[i] == i:
             for j in range(i, lim + 1, i):
-                totient[j] = (totient[j] * (i - 1)) // i
-    return totient
+                tot[j] = (tot[j] * (i - 1)) // i
+    return tot
 
 
 def primes_up_to(lim):
