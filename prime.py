@@ -61,8 +61,8 @@ def sieve(lim):
 
 
 def divisors_sieve(lim):
-    div = [[1] for i in range(lim+1)]
-    for i in range(2, 1 + lim//2):
+    div = [[1] for i in range(lim + 1)]
+    for i in range(2, 1 + lim // 2):
         for j in range(2 * i, lim + 1, i):
             div[j].append(i)
     return div
