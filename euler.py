@@ -141,10 +141,13 @@ def euler34():
     # nb_digits * fact(0) < sum(fact(digits)) <= nb_digits * fact(base - 1)
     # base ^ (nb_digits - 1) <= n < base ^ nb_digits
     # => base ^ (nb_digits - 1) <= nb_digits * fact(base - 1)
-    # with base = 10, we have nb_digits <= 5
+    # with base = 10, we have nb_digits <= 7
     fact = {c: math.factorial(int(c)) for c in string.digits}
-    return sum(
-        i for i in range(10, 10 ** 6) if i == sum(fact[c] for c in str(i)))
+    dict_sum = {}
+    for nb_dig in range(2, 7+1):
+        for l in itertools.combinations_with_replacement(string.digits, nb_dig):
+            dict_sum.setdefault(sum(fact[c] for c in l), []).append(list(l))
+    return sum(n for n, l in dict_sum.items() if sorted(str(n)) in l)
 
 
 def generate_rotations(l):
