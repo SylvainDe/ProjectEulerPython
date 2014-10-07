@@ -128,6 +128,11 @@ def euler23(lim=28123):
         if not any(i for i in range(1 + n // 2) if abun[i] and abun[n - i]))
 
 
+def euler24():
+    """Solution for problem 24."""
+    return int(''.join(nth(itertools.permutations(string.digits), 1000000-1)))
+
+
 def euler25(nb_digits=1000):
     """Solution for problem 25."""
     lim = 10 ** (nb_digits - 1)
@@ -228,7 +233,7 @@ def euler41():
     """Solution for problem 41."""
     # sum(i, i=1..n) is is not divisible by 3 only if n = 1, 4, 7 or bigger than 9
     for nb_dig in (7, 4, 1):
-        for l in itertools.permutations((str(d) for d in range(nb_dig, 0, -1)), nb_dig):
+        for l in itertools.permutations(str(d) for d in range(nb_dig, 0, -1)):
             n = int(''.join(l))
             if is_prime(n):
                 return n
@@ -441,6 +446,7 @@ def main():
         assert euler20() == 648
         assert euler21() == 31626
         assert euler23() == 4179871
+        assert euler24() == 2783915460
         assert euler25(3) == 12
         assert euler25() == 4782
         assert euler29(5, 5) == 15
