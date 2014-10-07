@@ -326,6 +326,18 @@ def euler62(nb_perm=5):
         cube_perm.setdefault(sorted_number(c), []).append(i)
 
 
+def euler63():
+    """Solution for problem 63."""
+    # 10^(n-1) <= x^n < 10^n
+    # (n-1) * log(10) <= n * log(x) < n * log(10)
+    # (n-1) * log(10) / n <= log(x) < log(10)
+    # exp((n-1) * log(10) / n) <= x < 10
+    # and LHS becomes bigger than 9 at n = 22
+    return sum(
+        10 - math.ceil(math.exp((n - 1) * math.log(10) / n))
+        for n in range(1, 22))
+
+
 def euler69(lim=10):
     """Solution for problem 69."""
     return max((i / t, i) for i, t in enumerate(totient(lim)) if i)[1]
@@ -489,6 +501,7 @@ def main():
         assert euler52() == 142857
         assert euler62(3) == 41063625
         assert euler62() == 127035954683
+        assert euler63() == 49
         assert euler69(10) == 6
         assert euler69(1000000) == 510510
         assert euler70() == 8319823
