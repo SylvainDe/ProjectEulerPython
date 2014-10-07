@@ -406,15 +406,17 @@ def euler214(lim=40000000, length=25):
 
 def euler100(lim=1000000000000):
     """Solution for problem 100."""
-    # P(BB) = (b/(b+r)) * ((b-1)/(b+r-1))
-    #       = (b * (b-1)) / [(b+r)(b+r-1)]
+    # P(BB) = (b/t) * ((b-1)/(t-1))
     # P(BB) = 1/2
-    # => 2 * (b * (b-1)) = (b+r)(b+r-1)
-    # => 2bb - 2b = bb + 2br - b + rr - r
-    # => 0 = 2br + rr - r + b - bb
-    print(lim)
-    for b, r in [(15, 6), (85, 35)]:
-        print(2 * b * r + r * r - r + b - b * b)
+    # => 2 * b  * (b - 1) = t * (t - 1)
+    # https://oeis.org/A046090
+    b0, b1 = 1, 3
+    r0, r1 = 0, 1
+    while True:
+        if b0 + r0 > lim:
+            return b0
+        b0, b1 = b1, 6 * b1 - b0 -2
+        r0, r1 = r1, 6 * r1 - r0
 
 
 def main():
@@ -477,6 +479,7 @@ def main():
         assert euler70() == 8319823
         assert euler87(50) == 4
         assert euler87(50000000) == 1097343
+        assert euler100() == 756872327473
         assert euler104(False, False) == 1
         assert euler104(False, True) == 541
         assert euler104(True, False) == 2749
