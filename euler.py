@@ -105,6 +105,19 @@ def euler16(n=1000):
     return sum_digit(2 ** n)
 
 
+def euler19():
+    """Solution for problem 19."""
+    day = 2  # Tuesday 1 Jan 1901
+    nb_days = 7
+    freq = [0] * nb_days
+    months = [nb % nb_days for nb in (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)]
+    for year in range(1901, 2001):
+        for i, month in enumerate(months):
+            freq[day] += 1
+            day = (day + month + (1 if (i == 1 and (year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))) else 0)) % nb_days
+    return freq[0]
+
+
 def euler20(n=100):
     """Solution for problem 20."""
     return sum_digit(math.factorial(n))
@@ -486,6 +499,7 @@ def main():
         assert euler15() == 137846528820
         assert euler16(15) == 26
         assert euler16() == 1366
+        assert euler19() == 171
         assert euler20(10) == 27
         assert euler20() == 648
         assert euler21() == 31626
