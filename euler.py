@@ -141,6 +141,22 @@ def euler25(nb_digits=1000):
             return 1 + i
 
 
+def euler27(lim=1000):
+    """Solution for problem 27."""
+    # P(0) = b must be prime
+    # P(1) = 1 + a + b must be prime so 1+a+b >= 2 => a => 1-b
+    maxa, maxb, maxn = None, None, 0
+    for b in primes_up_to(lim):
+        for a in range(1 - b, lim + 1):
+            assert -lim <= a <= lim
+            n = 0
+            while is_prime(n * n + a * n + b):
+                n += 1
+            if n > maxn:
+                maxa, maxb, maxn = a, b, n
+    return maxa * maxb
+
+
 def euler29(lima=100, limb=100):
     """Solution for problem 29."""
     n = set()
@@ -477,6 +493,7 @@ def main():
         assert euler24() == 2783915460
         assert euler25(3) == 12
         assert euler25() == 4782
+        assert euler27() == -59231
         assert euler29(5, 5) == 15
         assert euler29() == 9183
         assert euler30() == 443839
