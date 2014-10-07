@@ -35,9 +35,8 @@ def euler3(n=600851475143):
 
 def euler4(l=3):
     """Solution for problem 4."""
-    # BORING - TODO
-    print(l)
-    return 9009
+    # simple optimisation would be an early break
+    return max(n for n in (i * j for i, j in itertools.combinations(range(10 ** (l - 1), 10 ** l), 2)) if str(n) == str(n)[::-1])
 
 
 def euler5(lim=20):
@@ -471,6 +470,7 @@ def main():
         assert euler3(13195) == 29
         assert euler3() == 6857
         assert euler4(2) == 9009
+        assert euler4() == 906609
         assert euler5(10) == 2520
         assert euler5() == 232792560
         assert euler6(10) == 2640
