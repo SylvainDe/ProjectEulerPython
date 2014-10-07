@@ -8,6 +8,7 @@ import math
 import itertools
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
+from prime import is_prime
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri
 
 
@@ -221,6 +222,16 @@ def euler39(lim=1000):
         if nb > maxi:
             maxi, idx = nb, p
     return idx
+
+
+def euler41():
+    """Solution for problem 41."""
+    # sum(i, i=1..n) is is not divisible by 3 only if n = 1, 4, 7 or bigger than 9
+    for nb_dig in (7, 4, 1):
+        for l in itertools.permutations((str(d) for d in range(nb_dig, 0, -1)), nb_dig):
+            n = int(''.join(l))
+            if is_prime(n):
+                return n
 
 
 def euler47(nb_fact=4):
@@ -440,6 +451,7 @@ def main():
         assert euler35(100) == 13
         assert euler35() == 55
         assert euler39() == 840
+        assert euler41() == 7652413
         assert euler47(2) == 14
         assert euler47(3) == 644
         assert euler47()
