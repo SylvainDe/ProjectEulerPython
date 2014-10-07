@@ -168,6 +168,21 @@ def euler31(obj=200):
     # TODO
 
 
+def euler32():
+    """Solution for problem 32."""
+    # nb_dig(a*b) = nb_dig(a) + nb_dig(b) or nb_dig(a) + nb_dig(b) - 1
+    # we want : a * b = c with 0 < a < b < c
+    # and we must have : nb_dig(a) + nb_dig(b) + nb_dig(c) = 9
+    # i + j + k = 9 and (i + j = k or i + j - 1 = k)
+    # => 2i + 2j = 9 (impossible) or 2i + 2j = 10
+    # => i + j = 10 => (1, 4, 4), (2, 3, 4).
+    return sum({a * b
+                for a in range(2, 98)
+                for b in range(1234 if a <= 10 else 123, 10000 // a + 1)
+                if ''.join(sorted(list(str(a) + str(b) + str(a * b)))) == '123456789'
+                })
+
+
 def euler34():
     """Solution for problem 34."""
     # sum(fact(digits)) = n
@@ -414,11 +429,13 @@ def main():
         assert euler20(10) == 27
         assert euler20() == 648
         assert euler21() == 31626
+        assert euler23() == 4179871
         assert euler25(3) == 12
         assert euler25() == 4782
         assert euler29(5, 5) == 15
         assert euler29() == 9183
         assert euler30() == 443839
+        assert euler32() == 45228
         assert euler34() == 40730
         assert euler35(100) == 13
         assert euler35() == 55
