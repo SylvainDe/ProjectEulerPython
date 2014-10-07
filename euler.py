@@ -130,7 +130,7 @@ def euler23(lim=28123):
 
 def euler24():
     """Solution for problem 24."""
-    return int(''.join(nth(itertools.permutations(string.digits), 1000000-1)))
+    return int(''.join(nth(itertools.permutations(string.digits), 1000000 - 1)))
 
 
 def euler25(nb_digits=1000):
@@ -429,7 +429,7 @@ def euler100(lim=1000000000000):
     while True:
         if b0 + r0 > lim:
             return b0
-        b0, b1 = b1, 6 * b1 - b0 -2
+        b0, b1 = b1, 6 * b1 - b0 - 2
         r0, r1 = r1, 6 * r1 - r0
 
 
