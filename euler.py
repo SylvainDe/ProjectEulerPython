@@ -219,6 +219,20 @@ def euler35(lim=1000000):
         if all(primes[int(p)] for p in generate_rotations(str(i))))
 
 
+def euler36():
+    """Solution for problem 36."""
+    # 999999
+    sol = []
+    for i in range(1000):
+        s = str(i)
+        for beg in (-1, -2):
+            n = int(s + s[beg::-1])
+            s2 = bin(n)[2:]
+            if s2 == s2[::-1]:
+                sol.append(n)
+    return sum(sol)
+
+
 def euler39(lim=1000):
     """Solution for problem 39."""
     maxi, idx = 0, None
@@ -458,6 +472,7 @@ def main():
         assert euler34() == 40730
         assert euler35(100) == 13
         assert euler35() == 55
+        assert euler36() == 872187
         assert euler39() == 840
         assert euler41() == 7652413
         assert euler47(2) == 14
