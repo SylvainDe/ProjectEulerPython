@@ -119,6 +119,14 @@ def euler21(lim=10000):
         if s < i and sum_div[s] == i)
 
 
+def euler23(lim=28123):
+    """Solution for problem 23."""
+    abun = [i > 0 and sum(l) > i for i, l in enumerate(divisors_sieve(lim))]
+    return sum(
+        n for n in range(lim)
+        if not any(i for i in range(1 + n // 2) if abun[i] and abun[n - i]))
+
+
 def euler25(nb_digits=1000):
     """Solution for problem 25."""
     lim = 10 ** (nb_digits - 1)
