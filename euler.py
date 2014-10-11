@@ -249,19 +249,17 @@ def euler34():
     return sum(n for n, l in dict_sum.items() if sorted(str(n)) in l)
 
 
-def generate_rotations(l):
-    for i in range(len(l)):
-        yield l[i:] + l[:i]
-
-
-def euler35(lim=1000000):
-    """Solution for problem 35."""
-    # many optimisations could be added here
-    primes = sieve(lim)
-    return sum(
-        1
-        for i in range(lim)
-        if all(primes[int(p)] for p in generate_rotations(str(i))))
+def euler35(nb_dig_max=6):
+    # permutations of 2 digits or more must contain only 1, 3, 7, 9
+    count = 4  # counting 2, 3, 5 and 7
+    final_numbers = {'1', '3', '7', '9'}
+    for l in range(2, nb_dig_max+1):
+        for p in itertools.product(final_numbers, repeat=l):
+            p_int = int(''.join(p))
+            perm = {int(''.join(p[i:]+p[:i])) for i in range(len(p))}
+            if p_int == min(perm) and all(is_prime(n) for n in perm):
+                count += len(perm)
+    return count
 
 
 def euler36():
@@ -531,7 +529,7 @@ def main():
         assert euler32() == 45228
         assert euler33() == 100
         assert euler34() == 40730
-        assert euler35(100) == 13
+        assert euler35(2) == 13
         assert euler35() == 55
         assert euler36() == 872187
         assert euler39() == 840
