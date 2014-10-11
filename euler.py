@@ -8,8 +8,8 @@ import math
 import itertools
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
-from prime import is_prime
-from functions import fibo, lcmm, yield_pythagorean_triples_of_peri
+from prime import is_prime, mult
+from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 
 
 def euler1(lim=1000):
@@ -215,6 +215,23 @@ def euler32():
                 for b in range(1234 if a <= 10 else 123, 10000 // a + 1)
                 if ''.join(sorted(list(str(a) + str(b) + str(a * b)))) == '123456789'
                 })
+
+
+def euler33():
+    """Solution for problem 33."""
+    # Different options reducing to b/c (with 0 < b < c < 10 and 0 <= a < 10) are :
+    # ab / ac (possible only if a=0 or b=c : not interesting)
+    # ab / ca (possible iif 9bc = a (10c - b))
+    # ba / ac (possible iif 9bc = a (10b - c))
+    # ba / ca (possible only if a=0 or b=c : not interesting)
+    # Also, top / bottom = b/c <=> top * c = bottom * b
+    t, b = [mult(lst)
+            for lst in zip(*[(b, c)
+                             for b, c in itertools.combinations(range(1, 10), 2)
+                             for a in range(1, 10)
+                             for top, bot in [(10 * a + b, 10 * c + a), (10 * b + a, 10 * a + c)]
+                             if top * c == bot * b])]
+    return b // gcd(t, b)
 
 
 def euler34():
@@ -512,6 +529,7 @@ def main():
         assert euler29() == 9183
         assert euler30() == 443839
         assert euler32() == 45228
+        assert euler33() == 100
         assert euler34() == 40730
         assert euler35(100) == 13
         assert euler35() == 55
