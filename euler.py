@@ -276,6 +276,16 @@ def euler36():
     return sum(sol)
 
 
+def euler37():
+    """Solution for problem 37."""
+    left, sol = {0}, []
+    while left:
+        left = {n for n in (10 * l + i for i in range(10) for l in left) if is_prime(n)}
+        print(left)
+        sol.extend(n for n in left if n > 10 and all(is_prime(n % (10 ** pow)) for pow in range(1, len(str(n)))))
+    return sum(sol)
+
+
 def euler39(lim=1000):
     """Solution for problem 39."""
     maxi, idx = 0, None
@@ -532,6 +542,7 @@ def main():
         assert euler35(2) == 13
         assert euler35() == 55
         assert euler36() == 872187
+        assert euler37() == 748317
         assert euler39() == 840
         assert euler41() == 7652413
         assert euler47(2) == 14
