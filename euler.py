@@ -221,9 +221,9 @@ def euler33():
     """Solution for problem 33."""
     # Different options reducing to b/c (with 0 < b < c < 10 and 0 <= a < 10) are :
     # ab / ac (possible only if a=0 or b=c : not interesting)
+    # ba / ca (possible only if a=0 or b=c : not interesting)
     # ab / ca (possible iif 9bc = a (10c - b))
     # ba / ac (possible iif 9bc = a (10b - c))
-    # ba / ca (possible only if a=0 or b=c : not interesting)
     # Also, top / bottom = b/c <=> top * c = bottom * b
     t, b = [mult(lst)
             for lst in zip(*[(b, c)
@@ -253,10 +253,10 @@ def euler35(nb_dig_max=6):
     # permutations of 2 digits or more must contain only 1, 3, 7, 9
     count = 4  # counting 2, 3, 5 and 7
     final_numbers = {'1', '3', '7', '9'}
-    for l in range(2, nb_dig_max+1):
+    for l in range(2, nb_dig_max + 1):
         for p in itertools.product(final_numbers, repeat=l):
             p_int = int(''.join(p))
-            perm = {int(''.join(p[i:]+p[:i])) for i in range(len(p))}
+            perm = {int(''.join(p[i:] + p[:i])) for i in range(len(p))}
             if p_int == min(perm) and all(is_prime(n) for n in perm):
                 count += len(perm)
     return count
