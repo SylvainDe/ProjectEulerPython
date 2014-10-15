@@ -446,6 +446,21 @@ def euler87(lim=50000000):
     return len(sol)
 
 
+def euler100(lim=1000000000000):
+    """Solution for problem 100."""
+    # P(BB) = (b/t) * ((b-1)/(t-1))
+    # P(BB) = 1/2
+    # => 2 * b  * (b - 1) = t * (t - 1)
+    # https://oeis.org/A046090
+    b0, b1 = 1, 3
+    r0, r1 = 0, 1
+    while True:
+        if b0 + r0 > lim:
+            return b0
+        b0, b1 = b1, 6 * b1 - b0 - 2
+        r0, r1 = r1, 6 * r1 - r0
+
+
 def euler104(first=True, last=True):
     """Solution for problem 104."""
     digits = sorted('123456789')
@@ -497,21 +512,6 @@ def euler214(lim=40000000, length=25):
     for i, t in enumerate(tot):
         chains[i] = 1 + (chains[t] if i > 1 else 0)
     return sum(i for i, (l, t) in enumerate(zip(chains, tot)) if l == length and i == t + 1)
-
-
-def euler100(lim=1000000000000):
-    """Solution for problem 100."""
-    # P(BB) = (b/t) * ((b-1)/(t-1))
-    # P(BB) = 1/2
-    # => 2 * b  * (b - 1) = t * (t - 1)
-    # https://oeis.org/A046090
-    b0, b1 = 1, 3
-    r0, r1 = 0, 1
-    while True:
-        if b0 + r0 > lim:
-            return b0
-        b0, b1 = b1, 6 * b1 - b0 - 2
-        r0, r1 = r1, 6 * r1 - r0
 
 
 def main():
