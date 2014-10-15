@@ -153,6 +153,22 @@ def euler25(nb_digits=1000):
             return 1 + i
 
 
+def length_recur_cycle(a, b, base=10):
+    remainders = {}
+    for i in itertools.count():
+        if a == 0:
+            return 0
+        if a in remainders:
+            return i - remainders[a]
+        remainders[a] = i
+        a = (a * base) % b
+
+
+def euler26(lim=1000):
+    """Solution for problem 26."""
+    return max((length_recur_cycle(1, i), i) for i in range(2, lim))[1]
+
+
 def euler27(lim=1000):
     """Solution for problem 27."""
     # P(0) = b must be prime
@@ -532,6 +548,8 @@ def main():
         assert euler24() == 2783915460
         assert euler25(3) == 12
         assert euler25() == 4782
+        assert euler26(11) == 7
+        assert euler26() == 983
         assert euler27() == -59231
         assert euler29(5, 5) == 15
         assert euler29() == 9183
