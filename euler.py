@@ -139,6 +139,13 @@ def euler21(lim=10000):
         if s < i and sum_div[s] == i)
 
 
+def euler22(f='p022_names.txt'):
+    """Solution for problem 22."""
+    with open(f) as file_:
+        return sum((i + 1) * sum(1 + ord(c) - ord('A') for c in name)
+                   for i, name in enumerate(sorted(''.join(file_.readlines()).replace('"', '').split(','))))
+
+
 def euler23(lim=28123):
     """Solution for problem 23."""
     abun = [i > 0 and sum(l) > i for i, l in enumerate(divisors_sieve(lim))]
@@ -570,6 +577,7 @@ def main():
         assert euler20(10) == 27
         assert euler20() == 648
         assert euler21() == 31626
+        assert euler22() == 871198282
         assert euler23() == 4179871
         assert euler24() == 2783915460
         assert euler25(3) == 12
