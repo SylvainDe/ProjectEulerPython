@@ -360,7 +360,7 @@ def euler43():
     div = [(17, 7), (13, 6), (11, 5), (7, 4), (5, 3), (3, 2), (2, 1)]
     return sum(int(''.join(p))
                for p in itertools.permutations(string.digits)
-               if all(int(''.join(p[i:i+3])) % d == 0 for d, i in div))
+               if all(int(''.join(p[i:i + 3])) % d == 0 for d, i in div))
 
 
 def euler45(nb_fact=4):
