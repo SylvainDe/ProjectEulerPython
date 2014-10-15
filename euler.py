@@ -302,6 +302,23 @@ def euler37():
     return sum(sol)
 
 
+def euler38():
+    """Solution for problem 38."""
+    # '123456789' will be decomposed in at least two elements,
+    # the smallest being 4 at most characters long
+    sol = 0
+    digits = {str(d) for d in range(1, 10)}
+    for n in range(10000):
+        s = ""
+        for i in itertools.count(1):
+            s += str(n * i)
+            if len(s) >= len(digits):
+                if len(s) == len(digits) and set(s) == digits:
+                    sol = max(sol, int(s))
+                break
+    return sol
+
+
 def euler39(lim=1000):
     """Solution for problem 39."""
     maxi, idx = 0, None
@@ -561,6 +578,7 @@ def main():
         assert euler35() == 55
         assert euler36() == 872187
         assert euler37() == 748317
+        assert euler38() == 932718654
         assert euler39() == 840
         assert euler41() == 7652413
         assert euler47(2) == 14
