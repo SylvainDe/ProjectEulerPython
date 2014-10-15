@@ -49,6 +49,21 @@ def yield_pythagorean_triples_of_peri(p):
                 yield a, b, c
 
 
+def Tn(n):
+    """ Triangular numbers."""
+    return n * (n + 1) // 2
+
+
+def Pn(n):
+    """ Pentagonal numbers."""
+    return n * (3 * n - 1) // 2
+
+
+def Hn(n):
+    """ Hexagonal numbers."""
+    return n * (2 * n - 1)
+
+
 def main():
     pass  # TODO : add tests
 

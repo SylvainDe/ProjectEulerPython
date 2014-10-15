@@ -10,6 +10,7 @@ from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, mult
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
+from functions import Tn, Pn, Hn
 
 
 def euler1(lim=1000):
@@ -353,6 +354,35 @@ def euler41():
                 return n
 
 
+def euler43():
+    """Solution for problem 43."""
+    # Could be optimised by using a constructive solution starting from the end
+    div = [(17, 7), (13, 6), (11, 5), (7, 4), (5, 3), (3, 2), (2, 1)]
+    return sum(int(''.join(p))
+               for p in itertools.permutations(string.digits)
+               if all(int(''.join(p[i:i+3])) % d == 0 for d, i in div))
+
+
+def euler45(nb_fact=4):
+    """Solution for problem 45."""
+    t, tn = 0, 0
+    p, pn = 0, 0
+    h, hn = 0, 0
+    while True:
+        if p > t:
+            t, tn = Tn(tn + 1), tn + 1
+        elif t > p or h > p:
+            p, pn = Pn(pn + 1), pn + 1
+        elif p > h:
+            h, hn = Hn(hn + 1), hn + 1
+        elif t in [0, 1, 40755]:
+            t, tn = Tn(tn + 1), tn + 1
+            p, pn = Pn(pn + 1), pn + 1
+            h, hn = Hn(hn + 1), hn + 1
+        else:
+            return t
+
+
 def euler47(nb_fact=4):
     """Solution for problem 47."""
     cand = []
@@ -598,6 +628,8 @@ def main():
         assert euler38() == 932718654
         assert euler39() == 840
         assert euler41() == 7652413
+        assert euler43() == 16695334890
+        assert euler45() == 1533776805
         assert euler47(2) == 14
         assert euler47(3) == 644
         assert euler47()
