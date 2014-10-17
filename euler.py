@@ -8,7 +8,7 @@ import math
 import itertools
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
-from prime import is_prime, mult
+from prime import is_prime, prime_divisors_sieve, mult
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 from functions import Tn, Pn, Hn
 
@@ -556,6 +556,55 @@ def euler112(perc=99):
             return i
 
 
+def euler124(lim=100000, n=10000):
+    """Solution for problem 124."""
+    rad = [mult(div) for div in prime_divisors_sieve(lim)]
+    rev_rad = {}
+    for i, r in enumerate(rad):
+        rev_rad.setdefault(r, []).append(i)
+    return nth((i for rad in sorted(rev_rad.keys()) for i in rev_rad[rad]), n)
+
+
+def euler127(lim=120000):
+    """Solution for problem 127."""
+    # 1) If a, b, c are relatively prime, rad(abc) = rad(a) * rad(b) * rad(c)
+    # 2) gcd(a, b) == 1 <=> gcd(rad(a), rad(b)) == 1
+    # 3) 1 = gcd(a, c) = gcd(a, c - a) = gcd(a, b) = gcd(a+b, b) = gcd(c, b)
+    # 4) As c > rad(abc) > rad(c), we must have rad(c) < c which implies that
+    #       2 * rad(c) <= c
+    # Technique is the following :
+    #  - create a cache simulating the rad function
+    #  - create a map from rad values to the (ordered) list of values
+    #  - iterate over increasing rad(c) (we can stop early)
+    #    - iterate over decreasing c (we can stop early)
+    #      - iterate over increasing rad(a) (we can stop early)
+    #        - iterate over increasing a (we can stop early)
+    #          - check a, compute b, check b
+    rad = [mult(div) for div in prime_divisors_sieve(lim - 1)]
+    rev_rad = {}
+    for i, r in enumerate(rad):
+        rev_rad.setdefault(r, []).append(i)
+    sorted_rad = sorted(rev_rad.keys())
+    s = 0
+    for radc in sorted_rad:
+        if 2 * radc > lim:
+            break
+        for c in reversed(rev_rad[radc]):
+            if 2 * radc >= c:
+                break
+            for rada in sorted_rad:
+                if 2 * rada * radc >= c:
+                    break
+                if gcd(rada, radc) == 1:
+                    for a in rev_rad[rada]:
+                        b = c - a
+                        if a >= b:
+                            break
+                        if b < c and rada * rad[b] * radc < c:
+                            s += c
+    return s
+
+
 def euler191(nb_days=4):
     """Solution for problem 191."""
     # 0 late : a, b, c for 0, 1, 2 consecutive absences
@@ -657,6 +706,11 @@ def main():
         # TOO SLOW : euler104(True, True)
         assert euler112(90) == 21780
         # TOO SLOW : print(euler112())
+        assert euler124(10, 4) == 8
+        assert euler124(10, 6) == 9
+        assert euler124() == 21417
+        assert euler127(1000) == 12523
+        assert euler127() == 18407904
         assert euler191(4) == 43
         assert euler191(30) == 1918080160
         assert euler214(20, 4) == 12
