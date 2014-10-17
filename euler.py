@@ -226,9 +226,8 @@ def euler30():
     return sum(n for n, l in dict_sum.items() if [c for c in sorted(str(n)) if c != '0'] in l)
 
 
-def euler31(obj=200):
+def euler31(obj=200, coins=[1, 2, 5, 10, 20, 50, 100, 200]):
     """Solution for problem 31."""
-    coins = [1, 2, 5, 10, 20, 50, 100, 200]
     print(obj, coins)
     # TODO
 
@@ -312,7 +311,6 @@ def euler37():
     left, sol = {0}, []
     while left:
         left = {n for n in (10 * l + i for i in range(10) for l in left) if is_prime(n)}
-        print(left)
         sol.extend(n for n in left if n > 10 and all(is_prime(n % (10 ** pow)) for pow in range(1, len(str(n)))))
     return sum(sol)
 
