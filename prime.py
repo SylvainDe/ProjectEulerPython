@@ -72,7 +72,7 @@ def divisors_sieve(lim):
 def prime_divisors_sieve(lim):
     """Computes the list of prime divisors for values up to lim included."""
     # Pretty similar to totient
-    div = [set() for i in range(lim+1)]
+    div = [set() for i in range(lim + 1)]
     for i in range(2, lim + 1):
         if not div[i]:
             for j in range(i, lim + 1, i):
