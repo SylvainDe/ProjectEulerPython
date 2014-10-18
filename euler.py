@@ -334,12 +334,7 @@ def euler38():
 
 def euler39(lim=1000):
     """Solution for problem 39."""
-    maxi, idx = 0, None
-    for p in range(1, lim + 1):
-        nb = len(list(yield_pythagorean_triples_of_peri(p)))
-        if nb > maxi:
-            maxi, idx = nb, p
-    return idx
+    return max((len(list(yield_pythagorean_triples_of_peri(p))), p) for p in range(1, lim + 1))[1]
 
 
 def euler41():
