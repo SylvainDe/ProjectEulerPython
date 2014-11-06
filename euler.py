@@ -388,6 +388,12 @@ def euler47(nb_fact=4):
             cand = []
 
 
+def euler48(n=1000, nb_dig=10):
+    """Solution for problem 48."""
+    mod = 10**nb_dig
+    return sum(pow(i, i, mod) for i in range(1, n+1)) % mod
+
+
 def sorted_number(n):
     # Reversed to keep 0 instead of` discarding them
     return int(''.join(sorted(str(n), reverse=True)))
@@ -675,6 +681,8 @@ def main():
         assert euler47(2) == 14
         assert euler47(3) == 644
         assert euler47()
+        assert euler48(10, 10) == 405071317
+        assert euler48() == 9110846700
         assert euler49(1) is None
         assert euler49(2) is None
         assert euler49(3) is None
