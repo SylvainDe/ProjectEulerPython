@@ -390,7 +390,7 @@ def euler47(nb_fact=4):
 
 def euler48(n=1000, nb_dig=10):
     """Solution for problem 48."""
-    mod = 10**nb_dig
+    mod = 10 ** nb_dig
     return sum(pow(i, i, mod) for i in range(1, n + 1)) % mod
 
 
