@@ -209,7 +209,7 @@ def euler28(n=1001):
     # 16*j*j + 36j + 24
     # This sum could be computed in constant time but this is
     # fast enough.
-    return 1 + sum(16 * j * j + 36 * j + 24 for j in range(n//2))
+    return 1 + sum(16 * j * j + 36 * j + 24 for j in range(n // 2))
 
 
 def euler29(lima=100, limb=100):
