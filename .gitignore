@@ -1,3 +1,7 @@
+# Project Euler resources
+p*_*.txt
+all_problems.*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
