@@ -200,6 +200,18 @@ def euler27(lim=1000):
     return maxa * maxb
 
 
+def euler28(n=1001):
+    """Solution for problem 28."""
+    # For a level of size s (s>1), corners are :
+    # s*s, s*s-s+1, s*s-2s+2, s*s-3s+3
+    # Their sum is 4*s*s - 6*s + 6  (3 <= s <= n)
+    # Writing s = 2*j + 3, sum of corners is
+    # 16*j*j + 36j + 24
+    # This sum could be computed in constant time but this is
+    # fast enough.
+    return 1 + sum(16 * j * j + 36 * j + 24 for j in range(n//2))
+
+
 def euler29(lima=100, limb=100):
     """Solution for problem 29."""
     n = set()
@@ -663,6 +675,8 @@ def main():
         assert euler26(11) == 7
         assert euler26() == 983
         assert euler27() == -59231
+        assert euler28(5) == 101
+        assert euler28() == 669171001
         assert euler29(5, 5) == 15
         assert euler29() == 9183
         assert euler30() == 443839
