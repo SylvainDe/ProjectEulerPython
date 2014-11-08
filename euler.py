@@ -452,6 +452,20 @@ def euler52(lim=6):
             return x
 
 
+def euler58(ratio=0.1):
+    """Solution for problem 58."""
+    # First analysis in euler28
+    # Corners are s*s-3s+3, s*s-2s+2, s*s-s+1, s*s
+    # s*s is likely not to be prime
+    nb_prime = 0
+    for s in itertools.count(3, 2):
+        for i in range(1, 4):
+            if is_prime(s * s - i * s + i):
+                nb_prime += 1
+        if nb_prime < ratio * (2 * s - 1):
+            return s
+
+
 def euler62(nb_perm=5):
     """Solution for problem 62."""
     cube_perm, l = {}, None
@@ -706,6 +720,7 @@ def main():
         assert euler50() == 997651
         assert euler52(2) == 125874
         assert euler52() == 142857
+        assert euler58() == 26241
         assert euler62(3) == 41063625
         assert euler62() == 127035954683
         assert euler63() == 49
