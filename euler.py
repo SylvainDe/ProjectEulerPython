@@ -459,6 +459,24 @@ def euler52(lim=6):
             return x
 
 
+def euler57(nb_exp=1000):
+    """Solution for problem 57."""
+    # If expansion at level n is a/b
+    # analysis shows that at level n+1, we have:
+    # (2*b+a) / (a+b)
+    # Also, gcd(2*b+a, a+b) = gcd(b, a+b) = gcd(a, b)
+    # Thus, gcd is conserved : if we start with a reduced
+    # fraction, all fractions will be reduced
+    nb = 0
+    a = b = 1
+    for i in range(nb_exp + 1):
+        assert gcd(a, b) == 1
+        if len(str(a)) > len(str(b)):
+            nb += 1
+        a, b = 2 * b + a, a + b
+    return nb
+
+
 def euler58(ratio=0.1):
     """Solution for problem 58."""
     # First analysis in euler28
@@ -728,6 +746,8 @@ def main():
         assert euler50() == 997651
         assert euler52(2) == 125874
         assert euler52() == 142857
+        assert euler57(10) == 1
+        assert euler57() == 153
         assert euler58() == 26241
         assert euler62(3) == 41063625
         assert euler62() == 127035954683
