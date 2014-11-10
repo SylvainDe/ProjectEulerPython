@@ -388,6 +388,13 @@ def euler45(nb_fact=4):
             return t
 
 
+def euler46():
+    """Solution for problem 46."""
+    for i in itertools.count(9, 2):
+        if not is_prime(i) and not any(is_prime(i - 2 * n * n) for n in range(1, math.ceil(math.sqrt(i // 2)))):
+            return i
+
+
 def euler47(nb_fact=4):
     """Solution for problem 47."""
     cand = []
@@ -706,6 +713,7 @@ def main():
         assert euler41() == 7652413
         assert euler43() == 16695334890
         assert euler45() == 1533776805
+        assert euler46() == 5777
         assert euler47(2) == 14
         assert euler47(3) == 644
         assert euler47()
