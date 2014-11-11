@@ -557,6 +557,12 @@ def euler87(lim=50000000):
     return len(sol)
 
 
+def euler97():
+    """Solution for problem 97."""
+    mod = 10 ** 10
+    return (1 + 28433 * pow(2, 7830457, mod)) % mod
+
+
 def euler100(lim=1000000000000):
     """Solution for problem 100."""
     # P(BB) = (b/t) * ((b-1)/(t-1))
@@ -757,6 +763,7 @@ def main():
         assert euler70() == 8319823
         assert euler87(50) == 4
         assert euler87(50000000) == 1097343
+        assert euler97() == 8739992577
         assert euler100() == 756872327473
         assert euler104(False, False) == 1
         assert euler104(False, True) == 541
