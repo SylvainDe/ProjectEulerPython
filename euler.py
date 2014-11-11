@@ -240,8 +240,11 @@ def euler30():
 
 def euler31(obj=200, coins=[1, 2, 5, 10, 20, 50, 100, 200]):
     """Solution for problem 31."""
-    print(obj, coins)
-    # TODO
+    nb_ways = [1] + [0] * obj
+    for c in coins:
+        for v in range(obj + 1 - c):
+            nb_ways[v + c] += nb_ways[v]
+    return nb_ways[-1]
 
 
 def euler32():
@@ -725,6 +728,7 @@ def main():
         assert euler29(5, 5) == 15
         assert euler29() == 9183
         assert euler30() == 443839
+        assert euler31() == 73682
         assert euler32() == 45228
         assert euler33() == 100
         assert euler34() == 40730
