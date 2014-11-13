@@ -560,6 +560,49 @@ def euler87(lim=50000000):
     return len(sol)
 
 
+def euler91_bruteforce(size=50):
+    """Solution for problem 91.
+    Bruteforce is fast enough to get a solution."""
+    i = 0
+    for p1, q1, p2, q2 in itertools.product(range(size + 1), repeat=4):
+        if (p1, p2) < (q1, q2): # not to count them twice
+            low, med, high = sorted([p1 ** 2 + p2 ** 2, q1 ** 2 + q2 ** 2, (p1-q1) ** 2 + (p2-q2) ** 2])
+            if low and low + med == high:
+                i += 1
+    return i
+
+
+def euler91(size=50):
+    """Solution for problem 91."""
+    # We have 2 kinds of right angles :
+    #  - angle in 0 (hypothenus is PQ) : size*size of them
+    #  - without any loss of generality, angle in P (p1, p2):
+    #       OP is the hypothenus and with H (h1, h2) middle of OP, we have :
+    #       |OP| = 2*|OH| = 2*|HP| = 2*|HQ|
+    #       p1^2 + p2^2 = 4 * ((q1-h1)^2 + (q2-h2)^2)
+    #                   = (2*q1 - p1)^2 + (2*q2 - p2)^2
+    #       - If Q is on axis : 2*size*size obvious solutions
+    #       - If Q is not on axis, we solve for all p1,p2,q1.
+    #   A few optimisations :
+    #       - we can assume p1 >= p2 and count solution twice if relevant
+    #       - when looking for q1, we can stop early (h1 + |OH|)
+    i = 3 * size * size
+    for p1, p2 in itertools.combinations_with_replacement(range(size+1), 2):
+        dp = p1 ** 2 + p2 ** 2
+        if dp:
+            for q1 in range(1, min(size, int((p1 + math.sqrt(dp)) / 2)) + 1):
+                square = dp - (2 * q1 - p1) ** 2
+                if square >= 0:
+                    root = int(math.sqrt(square))
+                    if root*root == square:
+                        assert p2 % 2 == root % 2
+                        for s in set([-root, +root]):
+                            q2 = (p2 + s) // 2
+                            if 1 <= q2 <= size and (q1,q2) != (p1,p2):
+                                i += 1 if p1 == p2 else 2
+    return i
+
+
 def euler97():
     """Solution for problem 97."""
     mod = 10 ** 10
@@ -581,7 +624,7 @@ def euler100(lim=1000000000000):
         r0, r1 = r1, 6 * r1 - r0
 
 
-def euler104(first=True, last=True):
+def euler104_(first=True, last=True):
     """Solution for problem 104."""
     digits = sorted('123456789')
     # TODO not efficient enough
@@ -606,7 +649,7 @@ def bouncy_number(n):
     return not increasing_number(n) and not decreasing_number(n)
 
 
-def euler112(perc=99):
+def euler112_(perc=99):
     """Solution for problem 112."""
     nb_bouncy = 0
     for i in itertools.count(1):
@@ -767,13 +810,16 @@ def main():
         assert euler70() == 8319823
         assert euler87(50) == 4
         assert euler87(50000000) == 1097343
+        assert euler91_bruteforce(2) == 14
+        assert euler91(2) == 14
+        assert euler91() == 14234
         assert euler97() == 8739992577
         assert euler100() == 756872327473
-        assert euler104(False, False) == 1
-        assert euler104(False, True) == 541
-        assert euler104(True, False) == 2749
+        assert euler104_(False, False) == 1
+        assert euler104_(False, True) == 541
+        assert euler104_(True, False) == 2749
         # TOO SLOW : euler104(True, True)
-        assert euler112(90) == 21780
+        assert euler112_(90) == 21780
         # TOO SLOW : print(euler112())
         assert euler124(10, 4) == 8
         assert euler124(10, 6) == 9
