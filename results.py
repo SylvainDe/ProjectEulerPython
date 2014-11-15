@@ -41,6 +41,7 @@ def main():
             links.append(GITUHB_URL % ("Solution", definitions[i]))
             links.extend(GITUHB_URL % ("Test", t) for t in tests.get(i, []))
         print(" ".join(links))
+        print()
 
 if __name__ == "__main__":
     main()
