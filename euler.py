@@ -565,8 +565,8 @@ def euler91_bruteforce(size=50):
     Bruteforce is fast enough to get a solution."""
     i = 0
     for p1, q1, p2, q2 in itertools.product(range(size + 1), repeat=4):
-        if (p1, p2) < (q1, q2): # not to count them twice
-            low, med, high = sorted([p1 ** 2 + p2 ** 2, q1 ** 2 + q2 ** 2, (p1-q1) ** 2 + (p2-q2) ** 2])
+        if (p1, p2) < (q1, q2):  # not to count them twice
+            low, med, high = sorted(x ** 2 + y ** 2 for x, y in [(p1, p2), (q1, q2), (p1 - q1, p2 - q2)])
             if low and low + med == high:
                 i += 1
     return i
@@ -587,18 +587,18 @@ def euler91(size=50):
     #       - we can assume p1 >= p2 and count solution twice if relevant
     #       - when looking for q1, we can stop early (h1 + |OH|)
     i = 3 * size * size
-    for p1, p2 in itertools.combinations_with_replacement(range(size+1), 2):
+    for p1, p2 in itertools.combinations_with_replacement(range(size + 1), 2):
         dp = p1 ** 2 + p2 ** 2
         if dp:
             for q1 in range(1, min(size, int((p1 + math.sqrt(dp)) / 2)) + 1):
                 square = dp - (2 * q1 - p1) ** 2
                 if square >= 0:
                     root = int(math.sqrt(square))
-                    if root*root == square:
+                    if root * root == square:
                         assert p2 % 2 == root % 2
                         for s in set([-root, +root]):
                             q2 = (p2 + s) // 2
-                            if 1 <= q2 <= size and (q1,q2) != (p1,p2):
+                            if 1 <= q2 <= size and (q1, q2) != (p1, p2):
                                 i += 1 if p1 == p2 else 2
     return i
 
