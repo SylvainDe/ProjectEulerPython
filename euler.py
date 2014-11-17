@@ -6,6 +6,7 @@
 import string
 import math
 import itertools
+import collections
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
@@ -521,6 +522,12 @@ def euler63():
         for n in range(1, 22))
 
 
+def euler66_():
+    """Solution for problem 66."""
+    # http://en.wikipedia.org/wiki/Pell's_equation
+    pass
+
+
 def euler69(lim=10):
     """Solution for problem 69."""
     return max((i / t, i) for i, t in enumerate(totient(lim)) if i)[1]
@@ -624,6 +631,13 @@ def euler100(lim=1000000000000):
         r0, r1 = r1, 6 * r1 - r0
 
 
+def euler101_():
+    """Solution for problem 101."""
+    # http://en.wikipedia.org/wiki/Lagrange_polynomial
+    # Probably worth creating a polynom module to evaluate/print/interp,etc
+    pass
+
+
 def euler104_(first=True, last=True):
     """Solution for problem 104."""
     digits = sorted('123456789')
@@ -633,6 +647,12 @@ def euler104_(first=True, last=True):
         if (not first or sorted(s[:9]) == digits) \
                 and (not last or sorted(s[-9:]) == digits):
             return 1 + i
+
+
+def euler107_():
+    """Solution for problem 107."""
+    # http://en.wikipedia.org/wiki/Minimum_spanning_tree
+    pass
 
 
 def increasing_number(n):
@@ -647,6 +667,26 @@ def decreasing_number(n):
 
 def bouncy_number(n):
     return not increasing_number(n) and not decreasing_number(n)
+
+
+def euler111_(nb_dig=4):
+    """Solution for problem 111."""
+    # Works fine for 4 digits but does not scale well
+    lim = 10 ** nb_dig
+    low = lim // 10
+    prime = sieve(lim)
+    m, s = {}, {}
+    for i in range(low, lim):
+        if prime[i]:
+            for dig, nb in collections.Counter(str(i)).items():
+                m_val = m.get(dig, 0)
+                if nb > m_val:
+                    m[dig], s[dig] = nb, [i]
+                elif nb == m_val:
+                    s[dig].append(i)
+    for d in string.digits:
+        print(d, m[d], len(s[d]), sum(s[d]))
+    print(sum(sum(s[d]) for d in string.digits))
 
 
 def euler112_(perc=99):
@@ -705,6 +745,12 @@ def euler127(lim=120000):
                         if b < c and rada * rad[b] * radc < c:
                             s += c
     return s
+
+
+def euler165_():
+    """Solution for problem 165."""
+    # http://en.wikipedia.org/wiki/Line_segment_intersection
+    pass
 
 
 def euler191(nb_days=4):
