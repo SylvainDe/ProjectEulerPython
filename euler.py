@@ -698,6 +698,20 @@ def euler112_(perc=99):
             return i
 
 
+def euler113(ten_pow=100):
+    """Solution for problem 113."""
+    # Dynamic programming
+    # array with last digit and nb digit
+    # Not the cleanest not the most optimal
+    nb_incr_number = [1 for i in range(10)]
+    nb_decr_number = [0] + [1 for i in range(9)]
+
+    for i in range(ten_pow):
+        nb_incr_number = [sum(nb_incr_number[0:i + 1]) for i in range(10)]
+        nb_decr_number = [(1 if i else 0) + sum(nb_decr_number[i:10]) for i in range(10)]
+    return nb_incr_number[-1] + nb_decr_number[0] - 9 * ten_pow - 1
+
+
 def euler124(lim=100000, n=10000):
     """Solution for problem 124."""
     rad = [mult(div) for div in prime_divisors_sieve(lim)]
@@ -867,6 +881,9 @@ def main():
         # TOO SLOW : euler104(True, True)
         assert euler112_(90) == 21780
         # TOO SLOW : print(euler112())
+        assert euler113(6) == 12951
+        assert euler113(10) == 277032
+        assert euler113() == 51161058134250
         assert euler124(10, 4) == 8
         assert euler124(10, 6) == 9
         assert euler124() == 21417
