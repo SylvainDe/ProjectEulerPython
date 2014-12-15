@@ -92,6 +92,22 @@ def euler12(nb_div=500):
             return t
 
 
+def euler14(lim=1000000):
+    """Solution for problem 14."""
+    collatz = {1: 1}
+    for i in range(2, lim):
+        if i not in collatz:
+            chain = []
+            while i not in collatz:
+                chain.append(i)
+                i = (3 * i + 1) if i % 2 else (i //2 )
+            stop = collatz[i] + 1
+            for idx, val in enumerate(reversed(chain)):
+                collatz[val] = stop + idx
+        assert i in collatz
+    return max((v, k) for k, v in collatz.items() if k <=lim)[1]
+
+
 def euler15(col=20, row=20):
     """Solution for problem 15."""
     nb_routes = [[0] * (row + 1) for i in range(col + 1)]
@@ -810,6 +826,7 @@ def main():
         assert euler10() == 142913828922
         assert euler12(5) == 28
         assert euler12() == 76576500
+        assert euler14() == 837799
         assert euler15(2, 2) == 6
         assert euler15() == 137846528820
         assert euler16(15) == 26
