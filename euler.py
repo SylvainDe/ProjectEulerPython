@@ -100,12 +100,12 @@ def euler14(lim=1000000):
             chain = []
             while i not in collatz:
                 chain.append(i)
-                i = (3 * i + 1) if i % 2 else (i //2 )
+                i = (3 * i + 1) if i % 2 else (i // 2)
             stop = collatz[i] + 1
             for idx, val in enumerate(reversed(chain)):
                 collatz[val] = stop + idx
         assert i in collatz
-    return max((v, k) for k, v in collatz.items() if k <=lim)[1]
+    return max((v, k) for k, v in collatz.items() if k <= lim)[1]
 
 
 def euler15(col=20, row=20):
