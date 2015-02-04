@@ -3,6 +3,7 @@
 
 """Misc functions."""
 import functools
+import itertools
 from prime import yield_divisors
 
 
@@ -64,8 +65,31 @@ def Hn(n):
     return n * (2 * n - 1)
 
 
+def champernowne_digit(n):
+    """Get Champernowne constant's n-th digit (starting from 0)."""
+    # Implementation determines 3 pieces of info in that order:
+    #  - the length of the number the digit belongs to : len_num
+    #  - the index of the digit in the number : digit_index
+    #  - the number the digit belongs to : num
+    base = 10
+    prev_pow = 1
+    for len_num in itertools.count(1):
+        nb_dig_block = len_num * (base - 1) * prev_pow
+        if nb_dig_block < n:
+            n -= nb_dig_block
+            prev_pow *= base
+        else:
+            num_index, digit_index = divmod(n, len_num)
+            num = prev_pow + num_index
+            return int(str(num)[digit_index])
+
+
 def main():
-    pass  # TODO : add tests
+    # TODO : add more tests
+    champernowne_string = ''.join(str(i) for i in range(1, 10005))
+    for i, d in enumerate(champernowne_string):
+        assert champernowne_digit(i) == int(d)
+
 
 if __name__ == "__main__":
     main()

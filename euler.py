@@ -11,7 +11,7 @@ from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
-from functions import Tn, Pn, Hn
+from functions import Tn, Pn, Hn, champernowne_digit
 
 
 def euler1(lim=1000):
@@ -367,6 +367,11 @@ def euler38():
 def euler39(lim=1000):
     """Solution for problem 39."""
     return max((len(list(yield_pythagorean_triples_of_peri(p))), p) for p in range(1, lim + 1))[1]
+
+
+def euler40():
+    """Solution for problem 40."""
+    return mult(champernowne_digit(pow(10, i)-1) for i in range(6))
 
 
 def euler41():
@@ -858,6 +863,7 @@ def main():
         assert euler37() == 748317
         assert euler38() == 932718654
         assert euler39() == 840
+        assert euler40() == 210
         assert euler41() == 7652413
         assert euler43() == 16695334890
         assert euler45() == 1533776805
