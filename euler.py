@@ -371,7 +371,7 @@ def euler39(lim=1000):
 
 def euler40():
     """Solution for problem 40."""
-    return mult(champernowne_digit(pow(10, i)-1) for i in range(6))
+    return mult(champernowne_digit(pow(10, i) - 1) for i in range(6))
 
 
 def euler41():
