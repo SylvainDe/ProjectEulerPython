@@ -198,7 +198,7 @@ def length_recur_cycle(a, b, base=10):
 
 def euler26(lim=1000):
     """Solution for problem 26."""
-    return max((length_recur_cycle(1, i), i) for i in range(2, lim))[1]
+    return max(range(2, lim), key=lambda i:length_recur_cycle(1, i))
 
 
 def euler27(lim=1000):
@@ -366,7 +366,7 @@ def euler38():
 
 def euler39(lim=1000):
     """Solution for problem 39."""
-    return max((len(list(yield_pythagorean_triples_of_peri(p))), p) for p in range(1, lim + 1))[1]
+    return max(range(1, lim + 1), key=lambda p:len(list(yield_pythagorean_triples_of_peri(p))))
 
 
 def euler40():
