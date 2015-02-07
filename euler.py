@@ -490,6 +490,31 @@ def euler50(lim=1000000):
     return max_sum
 
 
+def euler51(nb=8):
+    """Solution for problem 51."""
+    # Looking for possible values to change, then the possible combinations
+    # For each combination, we compute the value of the corresponding mask
+    # and check primality.
+    # For a family of 8, a potential optimisation would be to see that the
+    # value of the mask must be divisible by 3 so its length must be too
+    # (this can be done with `len_mask in range(3, 1 + len(pos), 3)`)
+    # Another optimisation is to see that the last digit cannot be changed
+    # for families of 4 or more of more than 1 digits which are all families
+    # of 5 or more really
+    # (this can be done with `if c == val_replaced and i`)
+    base = 10
+    lim = 1 + base - nb  # replaced digit must be smaller than lim
+    for n in yield_primes():
+        n_str = [int(c) for c in reversed(str(n))]
+        for val_replaced in range(lim):
+            pos = [i for i, c in enumerate(n_str) if c == val_replaced]
+            for len_mask in range(1, 1 + len(pos)):
+                for pos_mask in itertools.combinations(pos, len_mask):
+                    val_mask = sum(pow(base, i) for i in pos_mask)
+                    if 1 + sum(1 for i in range(1, base - val_replaced) if is_prime(n + i * val_mask)) >= nb:
+                        return n
+
+
 def euler52(lim=6):
     """Solution for problem 52."""
     for x in itertools.count(1):
@@ -895,6 +920,13 @@ def main():
         assert euler50(100) == 41
         assert euler50(1000) == 953
         assert euler50() == 997651
+        assert euler51(2) == 2
+        assert euler51(3) == 2
+        assert euler51(4) == 2
+        assert euler51(5) == 11
+        assert euler51(6) == 13
+        assert euler51(7) == 56003
+        assert euler51() == 121313
         assert euler52(2) == 125874
         assert euler52() == 142857
         assert euler57(10) == 1
