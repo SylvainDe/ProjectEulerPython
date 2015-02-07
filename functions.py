@@ -70,7 +70,7 @@ def isPn(x):
     " Test if pentagonal."""
     if x == 0:
         return True
-    cand = int((1 + math.sqrt( 1 + 24 * x)) / 6)
+    cand = int((1 + math.sqrt(1 + 24 * x)) / 6)
     return Pn(cand) == x
 
 
