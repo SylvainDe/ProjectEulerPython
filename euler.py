@@ -11,7 +11,7 @@ from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
-from functions import Tn, Pn, Hn, champernowne_digit
+from functions import Tn, Pn, Hn, isPn, champernowne_digit
 
 
 def euler1(lim=1000):
@@ -391,6 +391,20 @@ def euler43():
     return sum(int(''.join(p))
                for p in itertools.permutations(string.digits)
                if all(int(''.join(p[i:i + 3])) % d == 0 for d, i in div))
+
+
+def euler44():
+    """Solution for problem 44."""
+    # We look for minimal value of P(m) = P(k) - P(j)
+    # Such that P(k) + P(j) is pentagonal.
+    # We must have j < m < k.
+    for m in itertools.count():
+        pm = Pn(m)
+        for j in range(1, m):
+            pj = Pn(j)
+            pk = pm + pj
+            if isPn(pk) and isPn(pj + pk):
+                return pm
 
 
 def euler45(nb_fact=4):
@@ -866,6 +880,7 @@ def main():
         assert euler40() == 210
         assert euler41() == 7652413
         assert euler43() == 16695334890
+        assert euler44() == 5482660
         assert euler45() == 1533776805
         assert euler46() == 5777
         assert euler47(2) == 14

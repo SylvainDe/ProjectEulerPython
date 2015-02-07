@@ -4,6 +4,7 @@
 """Misc functions."""
 import functools
 import itertools
+import math
 from prime import yield_divisors
 
 
@@ -63,6 +64,14 @@ def Pn(n):
 def Hn(n):
     """ Hexagonal numbers."""
     return n * (2 * n - 1)
+
+
+def isPn(x):
+    " Test if pentagonal."""
+    if x == 0:
+        return True
+    cand = int((1 + math.sqrt( 1 + 24 * x)) / 6)
+    return Pn(cand) == x
 
 
 def champernowne_digit(n):
