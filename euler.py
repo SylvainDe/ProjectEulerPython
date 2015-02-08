@@ -83,6 +83,11 @@ def euler10(lim=2000000):
     return sum(primes_up_to(lim))
 
 
+def euler11_():
+    """Solution for problem 11."""
+    pass
+
+
 def euler12(nb_div=500):
     """Solution for problem 12."""
     t = 0
@@ -90,6 +95,11 @@ def euler12(nb_div=500):
         t += i
         if nb_divisors(t) >= nb_div:
             return t
+
+
+def euler13_():
+    """Solution for problem 13."""
+    pass
 
 
 def euler14(lim=1000000):
@@ -128,6 +138,16 @@ def sum_digit(n):
 def euler16(n=1000):
     """Solution for problem 16."""
     return sum_digit(2 ** n)
+
+
+def euler17_():
+    """Solution for problem 17."""
+    pass
+
+
+def euler18_():
+    """Solution for problem 18."""
+    pass
 
 
 def euler19():
@@ -384,6 +404,11 @@ def euler41():
                 return n
 
 
+def euler42_():
+    """Solution for problem 42."""
+    pass
+
+
 def euler43():
     """Solution for problem 43."""
     # Could be optimised by using a constructive solution starting from the end
@@ -501,14 +526,12 @@ def euler51(nb=8):
 
     # optimisation : precomputing powers of 10
     pows = []
-
     # optimisation : the mask (and so its length) must be divisible by 3 for
     # big families, otherwise, we'd have too many multiple of 3.
     len_mask_step = 3 if nb >= 8 else 1
     # optimisation : last number can't be changed for families of 4 or more
     last_nb_can_chg = nb <= 4
 
-    # processing numbers of same length to be able to have a prime sieve
     low = 1
     while True:
         high = base * low
@@ -534,6 +557,26 @@ def euler52(lim=6):
         digits = sorted_number(x)
         if all(digits == sorted_number(i * x) for i in range(2, lim + 1)):
             return x
+
+
+def euler53_():
+    """Solution for problem 53."""
+    pass
+
+
+def euler54_():
+    """Solution for problem 54."""
+    pass
+
+
+def euler55_():
+    """Solution for problem 55."""
+    pass
+
+
+def euler56_():
+    """Solution for problem 56."""
+    pass
 
 
 def euler57(nb_exp=1000):
@@ -568,6 +611,21 @@ def euler58(ratio=0.1):
             return s
 
 
+def euler59_():
+    """Solution for problem 59."""
+    pass
+
+
+def euler60_():
+    """Solution for problem 60."""
+    pass
+
+
+def euler61_():
+    """Solution for problem 61."""
+    pass
+
+
 def euler62(nb_perm=5):
     """Solution for problem 62."""
     cube_perm, l = {}, None
@@ -595,9 +653,29 @@ def euler63():
         for n in range(1, 22))
 
 
+def euler64_():
+    """Solution for problem 64."""
+    pass
+
+
+def euler65_():
+    """Solution for problem 65."""
+    pass
+
+
 def euler66_():
     """Solution for problem 66."""
     # http://en.wikipedia.org/wiki/Pell's_equation
+    pass
+
+
+def euler67_():
+    """Solution for problem 67."""
+    pass
+
+
+def euler68_():
+    """Solution for problem 68."""
     pass
 
 
@@ -615,6 +693,86 @@ def euler70(lim=10000000):
             if new_val < val and sorted_number(i) == sorted_number(t):
                 n, val = i, new_val
     return n
+
+
+def euler71_():
+    """Solution for problem 71."""
+    pass
+
+
+def euler72_():
+    """Solution for problem 72."""
+    pass
+
+
+def euler73_():
+    """Solution for problem 73."""
+    pass
+
+
+def euler74_():
+    """Solution for problem 74."""
+    pass
+
+
+def euler75_():
+    """Solution for problem 75."""
+    pass
+
+
+def euler76_():
+    """Solution for problem 76."""
+    pass
+
+
+def euler77_():
+    """Solution for problem 77."""
+    pass
+
+
+def euler78_():
+    """Solution for problem 78."""
+    pass
+
+
+def euler79_():
+    """Solution for problem 79."""
+    pass
+
+
+def euler80_():
+    """Solution for problem 80."""
+    pass
+
+
+def euler81_():
+    """Solution for problem 81."""
+    pass
+
+
+def euler82_():
+    """Solution for problem 82."""
+    pass
+
+
+def euler83_():
+    """Solution for problem 83."""
+    pass
+
+
+def euler84_():
+    """Solution for problem 84."""
+    pass
+
+
+def euler85_():
+    """Solution for problem 85."""
+    pass
+
+
+def euler86_():
+    """Solution for problem 86."""
+    pass
 
 
 def euler87(lim=50000000):
@@ -638,6 +796,21 @@ def euler87(lim=50000000):
                     break
                 sol.add(sum_c)
     return len(sol)
+
+
+def euler88_():
+    """Solution for problem 88."""
+    pass
+
+
+def euler89_():
+    """Solution for problem 89."""
+    pass
+
+
+def euler90_():
+    """Solution for problem 90."""
+    pass
 
 
 def euler91_bruteforce(size=50):
@@ -683,10 +856,45 @@ def euler91(size=50):
     return i
 
 
+def euler92_():
+    """Solution for problem 92."""
+    pass
+
+
+def euler93_():
+    """Solution for problem 93."""
+    pass
+
+
+def euler94_():
+    """Solution for problem 94."""
+    pass
+
+
+def euler95_():
+    """Solution for problem 95."""
+    pass
+
+
+def euler96_():
+    """Solution for problem 96."""
+    pass
+
+
 def euler97():
     """Solution for problem 97."""
     mod = 10 ** 10
     return (1 + 28433 * pow(2, 7830457, mod)) % mod
+
+
+def euler98_():
+    """Solution for problem 98."""
+    pass
+
+
+def euler99_():
+    """Solution for problem 99."""
+    pass
 
 
 def euler100(lim=1000000000000):
@@ -711,6 +919,16 @@ def euler101_():
     pass
 
 
+def euler102_():
+    """Solution for problem 102."""
+    pass
+
+
+def euler103_():
+    """Solution for problem 103."""
+    pass
+
+
 def euler104_(first=True, last=True):
     """Solution for problem 104."""
     digits = sorted('123456789')
@@ -720,6 +938,16 @@ def euler104_(first=True, last=True):
         if (not first or sorted(s[:9]) == digits) \
                 and (not last or sorted(s[-9:]) == digits):
             return 1 + i
+
+
+def euler105_():
+    """Solution for problem 105."""
+    pass
+
+
+def euler106_():
+    """Solution for problem 106."""
+    pass
 
 
 def euler107_():
@@ -740,6 +968,21 @@ def decreasing_number(n):
 
 def bouncy_number(n):
     return not increasing_number(n) and not decreasing_number(n)
+
+
+def euler108_():
+    """Solution for problem 108."""
+    pass
+
+
+def euler109_():
+    """Solution for problem 109."""
+    pass
+
+
+def euler110_():
+    """Solution for problem 110."""
+    pass
 
 
 def euler111_(nb_dig=4):
@@ -785,6 +1028,56 @@ def euler113(ten_pow=100):
     return nb_incr_number[-1] + nb_decr_number[0] - 9 * ten_pow - 1
 
 
+def euler114_():
+    """Solution for problem 114."""
+    pass
+
+
+def euler115_():
+    """Solution for problem 115."""
+    pass
+
+
+def euler116_():
+    """Solution for problem 116."""
+    pass
+
+
+def euler117_():
+    """Solution for problem 117."""
+    pass
+
+
+def euler118_():
+    """Solution for problem 118."""
+    pass
+
+
+def euler119_():
+    """Solution for problem 119."""
+    pass
+
+
+def euler120_():
+    """Solution for problem 120."""
+    pass
+
+
+def euler121_():
+    """Solution for problem 121."""
+    pass
+
+
+def euler122_():
+    """Solution for problem 122."""
+    pass
+
+
+def euler123_():
+    """Solution for problem 123."""
+    pass
+
+
 def euler124(lim=100000, n=10000):
     """Solution for problem 124."""
     rad = [mult(div) for div in prime_divisors_sieve(lim)]
@@ -792,6 +1085,16 @@ def euler124(lim=100000, n=10000):
     for i, r in enumerate(rad):
         rev_rad.setdefault(r, []).append(i)
     return nth((i for rad in sorted(rev_rad.keys()) for i in rev_rad[rad]), n)
+
+
+def euler125_():
+    """Solution for problem 125."""
+    pass
+
+
+def euler126_():
+    """Solution for problem 126."""
+    pass
 
 
 def euler127(lim=120000):
@@ -834,9 +1137,319 @@ def euler127(lim=120000):
     return s
 
 
+def euler128_():
+    """Solution for problem 128."""
+    pass
+
+
+def euler129_():
+    """Solution for problem 129."""
+    pass
+
+
+def euler130_():
+    """Solution for problem 130."""
+    pass
+
+
+def euler131_():
+    """Solution for problem 131."""
+    pass
+
+
+def euler132_():
+    """Solution for problem 132."""
+    pass
+
+
+def euler133_():
+    """Solution for problem 133."""
+    pass
+
+
+def euler134_():
+    """Solution for problem 134."""
+    pass
+
+
+def euler135_():
+    """Solution for problem 135."""
+    pass
+
+
+def euler136_():
+    """Solution for problem 136."""
+    pass
+
+
+def euler137_():
+    """Solution for problem 137."""
+    pass
+
+
+def euler138_():
+    """Solution for problem 138."""
+    pass
+
+
+def euler139_():
+    """Solution for problem 139."""
+    pass
+
+
+def euler140_():
+    """Solution for problem 140."""
+    pass
+
+
+def euler141_():
+    """Solution for problem 141."""
+    pass
+
+
+def euler142_():
+    """Solution for problem 142."""
+    pass
+
+
+def euler143_():
+    """Solution for problem 143."""
+    pass
+
+
+def euler144_():
+    """Solution for problem 144."""
+    pass
+
+
+def euler145_():
+    """Solution for problem 145."""
+    pass
+
+
+def euler146_():
+    """Solution for problem 146."""
+    pass
+
+
+def euler147_():
+    """Solution for problem 147."""
+    pass
+
+
+def euler148_():
+    """Solution for problem 148."""
+    pass
+
+
+def euler149_():
+    """Solution for problem 149."""
+    pass
+
+
+def euler150_():
+    """Solution for problem 150."""
+    pass
+
+
+def euler151_():
+    """Solution for problem 151."""
+    pass
+
+
+def euler152_():
+    """Solution for problem 152."""
+    pass
+
+
+def euler153_():
+    """Solution for problem 153."""
+    pass
+
+
+def euler154_():
+    """Solution for problem 154."""
+    pass
+
+
+def euler155_():
+    """Solution for problem 155."""
+    pass
+
+
+def euler156_():
+    """Solution for problem 156."""
+    pass
+
+
+def euler157_():
+    """Solution for problem 157."""
+    pass
+
+
+def euler158_():
+    """Solution for problem 158."""
+    pass
+
+
+def euler159_():
+    """Solution for problem 159."""
+    pass
+
+
+def euler160_():
+    """Solution for problem 160."""
+    pass
+
+
+def euler161_():
+    """Solution for problem 161."""
+    pass
+
+
+def euler162_():
+    """Solution for problem 162."""
+    pass
+
+
+def euler163_():
+    """Solution for problem 163."""
+    pass
+
+
+def euler164_():
+    """Solution for problem 164."""
+    pass
+
+
 def euler165_():
     """Solution for problem 165."""
     # http://en.wikipedia.org/wiki/Line_segment_intersection
+    pass
+
+
+def euler166_():
+    """Solution for problem 166."""
+    pass
+
+
+def euler167_():
+    """Solution for problem 167."""
+    pass
+
+
+def euler168_():
+    """Solution for problem 168."""
+    pass
+
+
+def euler169_():
+    """Solution for problem 169."""
+    pass
+
+
+def euler170_():
+    """Solution for problem 170."""
+    pass
+
+
+def euler171_():
+    """Solution for problem 171."""
+    pass
+
+
+def euler172_():
+    """Solution for problem 172."""
+    pass
+
+
+def euler173_():
+    """Solution for problem 173."""
+    pass
+
+
+def euler174_():
+    """Solution for problem 174."""
+    pass
+
+
+def euler175_():
+    """Solution for problem 175."""
+    pass
+
+
+def euler176_():
+    """Solution for problem 176."""
+    pass
+
+
+def euler177_():
+    """Solution for problem 177."""
+    pass
+
+
+def euler178_():
+    """Solution for problem 178."""
+    pass
+
+
+def euler179_():
+    """Solution for problem 179."""
+    pass
+
+
+def euler180_():
+    """Solution for problem 180."""
+    pass
+
+
+def euler181_():
+    """Solution for problem 181."""
+    pass
+
+
+def euler182_():
+    """Solution for problem 182."""
+    pass
+
+
+def euler183_():
+    """Solution for problem 183."""
+    pass
+
+
+def euler184_():
+    """Solution for problem 184."""
+    pass
+
+
+def euler185_():
+    """Solution for problem 185."""
+    pass
+
+
+def euler186_():
+    """Solution for problem 186."""
+    pass
+
+
+def euler187_():
+    """Solution for problem 187."""
+    pass
+
+
+def euler188_():
+    """Solution for problem 188."""
+    pass
+
+
+def euler189_():
+    """Solution for problem 189."""
+    pass
+
+
+def euler190_():
+    """Solution for problem 190."""
     pass
 
 
@@ -848,6 +1461,116 @@ def euler191(nb_days=4):
     for _ in range(nb_days + 1):  # 1 more iteration to have the res in d
         a, b, c, d, e, f = a + b + c, a, b, a + b + c + d + e + f, d, e
     return d
+
+
+def euler192_():
+    """Solution for problem 192."""
+    pass
+
+
+def euler193_():
+    """Solution for problem 193."""
+    pass
+
+
+def euler194_():
+    """Solution for problem 194."""
+    pass
+
+
+def euler195_():
+    """Solution for problem 195."""
+    pass
+
+
+def euler196_():
+    """Solution for problem 196."""
+    pass
+
+
+def euler197_():
+    """Solution for problem 197."""
+    pass
+
+
+def euler198_():
+    """Solution for problem 198."""
+    pass
+
+
+def euler199_():
+    """Solution for problem 199."""
+    pass
+
+
+def euler200_():
+    """Solution for problem 200."""
+    pass
+
+
+def euler201_():
+    """Solution for problem 201."""
+    pass
+
+
+def euler202_():
+    """Solution for problem 202."""
+    pass
+
+
+def euler203_():
+    """Solution for problem 203."""
+    pass
+
+
+def euler204_():
+    """Solution for problem 204."""
+    pass
+
+
+def euler205_():
+    """Solution for problem 205."""
+    pass
+
+
+def euler206_():
+    """Solution for problem 206."""
+    pass
+
+
+def euler207_():
+    """Solution for problem 207."""
+    pass
+
+
+def euler208_():
+    """Solution for problem 208."""
+    pass
+
+
+def euler209_():
+    """Solution for problem 209."""
+    pass
+
+
+def euler210_():
+    """Solution for problem 210."""
+    pass
+
+
+def euler211_():
+    """Solution for problem 211."""
+    pass
+
+
+def euler212_():
+    """Solution for problem 212."""
+    pass
+
+
+def euler213_():
+    """Solution for problem 213."""
+    pass
 
 
 def euler214(lim=40000000, length=25):
