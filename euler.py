@@ -492,27 +492,40 @@ def euler50(lim=1000000):
 
 def euler51(nb=8):
     """Solution for problem 51."""
-    # Looking for possible values to change, then the possible combinations
-    # For each combination, we compute the value of the corresponding mask
-    # and check primality.
-    # For a family of 8, a potential optimisation would be to see that the
-    # value of the mask must be divisible by 3 so its length must be too
-    # (this can be done with `len_mask in range(3, 1 + len(pos), 3)`)
-    # Another optimisation is to see that the last digit cannot be changed
-    # for families of 4 or more of more than 1 digits which are all families
-    # of 5 or more really
-    # (this can be done with `if c == val_replaced and i`)
-    base = 10
+    # Iterating on batches of number of same length to be able to use a sieve.
+    # For each prime, looking for digits one can change, then the possible
+    # combinations of these digits. For each combination, we compute the value
+    # of the corresponding mask and check primality.
+    base = 10  # Not so much of a variable due to various optimisations
     lim = 1 + base - nb  # replaced digit must be smaller than lim
-    for n in yield_primes():
-        n_str = [int(c) for c in reversed(str(n))]
-        for val_replaced in range(lim):
-            pos = [i for i, c in enumerate(n_str) if c == val_replaced]
-            for len_mask in range(1, 1 + len(pos)):
-                for pos_mask in itertools.combinations(pos, len_mask):
-                    val_mask = sum(pow(base, i) for i in pos_mask)
-                    if 1 + sum(1 for i in range(1, base - val_replaced) if is_prime(n + i * val_mask)) >= nb:
-                        return n
+
+    # optimisation : precomputing powers of 10
+    pows = []
+
+    # optimisation : the mask (and so its length) must be divisible by 3 for
+    # big families, otherwise, we'd have too many multiple of 3.
+    len_mask_step = 3 if nb >= 8 else 1
+    # optimisation : last number can't be changed for families of 4 or more
+    last_nb_can_chg = nb <= 4
+
+    # processing numbers of same length to be able to have a prime sieve
+    low = 1
+    while True:
+        high = base * low
+        primes = sieve(high)
+        pows.append(low)
+        for n in range(low, high):
+            if primes[n]:
+                n_str = [int(c) for c in reversed(str(n))]
+                for val_replaced in range(lim):
+                    pos = [i for i, c in enumerate(n_str)
+                           if c == val_replaced and (i or last_nb_can_chg)]
+                    for len_mask in range(len_mask_step, 1 + len(pos), len_mask_step):
+                        for pos_mask in itertools.combinations(pos, len_mask):
+                            val_mask = sum(pows[i] for i in pos_mask)
+                            if 1 + sum(1 for i in range(1, base - val_replaced) if primes[n + i * val_mask]) >= nb:
+                                return n
+        low = high
 
 
 def euler52(lim=6):
