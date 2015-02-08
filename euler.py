@@ -700,9 +700,9 @@ def euler71_():
     pass
 
 
-def euler72_():
+def euler72(lim=1000000):
     """Solution for problem 72."""
-    pass
+    return sum(totient(lim))
 
 
 def euler73_():
@@ -1674,6 +1674,8 @@ def main():
         assert euler69(10) == 6
         assert euler69(1000000) == 510510
         assert euler70() == 8319823
+        assert euler72(8) == 21
+        assert euler72() == 303963552391
         assert euler87(50) == 4
         assert euler87(50000000) == 1097343
         assert euler91_bruteforce(2) == 14

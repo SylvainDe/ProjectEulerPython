@@ -148,7 +148,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 71](https://projecteuler.net/problem=71)
 
-[Problem 72](https://projecteuler.net/problem=72)
+[Problem 72](https://projecteuler.net/problem=72) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L703) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1677) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1678)
 
 [Problem 73](https://projecteuler.net/problem=73)
 
@@ -178,7 +178,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 86](https://projecteuler.net/problem=86)
 
-[Problem 87](https://projecteuler.net/problem=87) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L778) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1677) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1678)
+[Problem 87](https://projecteuler.net/problem=87) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L778) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1679) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1680)
 
 [Problem 88](https://projecteuler.net/problem=88)
 
@@ -186,7 +186,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 90](https://projecteuler.net/problem=90)
 
-[Problem 91](https://projecteuler.net/problem=91) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L828) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1680) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1681)
+[Problem 91](https://projecteuler.net/problem=91) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L828) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1682) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1683)
 
 [Problem 92](https://projecteuler.net/problem=92)
 
@@ -198,13 +198,13 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 96](https://projecteuler.net/problem=96)
 
-[Problem 97](https://projecteuler.net/problem=97) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L884) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1682)
+[Problem 97](https://projecteuler.net/problem=97) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L884) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1684)
 
 [Problem 98](https://projecteuler.net/problem=98)
 
 [Problem 99](https://projecteuler.net/problem=99)
 
-[Problem 100](https://projecteuler.net/problem=100) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L900) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1683)
+[Problem 100](https://projecteuler.net/problem=100) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L900) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1685)
 
 [Problem 101](https://projecteuler.net/problem=101)
 
@@ -230,7 +230,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 112](https://projecteuler.net/problem=112)
 
-[Problem 113](https://projecteuler.net/problem=113) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1017) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1690) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1691) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1692)
+[Problem 113](https://projecteuler.net/problem=113) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1017) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1692) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1693) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1694)
 
 [Problem 114](https://projecteuler.net/problem=114)
 
@@ -252,13 +252,13 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 123](https://projecteuler.net/problem=123)
 
-[Problem 124](https://projecteuler.net/problem=124) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1081) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1693) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1694) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1695)
+[Problem 124](https://projecteuler.net/problem=124) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1081) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1695) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1696) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1697)
 
 [Problem 125](https://projecteuler.net/problem=125)
 
 [Problem 126](https://projecteuler.net/problem=126)
 
-[Problem 127](https://projecteuler.net/problem=127) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1100) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1696) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1697)
+[Problem 127](https://projecteuler.net/problem=127) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1100) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1698) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1699)
 
 [Problem 128](https://projecteuler.net/problem=128)
 
@@ -386,7 +386,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 190](https://projecteuler.net/problem=190)
 
-[Problem 191](https://projecteuler.net/problem=191) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1456) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1698) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1699)
+[Problem 191](https://projecteuler.net/problem=191) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1456) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1700) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1701)
 
 [Problem 192](https://projecteuler.net/problem=192)
 
@@ -432,7 +432,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 [Problem 213](https://projecteuler.net/problem=213)
 
-[Problem 214](https://projecteuler.net/problem=214) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1576) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1700) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1701)
+[Problem 214](https://projecteuler.net/problem=214) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1576) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1702) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L1703)
 
 [Problem 215](https://projecteuler.net/problem=215)
 
