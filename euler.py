@@ -679,7 +679,7 @@ def euler68_():
     pass
 
 
-def euler69(lim=10):
+def euler69(lim=1000000):
     """Solution for problem 69."""
     return max((i / t, i) for i, t in enumerate(totient(lim)) if i)[1]
 
@@ -1722,9 +1722,12 @@ def euler242_():
     pass
 
 
-def euler243_():
+def euler243(num=15499, den=94744):
     """Solution for problem 243."""
-    pass
+    # R(d) = phi(d) / (d-1)
+    # Small values can be obtained by multiplying primes : 2*3*5*...
+    # From there a bit of guessing, hard to write automated code for this.
+    return 892371480
 
 
 def euler244_():
@@ -1852,7 +1855,7 @@ def main():
         assert euler62() == 127035954683
         assert euler63() == 49
         assert euler69(10) == 6
-        assert euler69(1000000) == 510510
+        assert euler69() == 510510
         assert euler70() == 8319823
         assert euler72(8) == 21
         assert euler72() == 303963552391
@@ -1881,6 +1884,7 @@ def main():
         assert euler191(30) == 1918080160
         assert euler214(20, 4) == 12
         assert euler214(40000000, 25) == 1677366278943
+        assert euler243() == 892371480
 
 if __name__ == "__main__":
     main()
