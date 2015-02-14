@@ -1052,7 +1052,7 @@ def count_increasing_prime_set_with_digits(digits, start):
     len_dig = len(digits)
     len_str = len(str(start))
     last_dig_for_primes = set('1379')
-    for len_perm in range(len_str, 1 + len_dig//2):
+    for len_perm in range(len_str, 1 + len_dig // 2):
         for comb in itertools.combinations(digits, len_perm):
             rem_dig = digits - set(comb)
             if len_perm == 1 or (sum(int(d) for d in comb) % 3 and
