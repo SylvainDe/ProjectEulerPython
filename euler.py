@@ -1048,9 +1048,34 @@ def euler117_():
     pass
 
 
-def euler118_():
+def count_increasing_prime_set_with_digits(digits, start):
+    len_dig = len(digits)
+    len_str = len(str(start))
+    last_dig_for_primes = set('1379')
+    for len_perm in range(len_str, 1 + len_dig//2):
+        for comb in itertools.combinations(digits, len_perm):
+            rem_dig = digits - set(comb)
+            if len_perm == 1 or (sum(int(d) for d in comb) % 3 and
+                                 any(d in last_dig_for_primes for d in comb) and
+                                 any(d in last_dig_for_primes for d in rem_dig)):
+                big_rem = int(''.join(sorted(rem_dig, reverse=True)))
+                cand = [n for n in (int(''.join(p)) for p in itertools.permutations(comb)) if start < n < big_rem and is_prime(n)]
+                if cand:
+                    mini = min(cand)
+                    lst = list(count_increasing_prime_set_with_digits(rem_dig, mini))
+                    for c in cand:
+                        nb = sum(num for small, num in lst if c < small)
+                        if nb:
+                            yield (c, nb)
+
+    if len_dig == 1 or (sum(int(d) for d in digits) % 3 and any(d in last_dig_for_primes for d in digits)):
+        for c in [n for n in (int(''.join(p)) for p in itertools.permutations(digits)) if start < n and is_prime(n)]:
+            yield (c, 1)
+
+
+def euler118():
     """Solution for problem 118."""
-    pass
+    return sum(s for _, s in count_increasing_prime_set_with_digits(set('123456789'), 0))
 
 
 def euler119_():
@@ -1682,8 +1707,9 @@ def euler234_():
     pass
 
 
-def euler235_():
+def euler235_(x=900, y=-3, n=5000, v=-600000000000):
     """Solution for problem 235."""
+    # http://en.wikipedia.org/wiki/Arithmetico-geometric_sequence
     pass
 
 
@@ -1875,6 +1901,7 @@ def main():
         assert euler113(6) == 12951
         assert euler113(10) == 277032
         assert euler113() == 51161058134250
+        assert euler118() == 44680
         assert euler124(10, 4) == 8
         assert euler124(10, 6) == 9
         assert euler124() == 21417
