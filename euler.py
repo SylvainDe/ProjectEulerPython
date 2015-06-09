@@ -1814,7 +1814,7 @@ def euler491():
     pand = list(range(10))
     s = 2 * sum(pand)
     comb_len = len(pand)
-    prod_fact = math.factorial(comb_len) * math.factorial(comb_len-1)
+    prod_fact = math.factorial(comb_len) * math.factorial(comb_len - 1)
     total = 0
     # Next 6 lines are just a tedious but efficient way to generate distinct
     # combinations. "for c in itertools.combinations(numbers, comb_len):"
@@ -1825,7 +1825,7 @@ def euler491():
     # duplicates.
     for l in range(comb_len + 1):  # first 5 iterations are pointless but...
         nb_dup = comb_len - l
-        pow_two = 2**(2 * nb_dup)
+        pow_two = 2 ** (2 * nb_dup)
         for dist_dig in itertools.combinations(pand, l):
             for dup in itertools.combinations(dist_dig, nb_dup):
                 c = dist_dig + dup
