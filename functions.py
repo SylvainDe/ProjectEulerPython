@@ -35,7 +35,7 @@ def lcmm(*args):
 def yield_pythagorean_triples_of_peri(p):
     """ http://en.wikipedia.org/wiki/Pythagorean_triple
     a = k . (m^2 - n^2), b = k . (2mn), c = k . (m^2 + n^2)
-    where m, n, and k are positive integers with m > n, m − n odd, and with m and n coprime.
+    where m, n, and k are positive integers with m > n, m - n odd, and with m and n coprime.
     p = 2mk . (m + n)."""
     if p % 2:
         return
