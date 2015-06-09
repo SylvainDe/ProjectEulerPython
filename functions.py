@@ -8,6 +8,11 @@ import math
 from prime import yield_divisors
 
 
+def ceil(n):
+    """ Returns the ceiling of x as an int."""
+    return int(math.ceil(n))
+
+
 def fibo(f=1, g=1):
     """Yields Fibonacci numbers."""
     while True:

@@ -10,6 +10,7 @@ import collections
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
+from functions import ceil
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 from functions import Tn, Pn, Hn, isPn, champernowne_digit
 
@@ -454,7 +455,7 @@ def euler45(nb_fact=4):
 def euler46():
     """Solution for problem 46."""
     for i in itertools.count(9, 2):
-        if not is_prime(i) and not any(is_prime(i - 2 * n * n) for n in range(1, math.ceil(math.sqrt(i // 2)))):
+        if not is_prime(i) and not any(is_prime(i - 2 * n * n) for n in range(1, ceil(math.sqrt(i // 2)))):
             return i
 
 
@@ -648,7 +649,7 @@ def euler63():
     # exp((n-1) * log(10) / n) <= x < 10
     # and LHS becomes bigger than 9 at n = 22
     return sum(
-        10 - math.ceil(math.exp((n - 1) * math.log(10) / n))
+        10 - ceil(math.exp((n - 1) * math.log(10) / n))
         for n in range(1, 22))
 
 
