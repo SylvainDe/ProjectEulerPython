@@ -434,20 +434,19 @@ def euler44():
 
 def euler45(nb_fact=4):
     """Solution for problem 45."""
-    t, tn = 0, 0
-    p, pn = 0, 0
-    h, hn = 0, 0
+    t_gen = (Tn(n) for n in itertools.count())
+    p_gen = (Pn(n) for n in itertools.count())
+    h_gen = (Hn(n) for n in itertools.count())
+    t, p, h = next(t_gen), next(p_gen), next(h_gen)
     while True:
         if p > t:
-            t, tn = Tn(tn + 1), tn + 1
+            t = next(t_gen)
         elif t > p or h > p:
-            p, pn = Pn(pn + 1), pn + 1
+            p = next(p_gen)
         elif p > h:
-            h, hn = Hn(hn + 1), hn + 1
+            h = next(h_gen)
         elif t in [0, 1, 40755]:
-            t, tn = Tn(tn + 1), tn + 1
-            p, pn = Pn(pn + 1), pn + 1
-            h, hn = Hn(hn + 1), hn + 1
+            t, p, h = next(t_gen), next(p_gen), next(h_gen)
         else:
             return t
 
