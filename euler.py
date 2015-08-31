@@ -808,9 +808,25 @@ def euler89_():
     pass
 
 
-def euler90_():
+def euler90():
     """Solution for problem 90."""
-    pass
+    base = 10
+    nb_face = 6
+
+    def substitute(n):
+        assert 0 <= n < base
+        return 6 if n == 9 else n
+    # The values we want to display with 9 replaced by 6
+    squares = [tuple(substitute(n) for n in divmod(i * i, base)) for i in range(1, base)]
+    # Possible dice arrangements with 9 replaced by 6 to make the logic easier
+    permutations = (set(substitute(n) for n in p)
+                    for p in itertools.combinations(range(base), nb_face))
+    # Filtering arrangements as an optimisation
+    candidates = (p for p in permutations
+                  if all((a in p or b in p) for a, b in squares))
+    # Counting the matching arrangements
+    return sum(1 for (c1, c2) in itertools.combinations(candidates, 2)
+               if all(((a in c1 and b in c2) or (b in c1 and a in c2)) for a, b in squares))
 
 
 def euler91_bruteforce(size=50):
@@ -1030,11 +1046,13 @@ def euler113(ten_pow=100):
 
 def euler114_():
     """Solution for problem 114."""
+    # C solution on bitbucket
     pass
 
 
 def euler115_():
     """Solution for problem 115."""
+    # C solution on bitbucket
     pass
 
 
@@ -1342,9 +1360,18 @@ def euler163_():
     pass
 
 
-def euler164_():
+def euler164():
     """Solution for problem 164."""
-    pass
+    # Dynamic programming
+    nb = {i: 1 for i in range(1, 10)}
+    for _ in range(2, 21):
+        new = collections.defaultdict(int)
+        for i, n in nb.items():
+            i1, i2 = divmod(i, 10)
+            for i3 in range(10 - i1 - i2):
+                new[10 * i2 + i3] += n
+        nb = new
+    return sum(nb.values())
 
 
 def euler165_():
@@ -1440,7 +1467,7 @@ def euler182_():
 
 def euler183_():
     """Solution for problem 183."""
-    pass
+    pass  # Solution on bitbucket to be copied
 
 
 def euler184_():
@@ -1609,7 +1636,7 @@ def euler214(lim=40000000, length=25):
 
 def euler215_():
     """Solution for problem 215."""
-    pass
+    pass  # Solution on bitbucket to be copied
 
 
 def euler216_():
@@ -1659,7 +1686,7 @@ def euler224_():
 
 def euler225_():
     """Solution for problem 225."""
-    pass
+    pass  # Solution on bitbucket to be copied
 
 
 def euler226_():
@@ -1789,6 +1816,16 @@ def euler249_():
 def euler250_():
     """Solution for problem 250."""
     pass
+
+
+def euler265_():
+    """Solution for problem 265."""
+    pass  # Solution on bitbucket to be copied
+
+
+def euler303_():
+    """Solution for problem 301."""
+    pass  # Solution on bitbucket to be copied
 
 
 def euler491():
@@ -1930,6 +1967,7 @@ def main():
         assert euler72() == 303963552391
         assert euler87(50) == 4
         assert euler87(50000000) == 1097343
+        assert euler90() == 1217
         assert euler91_bruteforce(2) == 14
         assert euler91(2) == 14
         assert euler91() == 14234
@@ -1950,6 +1988,7 @@ def main():
         assert euler124() == 21417
         assert euler127(1000) == 12523
         assert euler127() == 18407904
+        assert euler164() == 378158756814587
         assert euler191(4) == 43
         assert euler191(30) == 1918080160
         assert euler214(20, 4) == 12

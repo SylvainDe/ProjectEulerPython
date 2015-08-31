@@ -6,7 +6,7 @@ import re
 
 PE_URL = "[%s](https://projecteuler.net/problem=%d)"
 GITUHB_URL = "[%s](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L%d)"
-NB_PROB = 250
+NB_PROB = 500
 
 RE_DEF = re.compile('^def euler([0-9]+)\(')
 RE_TEST = re.compile('^assert euler([0-9]+)\(')
