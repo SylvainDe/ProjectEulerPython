@@ -1684,9 +1684,20 @@ def euler224_():
     pass
 
 
-def euler225_():
+def euler225(num=124):
     """Solution for problem 225."""
-    pass  # Solution on bitbucket to be copied
+    def has_mod_property(n):
+        s = set()
+        t1 = t2 = t3 = 1
+        while True:
+            if t3 == 0:
+                return False
+            if ((t1, t2, t3)) in s:
+                return True
+            s.add((t1, t2, t3))
+            t1, t2, t3 = t2, t3, (t1 + t2 + t3) % n
+
+    return nth((i for i in itertools.count(1, 2) if has_mod_property(i)), num - 1)
 
 
 def euler226_():
@@ -1824,7 +1835,7 @@ def euler265_():
 
 
 def euler303_():
-    """Solution for problem 301."""
+    """Solution for problem 303."""
     pass  # Solution on bitbucket to be copied
 
 
@@ -1993,6 +2004,8 @@ def main():
         assert euler191(30) == 1918080160
         assert euler214(20, 4) == 12
         assert euler214(40000000, 25) == 1677366278943
+        assert euler225(1) == 27
+        assert euler225() == 2009
         assert euler243() == 892371480
         assert euler491() == 194505988824000
 
