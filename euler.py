@@ -1634,9 +1634,24 @@ def euler214(lim=40000000, length=25):
     return sum(i for i, (l, t) in enumerate(zip(chains, tot)) if l == length and i == t + 1)
 
 
-def euler215_():
+def euler215(L=32, H=10):
     """Solution for problem 215."""
-    pass  # Solution on bitbucket to be copied
+    # I have no idea how this was supposed to work
+    # but there must be a better/faster way
+    crack = {0: [[]]}
+    for l in range(1, L + 1):
+        crack[l] = [i + ([l - s] if l - s > 0 else []) for s in [2, 3] for i in crack.get(l - s, [])]
+    rows = crack[L]
+    compat = [(i, j) for (i, r), (j, s) in itertools.combinations(enumerate(rows), 2) if all(e not in r for e in s)]
+
+    comb = {i: 1 for i in range(len(rows))}
+    for h in range(1, H):
+        new_comb = collections.defaultdict(int)
+        for i, j in compat:
+            new_comb[j] += comb[i]
+            new_comb[i] += comb[j]
+        comb = new_comb
+    return sum(comb.values())
 
 
 def euler216_():
@@ -2004,6 +2019,8 @@ def main():
         assert euler191(30) == 1918080160
         assert euler214(20, 4) == 12
         assert euler214(40000000, 25) == 1677366278943
+        assert euler215(9, 3) == 8
+        assert euler215() == 806844323190414
         assert euler225(1) == 27
         assert euler225() == 2009
         assert euler243() == 892371480
