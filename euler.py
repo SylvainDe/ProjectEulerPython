@@ -618,6 +618,7 @@ def euler59_():
 
 def euler60_():
     """Solution for problem 60."""
+    # awful C solution on PE https://projecteuler.net/thread=60;page=3#20807
     pass
 
 
@@ -676,6 +677,7 @@ def euler67_():
 
 def euler68_():
     """Solution for problem 68."""
+    # awful C solution on PE https://projecteuler.net/thread=68;page=3#21386
     pass
 
 
@@ -717,6 +719,7 @@ def euler74_():
 
 def euler75_():
     """Solution for problem 75."""
+    # awful C solution on PE https://projecteuler.net/thread=75;page=3#21158
     pass
 
 
@@ -1118,6 +1121,7 @@ def euler122_():
 
 def euler123_():
     """Solution for problem 123."""
+    # C solution on PE https://projecteuler.net/thread=123;page=3#21789
     pass
 
 
@@ -1417,6 +1421,7 @@ def euler172_():
 
 def euler173_():
     """Solution for problem 173."""
+    # decent looking C on PE https://projecteuler.net/thread=173;page=2#21231
     pass
 
 
@@ -1447,6 +1452,7 @@ def euler178_():
 
 def euler179_():
     """Solution for problem 179."""
+    # braceless C on PE https://projecteuler.net/thread=179;page=4#21050
     pass
 
 
@@ -1487,6 +1493,7 @@ def euler186_():
 
 def euler187_():
     """Solution for problem 187."""
+    # slow C solution on PE https://projecteuler.net/thread=187#20276
     pass
 
 
@@ -1502,6 +1509,7 @@ def euler189_():
 
 def euler190_():
     """Solution for problem 190."""
+    # C solution on PE https://projecteuler.net/thread=190#21099
     pass
 
 
