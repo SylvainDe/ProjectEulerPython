@@ -1493,8 +1493,8 @@ def euler182_():
 
 def k_max_for_euler183(n):
     # P(x) = (N/x)^x has a maximum in x = N/e
-    m = n/math.e
-    return max(math.floor(m), math.ceil(m), key=lambda val: val*math.log(n/val))  # keeps ordering
+    m = n / math.e
+    return max(math.floor(m), math.ceil(m), key=lambda val: val * math.log(n / val))  # keeps ordering
 
 
 def euler183(lim=10000):
@@ -1512,7 +1512,7 @@ def euler183(lim=10000):
                     b /= d
         return b == 1
     return sum(n * (-1 if fraction_is_finite(n, k_max_for_euler183(n), 10) else 1)
-               for n in range(5, lim+1))
+               for n in range(5, lim + 1))
 
 
 def euler184_():
