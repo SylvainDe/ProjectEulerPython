@@ -1491,9 +1491,28 @@ def euler182_():
     pass
 
 
-def euler183_():
+def k_max_for_euler183(n):
+    # P(x) = (N/x)^x has a maximum in x = N/e
+    m = n/math.e
+    return max(math.floor(m), math.ceil(m), key=lambda val: val*math.log(n/val))  # keeps ordering
+
+
+def euler183(lim=10000):
     """Solution for problem 183."""
-    pass  # Solution on bitbucket to be copied
+    def fraction_is_finite(a, b, base):
+        # computing powers does not change "finiteness"
+        # (a/b)^n is as "finite" as (a/b)
+        # which is as "finite" as :
+        # (a/gcd(a,b)) / (b/gcd(a,b)) or
+        # 1 / (b/gcd(a,b))
+        b /= gcd(a, b)
+        for d in range(2, base):
+            if base % d == 0:
+                while b % d == 0:
+                    b /= d
+        return b == 1
+    return sum(n * (-1 if fraction_is_finite(n, k_max_for_euler183(n), 10) else 1)
+               for n in range(5, lim+1))
 
 
 def euler184_():
@@ -2043,6 +2062,10 @@ tests = [
     (euler127, (1000,), 12523),
     (euler127, (), 18407904),
     (euler164, (), 378158756814587),
+    (k_max_for_euler183, (11,), 4),
+    (k_max_for_euler183, (8,), 3),
+    (euler183, (100,), 2438),
+    (euler183, (), 48861552),
     (euler191, (4,), 43),
     (euler191, (30,), 1918080160),
     (euler214, (20, 4), 12),
