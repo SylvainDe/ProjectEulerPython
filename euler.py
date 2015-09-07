@@ -13,6 +13,7 @@ from prime import is_prime, prime_divisors_sieve, mult
 from functions import ceil
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 from functions import Tn, Pn, Hn, isPn, champernowne_digit
+from timeit import default_timer as timer
 
 
 def euler1(lim=1000):
@@ -1904,135 +1905,154 @@ def euler491():
                     total += len([x for x in c if x]) * prod_fact // pow_two
     return total
 
+tests = [
+        (euler1, (10,), 23),
+        (euler1, (), 233168),
+        (euler2, (), 4613732),
+        (euler3, (13195,), 29),
+        (euler3, (), 6857),
+        (euler4, (2,), 9009),
+        (euler4, (), 906609),
+        (euler5, (10,), 2520),
+        (euler5, (), 232792560),
+        (euler6, (10,), 2640),
+        (euler6, (), 25164150),
+        (euler7, (6,), 13),
+        (euler7, (), 104743),
+        (euler8, (4,), 5832),
+        (euler8, (), 23514624000),
+        (euler9, (), 31875000),
+        (euler10, (10,), 17),
+        (euler10, (), 142913828922),
+        (euler12, (5,), 28),
+        (euler12, (), 76576500),
+        (euler14, (), 837799),
+        (euler15, (2, 2), 6),
+        (euler15, (), 137846528820),
+        (euler16, (15,), 26),
+        (euler16, (), 1366),
+        (euler19, (), 171),
+        (euler20, (10,), 27),
+        (euler20, (), 648),
+        (euler21, (), 31626),
+        (euler22, (), 871198282),
+        (euler23, (), 4179871),
+        (euler24, (), 2783915460),
+        (euler25, (3,), 12),
+        (euler25, (), 4782),
+        (euler26, (11,), 7),
+        (euler26, (), 983),
+        (euler27, (), -59231),
+        (euler28, (5,), 101),
+        (euler28, (), 669171001),
+        (euler29, (5, 5), 15),
+        (euler29, (), 9183),
+        (euler30, (), 443839),
+        (euler31, (), 73682),
+        (euler32, (), 45228),
+        (euler33, (), 100),
+        (euler34, (), 40730),
+        (euler35, (2,), 13),
+        (euler35, (), 55),
+        (euler36, (), 872187),
+        (euler37, (), 748317),
+        (euler38, (), 932718654),
+        (euler39, (), 840),
+        (euler40, (), 210),
+        (euler41, (), 7652413),
+        (euler43, (), 16695334890),
+        (euler44, (), 5482660),
+        (euler45, (), 1533776805),
+        (euler46, (), 5777),
+        (euler47, (2,), 14),
+        (euler47, (3,), 644),
+        (euler47, (), 134043),
+        (euler48, (10, 10), 405071317),
+        (euler48, (), 9110846700),
+        (euler49, (1,), None),
+        (euler49, (2,), None),
+        (euler49, (3,), None),
+        (euler49, (), 296962999629),
+        (euler50, (100,), 41),
+        (euler50, (1000,), 953),
+        (euler50, (), 997651),
+        (euler51, (2,), 2),
+        (euler51, (3,), 2),
+        (euler51, (4,), 2),
+        (euler51, (5,), 11),
+        (euler51, (6,), 13),
+        (euler51, (7,), 56003),
+        (euler51, (), 121313),
+        (euler52, (2,), 125874),
+        (euler52, (), 142857),
+        (euler57, (10,), 1),
+        (euler57, (), 153),
+        (euler58, (), 26241),
+        (euler62, (3,), 41063625),
+        (euler62, (), 127035954683),
+        (euler63, (), 49),
+        (euler69, (10,), 6),
+        (euler69, (), 510510),
+        (euler70, (), 8319823),
+        (euler72, (8,), 21),
+        (euler72, (), 303963552391),
+        (euler87, (50,), 4),
+        (euler87, (50000000,), 1097343),
+        (euler90, (), 1217),
+        (euler91_bruteforce, (2,), 14),
+        (euler91, (2,), 14),
+        (euler91, (), 14234),
+        (euler97, (), 8739992577),
+        (euler100, (), 756872327473),
+        (euler104_, (False, False), 1),
+        (euler104_, (False, True), 541),
+        (euler104_, (True, False), 2749),
+        # (euler104_, (True, True), "?"),
+        (euler112_, (90,), 21780),
+        # (euler112_, (), "?"),
+        (euler113, (6,), 12951),
+        (euler113, (10,), 277032),
+        (euler113, (), 51161058134250),
+        (euler118, (), 44680),
+        (euler124, (10, 4), 8),
+        (euler124, (10, 6), 9),
+        (euler124, (), 21417),
+        (euler127, (1000,), 12523),
+        (euler127, (), 18407904),
+        (euler164, (), 378158756814587),
+        (euler191, (4,), 43),
+        (euler191, (30,), 1918080160),
+        (euler214, (20, 4), 12),
+        (euler214, (40000000, 25), 1677366278943),
+        (euler215, (9, 3), 8),
+        (euler215, (), 806844323190414),
+        (euler225, (1,), 27),
+        (euler225, (), 2009),
+        (euler243, (), 892371480),
+        (euler491, (), 194505988824000),
+]
+
+
+def run_tests():
+    """Run tests"""
+    nb_fail = 0
+    sum_time = 0
+    for func, arg, res in tests:
+        start = timer()
+        ret = func(*arg)
+        end = timer()
+        time = end - start
+        test_ok = ret == res
+        nb_fail += 0 if test_ok else 1
+        sum_time += time
+        print(func.__name__, test_ok, "%.3f" % time)
+    print("%d failures in %.3f" % (nb_fail, sum_time))
+    return nb_fail
+
 
 def main():
     """Main function"""
-    print("Hello, world!")
-    if True:
-        assert euler1(10) == 23
-        assert euler1() == 233168
-        assert euler2() == 4613732
-        assert euler3(13195) == 29
-        assert euler3() == 6857
-        assert euler4(2) == 9009
-        assert euler4() == 906609
-        assert euler5(10) == 2520
-        assert euler5() == 232792560
-        assert euler6(10) == 2640
-        assert euler6() == 25164150
-        assert euler7(6)
-        assert euler7() == 104743
-        assert euler8(4) == 5832
-        assert euler8() == 23514624000
-        assert euler9() == 31875000
-        assert euler10(10) == 17
-        assert euler10() == 142913828922
-        assert euler12(5) == 28
-        assert euler12() == 76576500
-        assert euler14() == 837799
-        assert euler15(2, 2) == 6
-        assert euler15() == 137846528820
-        assert euler16(15) == 26
-        assert euler16() == 1366
-        assert euler19() == 171
-        assert euler20(10) == 27
-        assert euler20() == 648
-        assert euler21() == 31626
-        assert euler22() == 871198282
-        assert euler23() == 4179871
-        assert euler24() == 2783915460
-        assert euler25(3) == 12
-        assert euler25() == 4782
-        assert euler26(11) == 7
-        assert euler26() == 983
-        assert euler27() == -59231
-        assert euler28(5) == 101
-        assert euler28() == 669171001
-        assert euler29(5, 5) == 15
-        assert euler29() == 9183
-        assert euler30() == 443839
-        assert euler31() == 73682
-        assert euler32() == 45228
-        assert euler33() == 100
-        assert euler34() == 40730
-        assert euler35(2) == 13
-        assert euler35() == 55
-        assert euler36() == 872187
-        assert euler37() == 748317
-        assert euler38() == 932718654
-        assert euler39() == 840
-        assert euler40() == 210
-        assert euler41() == 7652413
-        assert euler43() == 16695334890
-        assert euler44() == 5482660
-        assert euler45() == 1533776805
-        assert euler46() == 5777
-        assert euler47(2) == 14
-        assert euler47(3) == 644
-        assert euler47()
-        assert euler48(10, 10) == 405071317
-        assert euler48() == 9110846700
-        assert euler49(1) is None
-        assert euler49(2) is None
-        assert euler49(3) is None
-        assert euler49() == 296962999629
-        assert euler50(100) == 41
-        assert euler50(1000) == 953
-        assert euler50() == 997651
-        assert euler51(2) == 2
-        assert euler51(3) == 2
-        assert euler51(4) == 2
-        assert euler51(5) == 11
-        assert euler51(6) == 13
-        assert euler51(7) == 56003
-        assert euler51() == 121313
-        assert euler52(2) == 125874
-        assert euler52() == 142857
-        assert euler57(10) == 1
-        assert euler57() == 153
-        assert euler58() == 26241
-        assert euler62(3) == 41063625
-        assert euler62() == 127035954683
-        assert euler63() == 49
-        assert euler69(10) == 6
-        assert euler69() == 510510
-        assert euler70() == 8319823
-        assert euler72(8) == 21
-        assert euler72() == 303963552391
-        assert euler87(50) == 4
-        assert euler87(50000000) == 1097343
-        assert euler90() == 1217
-        assert euler91_bruteforce(2) == 14
-        assert euler91(2) == 14
-        assert euler91() == 14234
-        assert euler97() == 8739992577
-        assert euler100() == 756872327473
-        assert euler104_(False, False) == 1
-        assert euler104_(False, True) == 541
-        assert euler104_(True, False) == 2749
-        # TOO SLOW : euler104(True, True)
-        assert euler112_(90) == 21780
-        # TOO SLOW : print(euler112())
-        assert euler113(6) == 12951
-        assert euler113(10) == 277032
-        assert euler113() == 51161058134250
-        assert euler118() == 44680
-        assert euler124(10, 4) == 8
-        assert euler124(10, 6) == 9
-        assert euler124() == 21417
-        assert euler127(1000) == 12523
-        assert euler127() == 18407904
-        assert euler164() == 378158756814587
-        assert euler191(4) == 43
-        assert euler191(30) == 1918080160
-        assert euler214(20, 4) == 12
-        assert euler214(40000000, 25) == 1677366278943
-        assert euler215(9, 3) == 8
-        assert euler215() == 806844323190414
-        assert euler225(1) == 27
-        assert euler225() == 2009
-        assert euler243() == 892371480
-        assert euler491() == 194505988824000
+    return run_tests()
 
 if __name__ == "__main__":
-    main()
+    exit(main())
