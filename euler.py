@@ -1139,7 +1139,7 @@ def yield_interesting_119(base=10):
 
 def euler119(n=30):
     """Solution for problem 119."""
-    return nth(yield_interesting_119(), n-1)
+    return nth(yield_interesting_119(), n - 1)
 
 
 def euler120_():
