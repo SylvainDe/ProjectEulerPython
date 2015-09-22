@@ -1119,9 +1119,27 @@ def euler118():
     return sum(s for _, s in count_increasing_prime_set_with_digits(set('123456789'), 0))
 
 
-def euler119_():
+def yield_interesting_119(base=10):
+    """Generate interesting numbers for problem 119."""
+    for nb_digits in itertools.count(2):
+        min_val = base ** (nb_digits - 1)
+        max_val = min_val * 10
+        candidates = []
+        for dig_sum in range(2, (base - 1) * nb_digits):
+            n = dig_sum
+            while n < min_val:
+                n *= dig_sum
+            while n < max_val:
+                if sum(int(d) for d in str(n)) == dig_sum:
+                    candidates.append(n)
+                n *= dig_sum
+        for c in sorted(candidates):
+            yield c
+
+
+def euler119(n=30):
     """Solution for problem 119."""
-    pass
+    return nth(yield_interesting_119(), n-1)
 
 
 def euler120_():
@@ -2056,6 +2074,9 @@ tests = [
     (euler115, (3,), 30),
     (euler115, (), 168),
     (euler118, (), 44680),
+    (euler119, (2,), 512),
+    (euler119, (10,), 614656),
+    (euler119, (), 248155780267521),
     (euler124, (10, 4), 8),
     (euler124, (10, 6), 9),
     (euler124, (), 21417),
