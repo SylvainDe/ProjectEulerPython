@@ -10,7 +10,7 @@ GITUHB_URL = "[%s](https://github.com/SylvainDe/ProjectEulerPython/blob/master/e
 NB_PROB = 500
 
 RE_DEF = re.compile('^def euler([0-9]+)\(')
-RE_TEST = re.compile('^assert euler([0-9]+)\(')
+RE_TEST = re.compile('\(euler([0-9]+),')
 
 
 def main():
