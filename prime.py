@@ -106,7 +106,7 @@ def yield_divisors(n):
         yield n
         for i in range(2, int(math.sqrt(n)) + 1):
             if n % i == 0:
-                j = n//i
+                j = n // i
                 yield i
                 if i != j:
                     yield j
