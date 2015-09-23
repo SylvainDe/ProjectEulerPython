@@ -727,7 +727,7 @@ def euler75(lim=1500000):
     # p = 2*m*(m+n)*d
     # with : pgcd(m,n)=1 and m < n < 2*m.
     diff_c = [0] * (1 + lim)  # 0: no solution / -1: more than 1 solution
-    for m in range(1 + int(math.sqrt(lim/2))):
+    for m in range(1 + int(math.sqrt(lim / 2))):
         m2 = m * m
         for k in range(m + 1, 2 * m):  # k = n + m
             if gcd(m, k) == 1:
