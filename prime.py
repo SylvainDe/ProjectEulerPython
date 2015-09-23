@@ -106,8 +106,10 @@ def yield_divisors(n):
         yield n
         for i in range(2, int(math.sqrt(n)) + 1):
             if n % i == 0:
+                j = n//i
                 yield i
-                yield n // i
+                if i != j:
+                    yield j
 
 
 def nb_divisors(n):
@@ -131,11 +133,12 @@ def main():
             break
         primes2.append(p)
     assert primes == primes2
-    assert all(
-        nb_divisors(p) == 2 and
-        nb_prime_divisors(p) == 1 and
-        prime_factors_list(p) == [p]
-        for p in primes)
+    for p in primes:
+        assert len(list(yield_divisors(p))) == nb_divisors(p) == 2, p
+        assert nb_prime_divisors(p) == 1, p
+        assert prime_factors_list(p) == [p], p
+    for n in range(1, 1000):
+        assert len(list(yield_divisors(n))) == nb_divisors(n), n
 
 if __name__ == "__main__":
     main()

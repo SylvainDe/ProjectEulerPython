@@ -103,6 +103,14 @@ def main():
     champernowne_string = ''.join(str(i) for i in range(1, 10005))
     for i, d in enumerate(champernowne_string):
         assert champernowne_digit(i) == int(d)
+    for n in range(1, 100):
+        triplets = list(yield_pythagorean_triples_of_peri(n))
+        for a, b, c in triplets:
+            assert a + b + c == n
+            assert a * a + b * b == c * c
+            assert 0 < a < c
+            assert 0 < b < c
+        assert len(triplets) == len(set(triplets)), n
 
 
 if __name__ == "__main__":
