@@ -1998,7 +1998,7 @@ def euler500_(pow_of_two=500500, mod=500500507):
     for _ in range(pow_of_two):
         val, prime, power = heapq.heappop(heap)
         # heapq.heappush(heap, (2 * power * math.log(prime), prime, 2*power))
-        heapq.heappush(heap, (val ** 2, prime, 2*power))
+        heapq.heappush(heap, (val ** 2, prime, 2 * power))
         if prime == last_prime:
             last_prime = next(prime_gen)
             # heapq.heappush(heap, (math.log(last_prime), last_prime, 1))
