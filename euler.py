@@ -2144,22 +2144,38 @@ tests = [
     (euler225, (), 2009),
     (euler243, (), 892371480),
     (euler491, (), 194505988824000),
+    (euler500_, (4,), 120),
+    (euler500_, (5,), 840),
+    (euler500_, (6,), 7560),
+    (euler500_, (7,), 83160),
+    (euler500_, (8,), 1081080),
+    # (euler500_, (9,), 17297280),
+    # (euler500_, (10,), 294053760),
+    # (euler500_, (200,), 482867762),
+    # (euler500_, (5000,), 212898634),
+    # (euler500_, (10000,), None),
+    # (euler500_, (50000,), None),
+    # (euler500_, (100000,), None),
+    # (euler500_, (), None),
 ]
 
 
-def run_tests():
+def run_tests(tested_func=None):
     """Run tests"""
     nb_fail = 0
     sum_time = 0
     for func, arg, res in tests:
-        start = timer()
-        ret = func(*arg)
-        end = timer()
-        time = end - start
-        test_ok = ret == res
-        nb_fail += 0 if test_ok else 1
-        sum_time += time
-        print(func.__name__, test_ok, "%.3f" % time)
+        if tested_func is None or tested_func == func:
+            start = timer()
+            ret = func(*arg)
+            end = timer()
+            time = end - start
+            sum_time += time
+            if ret == res:
+                print(func.__name__, "OK", "%.3f" % time)
+            else:
+                nb_fail += 1
+                print(func.__name__, "exp:", res, "got:", ret, "%.3f" % time)
     print("%d failures in %.3f" % (nb_fail, sum_time))
     return nb_fail
 
