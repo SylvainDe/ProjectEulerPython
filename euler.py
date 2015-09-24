@@ -7,6 +7,7 @@ import string
 import math
 import itertools
 import collections
+import heapq
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
@@ -1981,6 +1982,29 @@ def euler491():
                 if (2 * sum(c) - s) % 11 == 0:
                     total += len([x for x in c if x]) * prod_fact // pow_two
     return total
+
+
+def euler500_(pow_of_two=500500, mod=500500507):
+    """Solution for problem 500."""
+    # nb_divisors(p_i^k_i * ... p_n^k_n) = (1+k_i) * .. (1+k_n)
+    # when nb_divisors is a power of 2, all terms must be powers of 2.
+    # we are looking for smallest value : p_1^k_1 * ... p_n^k_n
+    # such that 1+k_i are powers of 2
+    # so powers (k_i) can be written 2^n - 1.
+    prime_gen = yield_primes()
+    last_prime = next(prime_gen)
+    # heap = [(math.log(last_prime), last_prime, 1)]
+    heap = [(last_prime, last_prime, 1)]
+    for _ in range(pow_of_two):
+        val, prime, power = heapq.heappop(heap)
+        # heapq.heappush(heap, (2 * power * math.log(prime), prime, 2*power))
+        heapq.heappush(heap, (val ** 2, prime, 2*power))
+        if prime == last_prime:
+            last_prime = next(prime_gen)
+            # heapq.heappush(heap, (math.log(last_prime), last_prime, 1))
+            heapq.heappush(heap, (last_prime, last_prime, 1))
+    return mult(pow(prime, power - 1, mod) for val, prime, power in heap) % mod
+
 
 tests = [
     (euler1, (10,), 23),
