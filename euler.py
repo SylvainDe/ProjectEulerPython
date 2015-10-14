@@ -632,7 +632,7 @@ def euler61_():
 def euler62(nb_perm=5):
     """Solution for problem 62."""
     cube_perm, l = {}, None
-    for i in range(100000):
+    for i in itertools.count():
         c = i * i * i
         new_l = len(str(c))
         if l != new_l:
