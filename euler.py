@@ -1259,9 +1259,50 @@ def euler130_():
     pass
 
 
-def euler131_():
+def euler131(lim=1000000):
     """Solution for problem 131."""
-    pass
+    # m^3 = n^3 + p*n^2 = n*n*(n+p)
+    # 1) Proof that this is equivalent to n and (n+p) being perfect cube
+    # Let m     = prod(pi^ei) be the prime decomposition of m
+    #     n     = prod(pi^fi)                               n
+    #     (n+p) = prod(pi^gi)                               (n+p)
+    # Let's prove that n and (n+p) must be perfect cube ie gi and fi
+    # are all multiple of 3.
+    # m^3 = prod(pi^(3*ei))      is the prime decomposition of m^3
+    #     = prod(pi^(2*fi + gi))
+    # For all primes pi, 3*ei = 2*fi + gi
+    # For any "real prime factor" (ie, ei != 0):
+    #  - if fi = 0 => gi is a multiple of 3 (and so is fi)
+    #  - if gi = 0 => fi is a multiple of 3 (and so is gi)
+    #  - if fi != 0 and gi != 0:
+    #       => pi divides n and n+p
+    #       => pi divides p (and p is prime)
+    #       => pi = p
+    #       => n = k*p
+    #       => m^3 = k*p*k*p*(k*p+1*p) = p^3 * (k*k*(k+1))
+    #       Dividing by p^3 on both side, we'd need k*k*(k+1) to be a
+    #       perfect cube but its obviously between two consecutives cubes :
+    #       k^3 and (k+1)^3 so this is not possible.
+    # Therefore, for each prime divisor pi, pi has a power divisible by 3 in
+    # n and n+p so n and n+p are both cubes.
+    # In the other direction, if n and (n+p) are perfect cube, n*n*(n+p)
+    # obviously is.
+    # 2) Proof that p = 3*b^2 + 3*b + 1 with b positive integer
+    # If n = b^3 and n+p = a^3 with a > b > 0
+    # Then, p = n+p - n = a^3 - b^3 = (a-b) (a^2 + ab + b^2)
+    # Because p is prime, we must have : a - b = 1 <=> a = b + 1
+    # So p = (b+1)^2 + (b+1)*b + b^2 = b^2 + 2b + 1 + b^2 + b + b^2
+    #      = 3*b^2 + 3*b + 1
+    # Any *prime* value 3*b^2 + 3*b + 1 would be a solution
+    # (with n = b^3 and m = b*b*a = b*b*(b+1)).
+    count = 0
+    for b in itertools.count():
+        p = 3 * b * b + 3 * b + 1
+        if p > lim:
+            break
+        if is_prime(p):
+            count += 1
+    return count
 
 
 def euler132_():
@@ -2129,6 +2170,8 @@ tests = [
     (euler124, (), 21417),
     (euler127, (1000,), 12523),
     (euler127, (), 18407904),
+    (euler131, (100, ), 4),
+    (euler131, (), 173),
     (euler164, (), 378158756814587),
     (k_max_for_euler183, (11,), 4),
     (k_max_for_euler183, (8,), 3),
