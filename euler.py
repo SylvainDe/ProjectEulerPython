@@ -278,8 +278,10 @@ def euler30():
     return sum(n for n, l in dict_sum.items() if [c for c in sorted(str(n)) if c != '0'] in l)
 
 
-def euler31(obj=200, coins=[1, 2, 5, 10, 20, 50, 100, 200]):
+def euler31(obj=200, coins=None):
     """Solution for problem 31."""
+    if coins is None:
+        coins = [1, 2, 5, 10, 20, 50, 100, 200]
     nb_ways = [1] + [0] * obj
     for c in coins:
         for v in range(obj + 1 - c):
