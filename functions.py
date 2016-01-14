@@ -71,6 +71,11 @@ def Hn(n):
     return n * (2 * n - 1)
 
 
+def polygonal(k, n):
+    """ Polygonal numbers - https://en.wikipedia.org/wiki/Polygonal_number """
+    return n + (k-2) * n * (n-1) // 2
+
+
 def isPn(x):
     " Test if pentagonal."""
     if x == 0:
@@ -111,6 +116,10 @@ def main():
             assert 0 < a < c
             assert 0 < b < c
         assert len(triplets) == len(set(triplets)), n
+    for n in range(1, 100):
+        assert Tn(n) == polygonal(3, n)
+        assert Pn(n) == polygonal(5, n)
+        assert Hn(n) == polygonal(6, n)
 
 
 if __name__ == "__main__":
