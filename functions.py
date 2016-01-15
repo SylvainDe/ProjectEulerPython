@@ -73,7 +73,7 @@ def Hn(n):
 
 def polygonal(k, n):
     """ Polygonal numbers - https://en.wikipedia.org/wiki/Polygonal_number """
-    return n + (k-2) * n * (n-1) // 2
+    return n + (k - 2) * n * (n - 1) // 2
 
 
 def isPn(x):
