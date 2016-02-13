@@ -143,10 +143,46 @@ def euler16(n=1000):
     return sum_digit(2 ** n)
 
 
-def euler17_():
+def euler17(lim=1000):
     """Solution for problem 17."""
-    pass
+    # Optimisation could be done by grouping similar number
+    # prefixes/suffixes and use multiplications instead of
+    # repeated sums but this is fast enough
+    small_numbers_str = {
+        1: "one", 2: "two", 3:"three", 4:"four", 5:"five", 6:"six",
+        7:"seven", 8:"eight", 9:"nine", 10:"ten", 11:"eleven",
+        12:"twelve", 13:"thirteen", 14:"fourteen", 15:"fifteen",
+        16:"sixteen", 17:"seventeen", 18:"eighteen", 19:"nineteen"
+    }
+    ten_multiples_str = {
+        2:"twenty", 3:"thirty", 4:"forty", 5:"fifty",
+        6:"sixty", 7:"seventy", 8:"eighty", 9:"ninety"
+    }
+    small_numbers_len = {k:len(v) for k, v in small_numbers_str.items()}
+    ten_multiples_len = {k:len(v) for k, v in ten_multiples_str.items()}
+    and_len = len("and")
+    hundred_len = len("hundred")
+    thousand_len = len("thousand")
 
+    def get_len_for_number(n):
+        n, units = divmod(n, 10)
+        n, tens = divmod(n, 10)
+        thousands, hundreds = divmod(n, 10)
+        total = 0
+        if thousands:
+            total += small_numbers_len[thousands] + thousand_len
+        if hundreds:
+            total += small_numbers_len[hundreds] + hundred_len
+            if tens or units:
+                total += and_len
+        if tens > 1:
+            total += ten_multiples_len[tens]
+        else:
+            units += 10 * tens # move tens in units
+        if units:
+            total += small_numbers_len[units]
+        return total
+    return sum(get_len_for_number(i) for i in range(1, lim + 1))
 
 def euler18_():
     """Solution for problem 18."""
@@ -2075,6 +2111,8 @@ tests = [
     (euler15, (), 137846528820),
     (euler16, (15,), 26),
     (euler16, (), 1366),
+    (euler17, (5, ), 19),
+    (euler17, (), 21124),
     (euler19, (), 171),
     (euler20, (10,), 27),
     (euler20, (), 648),
