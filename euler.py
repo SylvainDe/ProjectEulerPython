@@ -158,8 +158,8 @@ def euler17(lim=1000):
         2: "twenty", 3: "thirty", 4: "forty", 5: "fifty",
         6: "sixty", 7: "seventy", 8: "eighty", 9: "ninety"
     }
-    small_numbers_len = {k:len(v) for k, v in small_numbers_str.items()}
-    ten_multiples_len = {k:len(v) for k, v in ten_multiples_str.items()}
+    small_numbers_len = {k: len(v) for k, v in small_numbers_str.items()}
+    ten_multiples_len = {k: len(v) for k, v in ten_multiples_str.items()}
     and_len = len("and")
     hundred_len = len("hundred")
     thousand_len = len("thousand")
