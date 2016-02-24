@@ -1203,9 +1203,49 @@ def euler119(n=30):
     return nth(yield_interesting_119(), n - 1)
 
 
-def euler120_():
+def euler120(beg=3, end=1000):
     """Solution for problem 120."""
-    pass
+    # A(n) = (a-1)^n + (a+1)^n
+    #      = sum(k=0..n, (n, k) a^(k) (-1)^(n-k)) + sum(k=0..n, (n, k) a^(k) (1)^(n-k))
+    #      = sum(k=0..n, (n, k) a^(k) (-1)^(n-k)) + sum(k=0..n, (n, k) a^(k) (1)^(n-k))
+    #      = sum(k=0..n, (n, k) a^(k) [ (-1)^(n-k) + (1)^(n-k)] )
+    #      = sum(k=0..n if (n-k) is even, 2 (n, k) a^(k))
+    # B(n) = A(n)                                            [a^2]
+    #      = sum(k=0..n if (n-k) is even, 2 (n, k) a^(k))    [a^2]
+    # Modulo a^2, all terms with k >= 2 are O
+    # B(n) = (2 (n, 0) a^0 if n is even) + (2 (n, 1) a^1 if n-1 is even) [a^2]
+    # B(n) = (2 if n is even else 2*n*a)                                 [a^2]
+    # C(n) = 2*n*a [a^2]
+    #    C(n+ia) = 2*(n+ia)*a      [a^2]
+    #            = 2*n*a + 2*i*a^2 [a^2]
+    #            = 2*n*a           [a^2]
+    #            = C(n)            [a^2]
+    #       => Period a
+    # If a is even (and > 2):
+    #    Period is actually a/2
+    #    0    < 2*a  < 4*a  < ... < a^2 - 2a   > 0
+    #    C(0) < C(1) < C(2) < ... < C(a/2 - 1) > C(a/2) = C(0) = 0
+    #    so the max for C on |N is a^2 - 2a reached for n = a/2 - 1 (+ka/2)
+    #    so the max for B on odd numbers is a^2 - 2a
+    #       (adding a/2 to n to reach an odd number if needed)
+    #    max(B) = max(2 % a^2, a^2 - 2a)
+    # If a is odd (and > 1):
+    #    0    < 2*a  < 4*a  < ... < a^2 - a    > a
+    #    C(0) < C(1) < C(2) < ... < C((a-1)/2) > C((a+1)/2)
+    #    so the max for C is reached for n = (a-1)/2 on the first half-period
+    #    a          < 3*a  < 5*a  < a^2 - 2a > 0
+    #    C((a+1)/2) < ...         < C(a-1)   > C(a) = C(0) = 0
+    #    so the max for C is reached for n = (a-1) on the second half-period
+    #    the max for C on |N is a^2 - a reached for n = (a-1)/2 (+ka)
+    #    so the max for B on odd numbers is a^2 - a
+    #       (adding a to n to reach an odd number if needed)
+    #    max(B) = max(2 % a^2, a^2 - a)
+    #
+    # Finally for all a bigger than 2, max(B) = a^2 - a if a if even else a^2 - 2a
+    # These could be added with a proper summation formula but it is not worth
+    # the pain.
+    assert beg > 2
+    return sum(a * (a - (1 if a % 2 else 2)) for a in range(beg, end + 1))
 
 
 def euler121_():
@@ -2238,6 +2278,7 @@ tests = [
     (euler119, (2,), 512),
     (euler119, (10,), 614656),
     (euler119, (), 248155780267521),
+    (euler120, (), 333082500),
     (euler124, (10, 4), 8),
     (euler124, (10, 6), 9),
     (euler124, (), 21417),
