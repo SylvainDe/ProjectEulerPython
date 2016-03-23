@@ -830,9 +830,27 @@ def euler84_():
     pass
 
 
-def euler85_():
+def euler85(target=2000000):
     """Solution for problem 85."""
-    pass
+    # nb_rect(i, 1) = 1 (of size i) + 2 (of size i-1) + ... + i (of size 1) = i*(i+1)/2
+    # nb_rect(i, j) = nb_rect(i, 1) (of height j) + 2 * nb_rect(i, 1) (of height j-1) + ... + j * nb_rect(i, 1) (of height 1)
+    #               = nb_rect(i, 1) * nb_rect(j, 1) = i*(i+1)*j*(j+1)/4
+    # Solutions to nb_rect(i, j) = t for a given i are, with delta = 1 + 16 t / [i * (i+1)]
+    #   j1 = (-1 - sqrt(delta))/2 < 0 and j2 = (-1 + sqrt(delta))/2 > 0
+    # Best approximations are ceil and floor of j2.
+    sol_dist, sol_area = target, 0
+    for i in itertools.count(1):
+        tmp_i = i * (i + 1)
+        delta = 1 + target * 16 / tmp_i
+        j2 = (-1 + math.sqrt(delta)) / 2
+        js = set([math.floor(j2), math.ceil(j2)])
+        for j in js:
+            val = tmp_i * j * (j + 1) / 4
+            dist = math.fabs(target - val)
+            if dist < sol_dist:
+                sol_dist, sol_area = dist, i * j
+        if i > max(js):
+            return sol_area
 
 
 def euler86_():
@@ -2253,6 +2271,8 @@ tests = [
     (euler70, (), 8319823),
     (euler72, (8,), 21),
     (euler72, (), 303963552391),
+    (euler85, (18,), 6),
+    (euler85, (), 2772),
     (euler87, (50,), 4),
     (euler87, (50000000,), 1097343),
     (euler90, (), 1217),
