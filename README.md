@@ -10,7 +10,7 @@ My Python solutions to Project Euler problems ( http://projecteuler.net/ )
 
 
 [Problem 1](https://projecteuler.net/problem=1) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L20) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L2162) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L2163)
-[
+
 [Problem 2](https://projecteuler.net/problem=2) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L26) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L2164)
 
 [Problem 3](https://projecteuler.net/problem=3) [Solution](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L36) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L2165) [Test](https://github.com/SylvainDe/ProjectEulerPython/blob/master/euler.py#L2166)
