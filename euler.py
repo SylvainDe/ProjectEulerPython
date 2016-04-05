@@ -13,7 +13,7 @@ from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
 from functions import ceil
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
-from functions import Tn, Pn, Hn, isPn, champernowne_digit
+from functions import Tn, Pn, Hn, isPn, polygonal, champernowne_digit
 from timeit import default_timer as timer
 
 
@@ -657,15 +657,72 @@ def euler59_():
     pass
 
 
-def euler60_():
+def euler60_(target=4, base=10):
+    primes = []  # tuples with primes and power
+    candidates_1 = set()
+    candidates_2 = set()
+    candidates_3 = set()
+    candidates_4 = set()
+    for p in yield_primes():
+        if p > 2000:
+            print(p)
+            break
+        p_tup = (p, )
+        pow_p = base**math.floor(1 + math.log(p, base))
+        go_with_p = {p2 for p2, pow_p2 in primes if is_prime(p2 * pow_p + p) and is_prime(p * pow_p2 + p2)}
+        primes.append((p, pow_p))
+        if False:
+            new_candidates_2 = [(p2, p) for p2 in go_with_p]
+            candidates_2.update(new_candidates_2)
+            new_candidates_3 = [t + p_tup for t in candidates_2 if all(p2 in go_with_p for p2 in t)]
+            candidates_3.update(new_candidates_3)
+            new_candidates_4 = [t + p_tup for t in candidates_3 if all(p2 in go_with_p for p2 in t)]
+            candidates_4.update(new_candidates_4)
+            new_candidates_5 = [t + p_tup for t in candidates_4 if all(p2 in go_with_p for p2 in t)]
+            if new_candidates_5:
+                print(p, new_candidates_5)
+                break
+    # print(candidates_2)
+
+def euler60_2(target=4):
     """Solution for problem 60."""
     # awful C solution on PE https://projecteuler.net/thread=60;page=3#20807
-    pass
+    candidates = { i: [] for i in range(target + 1) }
+    for p in yield_primes():
+        s = str(p)
+        for n in reversed(range(1, target)):
+            for c_list in candidates[n]:
+                if all(is_prime(int(c + s)) and is_prime(int(s + c)) for c in c_list):
+                    candidates[n+1].append(c_list + [s])
+                    if n+1 == target:
+                        print(candidates[n+1])
+        candidates[1].append([s])
 
 
-def euler61_():
+def euler61():
     """Solution for problem 61."""
-    pass
+    nb_dig_split = 2
+    k_max = 8
+    nb_dig = 2 * nb_dig_split
+    base = 10
+    lower, upper = base ** (nb_dig - 1), base ** nb_dig
+    mod = base ** nb_dig_split
+    # Collect candidates
+    numbers = []
+    for k in range(3, k_max + 1):
+        for n in itertools.count(1):
+            p = polygonal(k, n)
+            if p >= lower:
+                if p >= upper:
+                    break
+                numbers.append((p, k))
+    print(numbers)
+    # Split candidates
+    beg, end = {}, {}
+    for p, k in numbers:
+        first, last = divmod(p, mod)
+        beg.setdefault(first, []).append((last, k))
+        end.setdefault(last, []).append((first, k))
 
 
 def euler62(nb_perm=5):
@@ -1484,9 +1541,28 @@ def euler141(lim=10 ** 12):
     return sum(sol)
 
 
-def euler142_():
+def euler142():
     """Solution for problem 142."""
-    pass
+    def is_perfect_square(n):
+        sqrt = int(math.sqrt(n))
+        return sqrt * sqrt == n
+    # x + y > x + z > y + z > y - z
+    # x + y > x + z > x - z > x - y
+    # The smallest square is the difference of 2 consecutives terms
+    # The biggest square is the sum of 2 biggest terms
+    for c in range(1, 30): # itertools.count():
+        print("=====", c)
+        c2 = c * c
+        for d in range(1 if c%2 else 2, c, 2):
+            d2 = d * d
+            assert c2 % 2 == d2 % 2
+            _2a = c2 + d2
+            _2b = c2 - d2
+            assert _2a % 2 == 0
+            assert _2b % 2 == 0
+            a = _2a // 2
+            b = _2b // 2
+            print(a, b, c2, d2)
 
 
 def euler143_():
@@ -1534,8 +1610,9 @@ def euler151_():
     pass
 
 
-def euler152_():
+def euler152_(mini=2, maxi=45):
     """Solution for problem 152."""
+
     pass
 
 
@@ -2111,6 +2188,36 @@ def euler303_():
     pass  # Solution on bitbucket to be copied
 
 
+def euler357():
+    """Solution for problem 357."""
+    # For n candidate:
+    #
+    #  For all divisors d: d + n/d is prime
+    #  If n = d1*d2: d1 + d2 is prime
+    #  For all pairs of divisors (d1, d2), d1 + d2 is prime.
+    #
+    #  Let n = prod(p_i ^ k_i) be the prime decomposition
+    #  Then, for all d = p_i, p_i + p_i ^ (k_i - 1) * prod(i!=j, p_j ^ k_j) is prime
+    #  This is true only if k_i = 1 for all i so n = prod(p_i) with p_i's distinct.
+    #
+    #  Also: 1 + n is prime so n + 1 = 2 or n + 1 is not divisible by 2
+    #                       so n = 1 or n is divisible by 2
+    lim = 3000
+    lim = 100000000
+    lim = 1001
+    lim = 5001
+    lim = 101
+    divs = divisors_sieve(lim+1)
+    s = 0
+    for i in range(1, lim):
+        print(i, s)
+        prime_check = [d + i//d for d in divs[i] + [i] if d*d < i]
+        ok = all(is_prime(n) for n in prime_check)
+        if ok:
+            # print(i, prime_check)
+            s += i
+
+
 def euler491():
     """Solution for problem 491."""
     # A number is divisible by 11 if and only the difference between the sum
@@ -2261,8 +2368,10 @@ tests = [
     (euler57, (10,), 1),
     (euler57, (), 153),
     (euler58, (), 26241),
+    (euler60_, (), None),
     (euler75, (48, ), 6),
     (euler75, (), 161667),
+    (euler61, (), None),
     (euler62, (3,), 41063625),
     (euler62, (), 127035954683),
     (euler63, (), 49),
@@ -2279,6 +2388,7 @@ tests = [
     (euler91_bruteforce, (2,), 14),
     (euler91, (2,), 14),
     (euler91, (), 14234),
+    (euler91, (), None),
     (euler97, (), 8739992577),
     (euler100, (), 756872327473),
     (euler104_, (False, False), 1),
@@ -2307,6 +2417,7 @@ tests = [
     (euler131, (100, ), 4),
     (euler141, (100000, ), 124657),
     (euler141, (), 878454337159),
+    (euler142, (), None),
     (euler131, (), 173),
     (euler164, (), 378158756814587),
     (k_max_for_euler183, (11,), 4),
@@ -2322,6 +2433,7 @@ tests = [
     (euler225, (1,), 27),
     (euler225, (), 2009),
     (euler243, (), 892371480),
+    (euler357, (), None),
     (euler491, (), 194505988824000),
     (euler500_, (4,), 120),
     (euler500_, (5,), 840),
