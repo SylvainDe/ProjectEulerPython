@@ -44,16 +44,18 @@ def yield_pythagorean_triples_of_peri(p):
     p = 2mk . (m + n)."""
     if p % 2:
         return
-    prod = p // 2
-    for k in yield_divisors(prod):
-        prod1 = prod // k
-        for m in yield_divisors(prod1):
-            prod2 = prod1 // m
-            n = prod2 - m
-            if 0 < n < m and prod2 % 2 and gcd(m, n) == 1:
-                m2, n2 = m * m, n * n
-                a, b, c = k * (m2 - n2), 2 * k * m * n, k * (m2 + n2)
-                yield a, b, c
+    # s is (m+n), mk is m*k, mks is m*k*s, etc
+    mks = p // 2
+    for m in yield_divisors(mks):
+        ks = mks // m
+        if ks >= m + 1:
+            for k in yield_divisors(ks):
+                s = ks // k
+                n = s - m
+                if 0 < n < m and s % 2 and gcd(m, n) == 1:
+                    m2, n2 = m * m, n * n
+                    a, b, c = k * (m2 - n2), 2 * k * m * n, k * (m2 + n2)
+                    yield a, b, c
 
 
 def Tn(n):
