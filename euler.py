@@ -1291,9 +1291,32 @@ def euler124(lim=100000, n=10000):
     return nth((i for rad in sorted(rev_rad.keys()) for i in rev_rad[rad]), n)
 
 
-def euler125_():
+def euler125(lim=100000000):
     """Solution for problem 125."""
-    pass
+    # Pointless analysis I keep for later:
+    # S(n) = 1^2 + 2^2 + ... + n^2 = n * (n+1) * (2n+1) / 6
+    # S(k, n) = k^2 + (k+1)^2 + ... + n^2
+    #         = 1^2 + 2^2 + ... + n^2 - [1^2 + 2^2 + ... (k-1)^2]
+    #         = S(n) - S(k-1)
+    # S(k, k+n) = S(k+n) - S(k-1)
+    #           = [(k+n) * (k+n+1) * (2k+2n + 1) - (k-1) * k * (2k-1)] / 6
+    #           = (6 k^2 n + 6 k^2 + 6 k n^2 + 6kn + 2 n^3 + 3 n^2 + n) / 6
+    #           = k^2 n + k^2 + k n^2 + kn + n^3 / 3 + n^2 / 2 + n/6
+    # Upper bound for k and n - could be improved with analysis above
+    # but this is fast enough
+    sqrt_lim = int(math.sqrt(lim))
+    found = set()
+    for k in range(1, sqrt_lim + 1):
+        s = k*k
+        for n in range(k + 1, sqrt_lim + 1):
+            s += n*n
+            if s > lim:
+                break
+            else:
+                st = str(s)
+                if st == st[::-1]:
+                    found.add(s)
+    return sum(found)
 
 
 def euler126_():
@@ -2302,6 +2325,8 @@ tests = [
     (euler124, (10, 4), 8),
     (euler124, (10, 6), 9),
     (euler124, (), 21417),
+    (euler125, (1000,), 4164),
+    (euler125, (), 2906969179),
     (euler127, (1000,), 12523),
     (euler127, (), 18407904),
     (euler131, (100, ), 4),
