@@ -1307,9 +1307,9 @@ def euler125(lim=100000000):
     sqrt_lim = int(math.sqrt(lim))
     found = set()
     for k in range(1, sqrt_lim + 1):
-        s = k*k
+        s = k * k
         for n in range(k + 1, sqrt_lim + 1):
-            s += n*n
+            s += n * n
             if s > lim:
                 break
             else:
