@@ -2089,6 +2089,31 @@ def euler243(num=15499, den=94744):
     return 892371480
 
 
+def euler387(nb_zeros=14):
+    """Solution for problem 387."""
+    # TODO: Most of the time is spent checking primeness of big numbers
+    # Using a Rabin Miller approach fixes this
+    base = 10  # Not so much of a variable due to various optimisations
+    new_rt_harshald = range(1, base)
+    strong_rt_harshald_primes = []
+    for it in range(nb_zeros-2):
+        prev_rt_harshald, new_rt_harshald = new_rt_harshald, list()
+        for p in prev_rt_harshald:
+            b = base * p
+            for i in range(b, b + base):
+                q, r = divmod(i, sum_digit(i))
+                if r == 0:
+                    # assert len(str(i)) == it+2
+                    new_rt_harshald.append(i)
+                    if is_prime(q):
+                        b2 = base * i
+                        for j in [b2 + 1, b2 + 3, b2 + 7, b2 + 9]:
+                            if is_prime(j):
+                                # assert len(str(j)) == it+3
+                                strong_rt_harshald_primes.append(j)
+    return sum(strong_rt_harshald_primes)
+
+
 def euler244_():
     """Solution for problem 244."""
     pass
@@ -2347,6 +2372,8 @@ tests = [
     (euler225, (1,), 27),
     (euler225, (), 2009),
     (euler243, (), 892371480),
+    (euler387, (4, ), 90619),
+    # (euler387, (), 696067597313468),  # Not fast enough - see TODO
     (euler491, (), 194505988824000),
     (euler500_, (4,), 120),
     (euler500_, (5,), 840),
