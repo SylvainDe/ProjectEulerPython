@@ -2096,7 +2096,7 @@ def euler387(nb_zeros=14):
     base = 10  # Not so much of a variable due to various optimisations
     new_rt_harshald = range(1, base)
     strong_rt_harshald_primes = []
-    for it in range(nb_zeros-2):
+    for it in range(nb_zeros - 2):
         prev_rt_harshald, new_rt_harshald = new_rt_harshald, list()
         for p in prev_rt_harshald:
             b = base * p
