@@ -2116,15 +2116,17 @@ def euler357(n=10000):
     else:
         sol = [1, 2]
         primes = primes_up_to(n//2)
-        products = [next(primes)] # 2
+        products = [[2, 1]]
+        next(primes)
         for p in primes:
             new_products = list()
             for elt in products:
-                cand = p * elt
+                cand = p * elt[0]
                 if cand < n:
-                    new_products.append(cand)
+                    new_elt = [p * i for i in elt] + elt
+                    new_products.append(new_elt)
                     new_products.append(elt)
-                    if all(is_prime(d + cand/d) for d in yield_divisors(cand) if d >= cand/d):
+                    if all(is_prime(d + cand/d) for d in new_elt if d * d < cand):
                         sol.append(cand)
             products = new_products
         return sum(sol)
