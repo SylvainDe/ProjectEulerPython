@@ -10,7 +10,7 @@ import collections
 import heapq
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
-from prime import is_prime, prime_divisors_sieve, mult
+from prime import is_prime, prime_divisors_sieve, mult, yield_divisors, prime_factors
 from functions import ceil
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 from functions import Tn, Pn, Hn, isPn, champernowne_digit
@@ -2089,6 +2089,48 @@ def euler243(num=15499, den=94744):
     return 892371480
 
 
+def euler347(n=100):
+    """Solution for problem 347."""
+    # M(p, q, N) = p^a * q^b <= N
+    #                with p, q primes
+    #                with a, b >= 1
+    pass
+
+
+def euler357(n=10000):
+    """Solution for problem 357."""
+    # First values are 1, 2, 6, 10, etc
+    # For every decomposition n = cd, we want d + (n/d) = d + c = c + (n/d) to be prime
+    # We can have symetry : we can limit ourselves to pairs c, d with c <= d
+    # All (prime) factors of n have multiplicity 1 => n = prod(p_i).
+    # Also, the property holds for c=1, d=n
+    # so n+1 is prime:
+    #  - either n+1 == 2 => n=1 which is a valid case
+    #  - n+1 is odd => n is even => exponent for 2 is 1 => n = 2 * prod(p_i)
+    if 0:
+        sol = []
+        for i in range(1, n):
+            if all(is_prime(d + i/d) for d in yield_divisors(i) if d >= i/d):
+                sol.append(i)
+        return sum(sol)
+    else:
+        s = set()
+        sol = [1, 2]
+        primes = primes_up_to(n//2)
+        s.add(next(primes)) # 2
+        for p in primes:
+            new_set = set()
+            for e in s:
+                c = p * e
+                if c < n:
+                    new_set.add(c)
+                    new_set.add(e)
+                    if all(is_prime(d + c/d) for d in yield_divisors(c) if d >= c/d):
+                        sol.append(c)
+            s = new_set
+        return sum(sol)
+
+
 def euler387(nb_zeros=14):
     """Solution for problem 387."""
     # TODO: Most of the time is spent checking primeness of big numbers
@@ -2372,6 +2414,13 @@ tests = [
     (euler225, (1,), 27),
     (euler225, (), 2009),
     (euler243, (), 892371480),
+    (euler347, (), None),
+    (euler357, (10,), 9),
+    (euler357, (100,), 401),
+    (euler357, (1000,), 8427),
+    (euler357, (10000,), 262615),
+    (euler357, (100000,), 9157937),
+    (euler357, (200000,), 33477503),
     (euler387, (4, ), 90619),
     # (euler387, (), 696067597313468),  # Not fast enough - see TODO
     (euler491, (), 194505988824000),
@@ -2413,7 +2462,7 @@ def run_tests(tested_func=None):
 
 def main():
     """Main function"""
-    return run_tests()
+    return run_tests(euler357)
 
 if __name__ == "__main__":
     exit(main())
