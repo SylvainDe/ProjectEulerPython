@@ -2115,7 +2115,6 @@ def euler357(n):
         return sum(sol)
     else:
         sol = [1, 2]
-        primes = primes_up_to(n)
         primes = sieve(n)
         products = [[2, 1]]
         for p, prime in enumerate(primes):
@@ -2426,6 +2425,7 @@ tests = [
     (euler357, (100000,), 9157937),
     (euler357, (200000,), 33477503),
     (euler357, (1000000,), 524402305),
+    (euler357, (10000000,), 27814470277),
     (euler387, (4, ), 90619),
     # (euler387, (), 696067597313468),  # Not fast enough - see TODO
     (euler491, (), 194505988824000),
