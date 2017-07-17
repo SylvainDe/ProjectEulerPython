@@ -2114,20 +2114,19 @@ def euler357(n=10000):
                 sol.append(i)
         return sum(sol)
     else:
-        s = set()
         sol = [1, 2]
         primes = primes_up_to(n//2)
-        s.add(next(primes)) # 2
+        products = [next(primes)] # 2
         for p in primes:
-            new_set = set()
-            for e in s:
-                c = p * e
-                if c < n:
-                    new_set.add(c)
-                    new_set.add(e)
-                    if all(is_prime(d + c/d) for d in yield_divisors(c) if d >= c/d):
-                        sol.append(c)
-            s = new_set
+            new_products = list()
+            for elt in products:
+                cand = p * elt
+                if cand < n:
+                    new_products.append(cand)
+                    new_products.append(elt)
+                    if all(is_prime(d + cand/d) for d in yield_divisors(cand) if d >= cand/d):
+                        sol.append(cand)
+            products = new_products
         return sum(sol)
 
 
