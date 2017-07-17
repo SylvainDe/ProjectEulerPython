@@ -2097,7 +2097,7 @@ def euler347(n=100):
     pass
 
 
-def euler357(n=10000):
+def euler357(n):
     """Solution for problem 357."""
     # First values are 1, 2, 6, 10, etc
     # For every decomposition n = cd, we want d + (n/d) = d + c = c + (n/d) to be prime
@@ -2115,20 +2115,23 @@ def euler357(n=10000):
         return sum(sol)
     else:
         sol = [1, 2]
-        primes = primes_up_to(n//2)
+        primes = primes_up_to(n)
+        primes = sieve(n)
         products = [[2, 1]]
-        next(primes)
-        for p in primes:
-            new_products = list()
-            for elt in products:
-                cand = p * elt[0]
-                if cand < n:
-                    new_elt = [p * i for i in elt] + elt
-                    new_products.append(new_elt)
-                    new_products.append(elt)
-                    if all(is_prime(d + cand/d) for d in new_elt if d * d < cand):
-                        sol.append(cand)
-            products = new_products
+        for p, prime in enumerate(primes):
+            if p > 2 and prime:
+                new_products = list()
+                for elt in products:
+                    cand = p * elt[0]
+                    if cand < n:
+                        new_elt = [p * i for i in elt] + elt
+                        new_products.append(new_elt)
+                        new_products.append(elt)
+                        if all(primes[d + cand//d] for d in new_elt):
+                            sol.append(cand)
+                products = new_products
+                if not products:
+                    break
         return sum(sol)
 
 
@@ -2422,6 +2425,7 @@ tests = [
     (euler357, (10000,), 262615),
     (euler357, (100000,), 9157937),
     (euler357, (200000,), 33477503),
+    (euler357, (1000000,), 524402305),
     (euler387, (4, ), 90619),
     # (euler387, (), 696067597313468),  # Not fast enough - see TODO
     (euler491, (), 194505988824000),
