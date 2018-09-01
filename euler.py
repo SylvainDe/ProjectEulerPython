@@ -93,11 +93,22 @@ def euler11_():
 
 def euler12(nb_div=500):
     """Solution for problem 12."""
-    t = 0
-    for i in itertools.count(1):
-        t += i
-        if nb_divisors(t) >= nb_div:
-            return t
+    # T(n) = n(n+1)/2
+    # T(2k + 0) = 2k*(2k+1) / 2 = k*(2k+1)
+    #    and gcd(k, 2*k+1) = gcd(k, 1) = 1
+    #    Thus, nb_div(T(2k)) = nb_div(k) * nb_div(2k+1)
+    # T(2k + 1) = (2k+1)*(2k+2) / 2 = (2k+1)(k+1)
+    #    and gcd(2k+1, k+1) = gcd(k, k+1) = gcd(k, 1) = 1
+    #    Thus, nb_div(T(2k + 1)) = nb_div(k+1) * nb_div(2k+1)
+    nb_div_k, nb_div_kp1 = None, 1
+    for k in itertools.count(1):
+        nb_div_k, nb_div_kp1 = nb_div_kp1, nb_divisors(k + 1)
+        c = 2 * k + 1
+        nb_div_c = nb_divisors(c)
+        if nb_div_k * nb_div_c >= nb_div:
+            return c * k
+        if nb_div_kp1 * nb_div_c >= nb_div:
+            return c * (k + 1)
 
 
 def euler13_():
