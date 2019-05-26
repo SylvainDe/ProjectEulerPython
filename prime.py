@@ -129,7 +129,7 @@ def yield_divisors_using_divisions(n):
                     yield j
 
 
-def yield_divisors_using_divisions(n):
+def yield_divisors(n):
     """Yields distinct divisors of n."""
     return yield_divisors_using_primes_factorisation(n)
 
