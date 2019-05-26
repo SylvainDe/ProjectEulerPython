@@ -97,9 +97,26 @@ def primes_up_to(lim):
     return (i for i, p in enumerate(sieve(lim)) if p)
 
 
-def yield_divisors(n):
-    """Yields distinct divisors of n."""
-    # to be improved : use prime_factors
+def yield_divisors_using_primes_factorisation(n):
+    """Yields distinct divisors of n.
+
+    This uses the prime factorisation to generate the different divisors.
+    It is faster than yield_divisors_using_divisions on most big inputs
+    but the complexity is hard to guarantee on all inputs and it is slower
+    on small inputs."""
+    elements = ([p**power for power in range(c + 1)]
+                for p, c
+                in collections.Counter(prime_factors(n)).items())
+    return (mult(it) for it in itertools.product(*elements))
+
+
+def yield_divisors_using_divisions(n):
+    """Yields distinct divisors of n.
+
+    This uses sucessive divisions so it can be slower than
+    yield_divisors_using_primes_factorisation on big inputs but it is easier
+    to understand, the upper bound of O(sqrt(n)) is guarantee and faster on
+    small inputs."""
     assert n > 0
     yield 1
     if n > 1:
@@ -110,6 +127,11 @@ def yield_divisors(n):
                 yield i
                 if i != j:
                     yield j
+
+
+def yield_divisors_using_divisions(n):
+    """Yields distinct divisors of n."""
+    return yield_divisors_using_primes_factorisation(n)
 
 
 def nb_divisors(n):
@@ -133,12 +155,38 @@ def main():
             break
         primes2.append(p)
     assert primes == primes2
-    for p in primes:
-        assert len(list(yield_divisors(p))) == nb_divisors(p) == 2, p
-        assert nb_prime_divisors(p) == 1, p
-        assert prime_factors_list(p) == [p], p
-    for n in range(1, 1000):
-        assert len(list(yield_divisors(n))) == nb_divisors(n), n
+
+    prime_set = set(primes)
+
+    def test_divisors_func(n):
+        nb_prime_div = nb_prime_divisors(n)
+        nb_div = nb_divisors(n)
+        assert 0 <= nb_prime_div <= nb_div
+        prime_div = prime_factors_list(n)
+        divisors1 = sorted(yield_divisors_using_primes_factorisation(n))
+        divisors2 = sorted(yield_divisors_using_divisions(n))
+        assert nb_div == len(divisors1)
+        assert divisors1 == divisors2
+        assert 1 in divisors1
+        assert n in divisors1
+        assert all(p in divisors1 for p in prime_div)
+        if n in prime_set:
+            assert nb_prime_div == 1
+            assert nb_div == 2
+            assert prime_div == [n]
+            assert divisors1 == [1, n]
+        elif n == 1:
+            assert nb_prime_div == 0
+            assert nb_div == 1
+            assert prime_div == []
+            assert divisors1 == [1]
+        else:
+            assert nb_prime_div >= 1
+            assert nb_div >= 3
+
+    for n in range(1, limit):
+        test_divisors_func(n)
+
 
 if __name__ == "__main__":
     main()
