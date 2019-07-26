@@ -611,9 +611,19 @@ def euler52(lim=6):
             return x
 
 
-def euler53_():
+def euler53(n_max=100, lim=1000000):
     """Solution for problem 53."""
-    pass
+    # C(n, r) = n! / (r! (n-r)!) for r <= n
+    #        = prod(n + 1 - i / i, i =1..r)
+    def C(n, r):
+        r = min(r, n - r)  # symmetry
+        return mult(n - i for i in range(r)) // mult(i + 1 for i in range(r))
+    s = 0
+    for n in range(n_max + 1):
+        for r in range(n//2 + 1):  # stop halfway - use symmetry
+            if C(n,r) > lim:
+                s += 1 if 2 * r == n else 2
+    return s
 
 
 def euler54_():
@@ -2317,6 +2327,10 @@ tests = [
     (euler51, (), 121313),
     (euler52, (2,), 125874),
     (euler52, (), 142857),
+    (euler53, (22,), 0),
+    (euler53, (23,), 4),
+    (euler53, (24,), 11),
+    (euler53, (), 4075),
     (euler57, (10,), 1),
     (euler57, (), 153),
     (euler58, (), 26241),
