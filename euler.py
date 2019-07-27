@@ -621,7 +621,7 @@ def euler53(n_max=100, lim=1000000):
     s = 0
     for n in range(n_max + 1):
         for r in range(n//2 + 1):  # stop halfway - use symmetry
-            if C(n,r) > lim:
+            if C(n, r) > lim:
                 s += 1 if 2 * r == n else 2
     return s
 
