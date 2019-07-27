@@ -620,7 +620,7 @@ def euler53(n_max=100, lim=1000000):
         return mult(n - i for i in range(r)) // mult(i + 1 for i in range(r))
     s = 0
     for n in range(n_max + 1):
-        for r in range(n//2 + 1):  # stop halfway - use symmetry
+        for r in range(n // 2 + 1):  # stop halfway - use symmetry
             if C(n, r) > lim:
                 s += 1 if 2 * r == n else 2
     return s
