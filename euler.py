@@ -636,9 +636,16 @@ def euler55_():
     pass
 
 
-def euler56_():
+def euler56(lim=100):
     """Solution for problem 56."""
-    pass
+    int_ = {str(d):d for d in range(10)}
+    maxi = 1
+    for a in range(2, lim + 1):
+        p = a
+        for b in range(2, lim + 1):
+            p *= a
+            maxi = max(maxi, sum(int_[d] for d in str(p)))
+    return maxi
 
 
 def euler57(nb_exp=1000):
@@ -2331,6 +2338,7 @@ tests = [
     (euler53, (23,), 4),
     (euler53, (24,), 11),
     (euler53, (), 4075),
+    (euler56, (), 972),
     (euler57, (10,), 1),
     (euler57, (), 153),
     (euler58, (), 26241),
