@@ -19,7 +19,8 @@ import os
 from timeit import default_timer as timer
 
 
-resource_folder = ''
+resource_folder = 'resources'
+
 
 def euler1(lim=1000):
     """Solution for problem 1."""
@@ -647,7 +648,7 @@ def euler55_():
 
 def euler56(lim=100):
     """Solution for problem 56."""
-    int_ = {str(d):d for d in range(10)}
+    int_ = {str(d): d for d in range(10)}
     maxi = 1
     for a in range(2, lim + 1):
         p = a
