@@ -14,6 +14,7 @@ from prime import is_prime, prime_divisors_sieve, mult
 from functions import ceil
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 from functions import Tn, Pn, Hn, isPn, champernowne_digit
+from poker import Hand
 import os
 from timeit import default_timer as timer
 
@@ -629,9 +630,14 @@ def euler53(n_max=100, lim=1000000):
     return s
 
 
-def euler54_():
+def euler54(f='p054_poker.txt'):
     """Solution for problem 54."""
-    pass
+    ret = 0
+    with open(os.path.join(resource_folder, f)) as file_:
+        for l in file_:
+            hand1, hand2 = Hand.from_string(l)
+            ret += hand1 > hand2
+    return ret
 
 
 def euler55_():
@@ -2341,6 +2347,7 @@ tests = [
     (euler53, (23,), 4),
     (euler53, (24,), 11),
     (euler53, (), 4075),
+    (euler54, (), 376),
     (euler56, (), 972),
     (euler57, (10,), 1),
     (euler57, (), 153),
