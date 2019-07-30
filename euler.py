@@ -14,8 +14,11 @@ from prime import is_prime, prime_divisors_sieve, mult
 from functions import ceil
 from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
 from functions import Tn, Pn, Hn, isPn, champernowne_digit
+import os
 from timeit import default_timer as timer
 
+
+resource_folder = ''
 
 def euler1(lim=1000):
     """Solution for problem 1."""
@@ -230,7 +233,7 @@ def euler21(lim=10000):
 
 def euler22(f='p022_names.txt'):
     """Solution for problem 22."""
-    with open(f) as file_:
+    with open(os.path.join(resource_folder, f)) as file_:
         return sum((i + 1) * sum(1 + ord(c) - ord('A') for c in name)
                    for i, name in enumerate(sorted(''.join(file_.readlines()).replace('"', '').split(','))))
 
