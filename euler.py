@@ -19,7 +19,7 @@ import os
 from timeit import default_timer as timer
 
 
-resource_folder = 'resources'
+resource_folder = ''
 
 
 def euler1(lim=1000):
