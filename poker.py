@@ -53,43 +53,44 @@ class Hand:
         integer describing the type of hand. Other values are added
         to be able to differentiate hands.
         Integers used:
-        1 High Card: Highest value card.
-        2 One Pair: Two cards of the same value.
-        3 Two Pairs: Two different pairs.
-        4 Three of a Kind: Three cards of the same value.
-        5 Straight: All cards are consecutive values.
-        6 Flush: All cards of the same suit.
-        7 Full House: Three of a kind and a pair.
-        8 Four of a Kind: Four cards of the same value.
-        9 Straight Flush: All cards are consecutive values of same suit.
-        9 Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
+        0 High Card: Highest value card.
+        1 One Pair: Two cards of the same value.
+        2 Two Pairs: Two different pairs.
+        3 Three of a Kind: Three cards of the same value.
+        4 Straight: All cards are consecutive values.
+        5 Flush: All cards of the same suit.
+        6 Full House: Three of a kind and a pair.
+        7 Four of a Kind: Four cards of the same value.
+        8 Straight Flush: All cards are consecutive values of same suit.
+        8 Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
         """
+        HIGH_CARD, ONE_PAIR, TWO_PAIRS, THREE_OF_A_KIND, STRAIGHT, FLUSH, \
+            FULL_HOUSE, FOUR_OF_A_KIND, STRAIGHT_FLUSH = range(9)
         values = sorted((c.evaluate() for c in self.cards), reverse=True)
-        count = collections.Counter(values)
-        mc, mc2 = count.most_common(2)
-        mc_val, mc_nb = mc
-        mc2_val, mc2_nb = mc2
+        (mc_val, mc_nb), (mc2_val, mc2_nb) = collections.Counter(values).most_common(2)
+        assert mc_nb in (1, 2, 3, 4)
+        assert mc2_nb in (1, 2)
         if mc_nb == 4:
-            return (8, mc_val, values)
+            return (FOUR_OF_A_KIND, mc_val, values)
         elif mc_nb == 3:
             if mc2_nb == 2:
-                return (7, mc_val, mc2_val, values)
+                return (FLUSH, mc_val, mc2_val, values)
             else:
-                return (4, mc_val, values)
+                return (THREE_OF_A_KIND, mc_val, values)
         elif mc_nb == 2:
             if mc2_nb == 2:
-                return (3, sorted((mc_val, mc2_val)), values)
+                return (TWO_PAIRS, sorted((mc_val, mc2_val)), values)
             else:
-                return (2, mc_val, values)
+                return (ONE_PAIR, mc_val, values)
         else:
             assert mc_nb == 1
             is_flush = len(set(c.suit for c in self.cards)) == 1
             delta = values[0] - values[-1]
             is_straight = delta == Hand.NB_CARDS - 1
             if is_straight:
-                return (9 if is_flush else 5, values)
+                return (STRAIGHT_FLUSH if is_flush else STRAIGHT, values)
             else:
-                return (6 if is_flush else 1, values)
+                return (FLUSH if is_flush else HIGH_CARD, values)
 
     def __gt__(self, other):  # Note: other magic methods should be defined as well
         return self.evaluate() > other.evaluate()
