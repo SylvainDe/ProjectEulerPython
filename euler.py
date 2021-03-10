@@ -2262,6 +2262,39 @@ def euler500_(pow_of_two=500500, mod=500500507):
     return mult(pow(prime, power - 1, mod) for val, prime, power in heap) % mod
 
 
+def can_be_split_in_sum(digits, target, base = 10):
+    """Check if target can be reached by summing part of digits."""
+    # Examples:
+    # 81 9 -> true (because 8+1)
+    # 6724 82 -> true (because 6+72+4)
+    # 8281 91 -> true (because 8+2+81)
+    # 9801 99 -> true (because 98+0+1)
+    # 100 1 -> true (because 1+0)
+    if digits < target:
+        return False
+    if digits == target:
+        return True
+    power = base
+    while power <= digits:
+        # power increases, tail increases, head decreases
+        head, tail = divmod(digits, power)
+        assert head
+        if target < tail:
+            return False
+        if can_be_split_in_sum(head, target - tail):
+            return True
+        power *= base
+    assert divmod(digits, power) == (0, digits)
+    return False
+
+
+def euler719(n=10**12):
+    """Solution for problem 719."""
+    return sum(i*i
+               for i in range(2, 1 + int(math.sqrt(n)))
+               if can_be_split_in_sum(i*i, i))
+
+
 tests = [
     (euler1, (10,), 23),
     (euler1, (), 233168),
@@ -2432,6 +2465,9 @@ tests = [
     # (euler500_, (50000,), None),
     # (euler500_, (100000,), None),
     # (euler500_, (), None),
+    (euler719, (10**4,), 41333),
+    (euler719, (10**10,), 499984803177),
+    (euler719, (), 128088830547982),
 ]
 
 
