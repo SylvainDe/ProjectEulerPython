@@ -2262,6 +2262,58 @@ def euler500_(pow_of_two=500500, mod=500500507):
     return mult(pow(prime, power - 1, mod) for val, prime, power in heap) % mod
 
 
+def euler684(lim=90, mod=1000000007, base=10):
+
+    def s_naive(n):
+        q, r = divmod(n, base-1)
+        return int(str(r) + q*str(base-1))
+
+    assert s_naive(10) == 19
+
+    def s(n):
+        q, r = divmod(n, base-1)
+        return (r+1) * pow(base, q, mod) - 1
+
+    for i in range(30):
+        assert s(i) == s_naive(i)
+
+    def S_naive(k):
+        return sum(s(i) for i in range(1, k+1)) % mod
+
+    assert S_naive(20) == 1074
+
+    def S(k):
+        # Optimisation to group numbers that would be linked
+        # to the same power of base in s(n)
+        q, r = divmod(k, base-1)
+        base_pow_q = pow(base, q, mod)
+
+        # For the q first powers considered, there are
+        # 'base-1' terms that will be associated to the same power of base
+        # with different multiplicative coeff
+        # Sum (2 + 3 + ... + base) = base * (base+1) / 2 - 1
+        sum_coef_1 = base * (base+1) // 2 - 1
+        # The sum of these q first powers: base^0 + base^1 + .. + base^(q-1)
+        # is: (base^q - 1) / (base - 1)
+        inv_base_mod = pow(base - 1, -1, mod)
+        sum_pow = inv_base_mod * (base_pow_q - 1) % mod
+
+        # For the biggest power considered, there are 'r' remaining
+        # terms that will be associated with different multiplicative coeff
+        # Sum(2 + .. + r+1) = (r+1) * (r+2) / 2 - 1
+        sum_coef_2 = (r+1) * (r+2) // 2 - 1
+        s = sum_coef_1 * sum_pow + sum_coef_2 * base_pow_q - q * (base - 1) - r
+        return s % mod
+
+    for i in range(2000):
+        assert S(i) == S_naive(i)
+
+    fib = fibo(0, 1)
+    next(fib)
+    next(fib)
+    return sum(S(f) for _, f in zip(range(2, lim+1), fib)) % mod
+
+
 def can_be_split_in_sum(digits, target, base = 10):
     """Check if target can be reached by summing part of digits."""
     # Examples:
@@ -2465,6 +2517,7 @@ tests = [
     # (euler500_, (50000,), None),
     # (euler500_, (100000,), None),
     # (euler500_, (), None),
+    (euler684, (), 922058210),
     (euler719, (10**4,), 41333),
     (euler719, (10**10,), 499984803177),
     (euler719, (), 128088830547982),
