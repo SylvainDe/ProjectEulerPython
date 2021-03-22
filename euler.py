@@ -2314,6 +2314,27 @@ def euler684(lim=90, mod=1000000007, base=10):
     return sum(S(f) for _, f in zip(range(2, lim+1), fib)) % mod
 
 
+def euler686(L=123, n=678910, base=10):
+    # 2^j starts with L
+    # There is a i, such that:
+    # A = L*10^i <= 2^j < (L+1)*10^i = B
+    # log(A) <= j*log(2) < log(B)
+    # log(A)/log(2) <= j < log(B) / log(2)
+    log_base = math.log(base)
+    log_l = math.log(L)
+    log_lp1 = math.log(L+1)
+    log_2 = math.log(2)
+    lst = []
+    for i in itertools.count(0):
+        i_log_base = i * log_base
+        ceil_lhs = math.ceil((log_l + i_log_base) / log_2)
+        ceil_rhs = math.ceil((log_lp1 + i_log_base) / log_2)
+        for v in range(ceil_lhs, ceil_rhs):
+            lst.append(v)
+            if len(lst) == n:
+                return v
+
+
 def can_be_split_in_sum(digits, target, base = 10):
     """Check if target can be reached by summing part of digits."""
     # Examples:
@@ -2518,6 +2539,10 @@ tests = [
     # (euler500_, (100000,), None),
     # (euler500_, (), None),
     (euler684, (), 922058210),
+    (euler686, (12, 1), 7),
+    (euler686, (12, 2), 80),
+    (euler686, (123, 45), 12710),
+    (euler686, (), 193060223),
     (euler719, (10**4,), 41333),
     (euler719, (10**10,), 499984803177),
     (euler719, (), 128088830547982),
