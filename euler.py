@@ -2127,6 +2127,32 @@ def euler243(num=15499, den=94744):
     return 892371480
 
 
+def euler301(max_pow_of_2=30):
+    # Computing whether a Nim game can be won or not (and thus, computing X),
+    # corresponds to computing the xor of the different heaps size (aka nim-sum)
+    # See https://en.wikipedia.org/wiki/Nim for more details
+    # In particular, X(n1, n2, n3) = 0 iff n1 ^ n2 ^ n3 = 0
+    # For instance, X(1, 2, 3) = 0
+    #
+    # This can also be seen as: X(n1, n2, n3) = 0 iff n1 ^ n2 = n3
+    # In the case of the problem with X(n, 2*n, 3*n), we want to find values where:
+    # n ^ (2*n) = (3*n) = n + (2*n).
+    # This corresponds to finding the cases (n, 2*n) where xor (with no carries)
+    # acts just like the usual addition (with carries): for a given bit position,
+    # the value can't be 1 in both n and 2n.
+    # Because the binary representation for (2*n) is the same as the one for n but
+    # shifted by a bit, X(n, 2*n, 3*n) = 0 iff there is no consecutive 1 in the
+    # binary representation of n.
+    # We can count such occurences of a binary representation of length l:
+    #  nb(l=0) = 1 ("")
+    #  nb(l=1) = 2 ("0", "1")
+    #  nb(l=2) = 3 ("00", "01", "10")
+    #  nb(l+2) = nb(l+1)    <- add a '0' to a smaller string
+    #            + nb(l)    <- add a '01' to a smaller string
+    #  => nb(l) = Fibo(l)
+    return nth(fibo(1, 2), max_pow_of_2)
+
+
 def euler387(nb_zeros=14):
     """Solution for problem 387."""
     # TODO: Most of the time is spent checking primeness of big numbers
@@ -2522,6 +2548,7 @@ tests = [
     (euler225, (1,), 27),
     (euler225, (), 2009),
     (euler243, (), 892371480),
+    (euler301, (), 2178309),
     (euler387, (4, ), 90619),
     # (euler387, (), 696067597313468),  # Not fast enough - see TODO
     (euler491, (), 194505988824000),
