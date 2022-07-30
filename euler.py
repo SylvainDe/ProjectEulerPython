@@ -2393,6 +2393,55 @@ def euler719(n=10**12):
                for i in range(2, 1 + int(math.sqrt(n)))
                if can_be_split_in_sum(i*i, i))
 
+def euler759():
+    """Solution for problem 759."""
+    pass
+
+def euler788(power_input=2022, base=10, modulo=1000000007):
+    """Solution for problem 759."""
+
+    def bruteforce_analysis():
+        """Bruteforce analysis to confirm hypothesis."""
+        elements = dict()
+        for i in range(1, base**power_input):
+            s = str(i)
+            N = len(s)
+            c = collections.Counter(s)
+            d, n = c.most_common()[0]
+            if 2*n > N:
+                elements.setdefault((N,n), []).append(i)
+        return sum(len(v) for v in elements.values())
+
+    def nb_comb(n, k):
+        assert 0 <= k <= n
+        return math.factorial(n) // (math.factorial(k) * math.factorial(n-k))
+
+    # How many many numbers of length N have exactly n digits equal to d (with 2n > N)
+    #  - numbers starting with d:
+    #     * d can be any value in [1, base-1]
+    #     * remaining (n-1) d can be combined in (N-1 choose n-1) ways
+    #     * remaining digits can be any other numbers
+    #     This leads to: (base-1) * (base-1)**(N-n) * C(N-1, n-1) distinct options
+    #
+    #  - numbers not starting with d:
+    #     * first digit must not be 0
+    #     * d can be any value in [0, base-1] except the first digit
+    #     * d can be combined in (N-1 choose n) ways
+    #     * remaining digits can be any other numbers
+    #     This leads to: (base-1) * (base-1) * (base-1)**(N-n-1) * C(N-1, n) distinct options
+    #
+    #  The result is:
+    #  R =  (base-1) * (base-1)**(N-n) * C(N-1, n-1) + (base-1) * (base-1) * (base-1)**(N-n-1) * C(N-1, n)
+    #    =  (base-1)**(N-n+1) * C(N-1, n-1) + (base-1)**(N-n+1) * C(N-1, n)
+    #    =  (base-1)**(N-n+1) * [ C(N-1, n-1) + * C(N-1, n)]
+    #    =  (base-1)**(N-n+1) * C(N, n)
+
+    # TODO: Optimise this by reorganising terms and using maths
+    R = 0
+    for N in range(1, 1+power_input):
+        for rem in range((N+1)//2):
+            R += pow(base-1, rem+1, modulo) * nb_comb(N, rem)
+    return R % modulo
 
 tests = [
     (euler1, (10,), 23),
@@ -2573,6 +2622,13 @@ tests = [
     (euler719, (10**4,), 41333),
     (euler719, (10**10,), 499984803177),
     (euler719, (), 128088830547982),
+    (euler759, (), None),
+    (euler788, (2, ), 18),
+    (euler788, (3, ), 270),
+    (euler788, (4, ), 603),
+    (euler788, (5, ), 8307),
+    (euler788, (10, ), 21893256),
+    # (euler788, (), 471745499),  # Not fast enough yet
 ]
 
 
