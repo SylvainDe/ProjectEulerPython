@@ -2412,10 +2412,6 @@ def euler788(power_input=2022, base=10, modulo=1000000007):
                 elements.setdefault((N,n), []).append(i)
         return sum(len(v) for v in elements.values())
 
-    def nb_comb(n, k):
-        assert 0 <= k <= n
-        return math.factorial(n) // (math.factorial(k) * math.factorial(n-k))
-
     # How many many numbers of length N have exactly n digits equal to d (with 2n > N)
     #  - numbers starting with d:
     #     * d can be any value in [1, base-1]
@@ -2435,12 +2431,20 @@ def euler788(power_input=2022, base=10, modulo=1000000007):
     #    =  (base-1)**(N-n+1) * C(N-1, n-1) + (base-1)**(N-n+1) * C(N-1, n)
     #    =  (base-1)**(N-n+1) * [ C(N-1, n-1) + * C(N-1, n)]
     #    =  (base-1)**(N-n+1) * C(N, n)
-
-    # TODO: Optimise this by reorganising terms and using maths
+    #
+    # TODO: Summing values of R over different values of N and n could be optimised
+    # by reorganising terms and use the hockey stick identity (?):
+    #
+    # S = Sum(N from 1 to input, n from 1+N/2 to N, (base-1)**(N-n+1) * C(N, n))
+    #   = Sum(N from 1 to input, rem from 0 to N/2, (base-1)**(rem+1) * C(N, N-rem))
+    #   = Sum(N from 1 to input, rem from 0 to N/2, (base-1)**(rem+1) * C(N, rem))
+    #   = Sum(N from 1 to input, rem from 0 to N/2, (base-1)**(rem+1) * C(N, rem))
+    powers = [pow(base-1, i, modulo) for i in range(power_input)]
     R = 0
     for N in range(1, 1+power_input):
         for rem in range((N+1)//2):
-            R += pow(base-1, rem+1, modulo) * nb_comb(N, rem)
+            R += powers[rem+1] * math.comb(N, rem)
+
     return R % modulo
 
 tests = [
