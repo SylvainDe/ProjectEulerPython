@@ -27,6 +27,28 @@ def gcd(a, b):
     return a
 
 
+def xgcd(a,b):
+    """Computes the extended gcd."""
+    # http://anh.cs.luc.edu/331/notes/xgcd.pdf
+    prevx, x = 1, 0
+    prevy, y = 0, 1
+    while b:
+        q = a//b
+        x, prevx = prevx - q*x, x
+        y, prevy = prevy - q*y, y
+        a, b = b, a % b
+    return a, prevx, prevy
+
+
+def modinv(a, m):
+    """Computes the Modular multiplicative inverse."""
+    g, x, y = xgcd(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+
+
 def lcm(a, b):
     """Computes lcm for 2 numbers."""
     return a * b // gcd(a, b)

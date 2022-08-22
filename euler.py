@@ -11,8 +11,8 @@ import heapq
 from prime import prime_factors_list, sieve, nb_divisors, yield_primes
 from prime import primes_up_to, nb_prime_divisors, totient, divisors_sieve
 from prime import is_prime, prime_divisors_sieve, mult
-from functions import ceil
-from functions import fibo, lcmm, yield_pythagorean_triples_of_peri, gcd
+from functions import ceil, gcd, modinv
+from functions import fibo, lcmm, yield_pythagorean_triples_of_peri
 from functions import Tn, Pn, Hn, isPn, champernowne_digit
 from poker import Hand
 import os
@@ -2387,6 +2387,39 @@ def can_be_split_in_sum(digits, target, base = 10):
     return False
 
 
+def euler700(mul=1504170715041707, mod=4503599627370517):
+    def naive():
+        lst = []
+        latest = None
+        for i in range(1, mod):
+            v = mul * i % mod
+            if latest is None or v < latest:
+                latest = v
+                lst.append(latest)
+        return lst
+    if mul < 100000:
+        print(mul, mod, naive())
+
+    assert gcd(mul, mod) == 1
+    inv = modinv(mul, mod)
+    print(mul, mod, inv)
+    latest = mod
+    latest_i = 0
+    i = 1
+    while True:
+         v = i * inv % mod
+         assert i == v*mul%mod
+         if v < latest:
+             print(i, v, i - latest_i, latest-v)
+             i=2*i-latest_i
+             latest = v
+             latest_i = i
+             if v == 1:
+                 break
+         else:
+             i+=1
+
+
 def euler719(n=10**12):
     """Solution for problem 719."""
     return sum(i*i
@@ -2439,12 +2472,11 @@ def euler788(power_input=2022, base=10, modulo=1000000007):
     #   = Sum(N from 1 to input, rem from 0 to N/2, (base-1)**(rem+1) * C(N, N-rem))
     #   = Sum(N from 1 to input, rem from 0 to N/2, (base-1)**(rem+1) * C(N, rem))
     #   = Sum(N from 1 to input, rem from 0 to N/2, (base-1)**(rem+1) * C(N, rem))
-    powers = [pow(base-1, i, modulo) for i in range(power_input)]
     R = 0
-    for N in range(1, 1+power_input):
-        for rem in range((N+1)//2):
-            R += powers[rem+1] * math.comb(N, rem)
-
+    for rem in range((1+power_input)//2):
+        power = pow(base-1, rem+1, modulo)
+        for N in range(2*rem+1, 1+power_input):
+            R += power * math.comb(N, rem)
     return R % modulo
 
 tests = [
@@ -2623,6 +2655,8 @@ tests = [
     (euler686, (12, 2), 80),
     (euler686, (123, 45), 12710),
     (euler686, (), 193060223),
+    (euler700, (17*1249, 12071), None),
+    (euler700, (), None),
     (euler719, (10**4,), 41333),
     (euler719, (10**10,), 499984803177),
     (euler719, (), 128088830547982),
